@@ -1,0 +1,20 @@
+{
+  "name": "webapi-eca",
+  "author": { 
+    "name": "Dominic Bosch"
+  },
+  "contributors": [{ 
+    "name": "Peter Bosch"
+  }],
+  "description": "A project to get the personal Web of Things up and running",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dominicbosch/family-project.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
