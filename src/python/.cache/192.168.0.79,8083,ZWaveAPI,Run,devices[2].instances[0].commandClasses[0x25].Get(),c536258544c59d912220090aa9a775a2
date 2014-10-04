@@ -1,0 +1,9 @@
+status: 200
+content-location: http://192.168.0.79:8083/ZWaveAPI/Run/devices[2].instances[0].commandClasses[0x25].Get()
+connection: keep-alive
+access-control-allow-origin: *
+content-length: 4
+access-control-allow-credentials: true
+content-type: application/json
+
+null
