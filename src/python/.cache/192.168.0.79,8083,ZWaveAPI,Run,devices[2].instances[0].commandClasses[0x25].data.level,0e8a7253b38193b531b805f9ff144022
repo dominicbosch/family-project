@@ -1,9 +1,0 @@
-status: 200
-content-location: http://192.168.0.79:8083/ZWaveAPI/Run/devices[2].instances[0].commandClasses[0x25].data.level
-connection: keep-alive
-access-control-allow-origin: *
-content-length: 96
-access-control-allow-credentials: true
-content-type: application/json
-
-{"invalidateTime":1412430779,"updateTime":1412430780,"type":"bool","name":"level","value":false}
