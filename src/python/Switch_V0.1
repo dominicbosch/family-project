@@ -1,0 +1,14 @@
+import httplib2
+import json
+
+h = httplib2.http(".cache")
+
+def compile_httpset_string(Idevice_num, Idevice_set_status):
+    sOutBuf = "http://192.168.0.79:8083/ZWaveAPI/Run/devices[" + str(Idevice_num)
+    sOutBuf = sOutBuf + "].instances[0].commandClasses[0x25].Set(" + str(Idevice_set_status)
+    sOutBuf = sOutBuf + ")"
+    return sOutBuf
+
+
+print("Outbuf ", compile_httpset_string(2, 1))
+

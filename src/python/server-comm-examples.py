@@ -19,8 +19,8 @@ print(type(SwitchStat))
 
 print(str(SwitchStat))
 
-resp, content = h.request("http://192.168.0.79:8083/ZWaveAPI/Run/devices[2].instances[0].commandClasses[0x25].Set(1)", "GET")
-resp, content = h.request("http://192.168.0.79:8083/ZWaveAPI/Run/devices[3].instances[0].commandClasses[0x25].Set(1)", "GET")
+resp, content = h.request("http://192.168.0.79:8083/ZWaveAPI/Run/devices[2].instances[0].commandClasses[0x25].Set(0)", "GET")
+resp, content = h.request("http://192.168.0.79:8083/ZWaveAPI/Run/devices[3].instances[0].commandClasses[0x25].Set(0)", "GET")
 
 resp2, content2 = h.request("http://192.168.0.79:8083/ZWaveAPI/Run/devices[2].instances[0].commandClasses[0x25].Get()", "GET")
 resp2, content2 = h.request("http://192.168.0.79:8083/ZWaveAPI/Run/devices[2].instances[0].commandClasses[0x25].data.level", "GET")
