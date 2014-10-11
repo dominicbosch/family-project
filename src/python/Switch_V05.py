@@ -2,7 +2,8 @@
 import httplib2
 import json
 
-h = httplib2.Http(".cache")
+#h = httplib2.Http(".cache")
+h = httplib2.Http()
 
 def compile_httpset(IDeviceNum, IDeviceSet):
     sOutBuf = "http://192.168.0.79:8083/ZWaveAPI/Run/devices[" + str(IDeviceNum)
