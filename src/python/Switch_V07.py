@@ -49,10 +49,10 @@ def get_lighttoswitch():
         except ValueError:
             print("Please enter an integer")
             iInVal = 0
-        if iInVal in range(2,4):
+        if iInVal in range(2,5):
             return iInVal
         elif iInVal !=0:
-            print("Currently only light switch 2 and 3 are active")
+            print("Currently only light switch 2 to 4 are active")
         else:
             return 0
 
