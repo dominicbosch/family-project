@@ -1,0 +1,77 @@
+{
+  "switch1": {
+    "device": 1,
+    "functions": {
+      "get": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".data.level.value"
+      },
+      "set": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".Set(%arg%)"
+      }
+    }
+  },
+  "switch2": {
+    "device": 2,
+    "functions": {
+      "get": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".data.level.value"
+      },
+      "set": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".Set(%arg%)"
+      }
+    }
+  },
+  "switch3": {
+    "device": 3,
+    "functions": {
+      "get": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".data.level.value"
+      },
+      "set": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".Set(%arg%)"
+      }
+    }
+  },
+  "switch4": {
+    "device": 4,
+    "functions": {
+      "get": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".data.level.value"
+      },
+      "set": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": ".Set(%arg%)"
+      }
+    }
+  },
+  "sensor1": {
+    "device": 5,
+    "functions": {
+      "getTemp": {
+        "instance": 0,
+        "commandClass": 49,
+        "command": ".data[1].val.value"
+      },
+      "getLumi": {
+        "instance": 0,
+        "commandClass": 49,
+        "command": ".data[3].val.value"
+      }
+    }
+  }
+}
