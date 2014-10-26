@@ -36,7 +36,7 @@ fGetDeviceFunction = function( err, data ) {
 fParseDeviceFunction = function( device, oFunction ) {
   var reqUrl,
       cmd = oFunction.command;
-  if( cmd.indexOf( "%arg%" ) > 0 ) {
+  if( cmd.indexOf( '%arg%' ) > 0 ) {
     if( !arrArgs[ 2 ] ) {
       console.log( 'Please supply an argument to this function!' );
       return;
@@ -47,7 +47,7 @@ fParseDeviceFunction = function( device, oFunction ) {
     + '].instances[' + oFunction.instance
     + '].commandClasses[' + oFunction.commandClass
     + ']' + cmd;
-    console.log(reqUrl);
+  console.log(reqUrl);
   request( reqUrl, function( err, resp, body ) {
     console.log( body );
   });
