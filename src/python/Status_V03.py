@@ -104,6 +104,15 @@ while StopRun == False:
     fobiS.write("{}, {}, {}\n".format(str(IDevice), get_currenttime(dDevStatus), dDevStatus['value']))
     fobiS.close()
 
+    IDevice = 9
+    print ("Current Status of Switch : ", str(IDevice), " is ", get_switchstat(get_currentstat(IDevice)))
+
+    dDevStatus = get_currentstat(IDevice)
+    sDevStatus = get_switchstat(dDevStatus)
+    fobiS = open(SFileName, "a")
+    fobiS.write("{}, {}, {}\n".format(str(IDevice), get_currenttime(dDevStatus), dDevStatus['value']))
+    fobiS.close()
+
     if ILoopCounter == 1:
         sDevTemp = get_currenttemp(5, 49)
         print("{} {}\n".format(time.ctime(time.time()),sDevTemp))

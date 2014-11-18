@@ -1,0 +1,6 @@
+1, S, 2, 0, "Büro"
+2, S, 3, 0, "Gang 1 OG"
+3, S, 4, 0, "Badzimmer 1 OG"
+4, S, 6, 0, "Fernsehzimmer"
+5, S, 9, 0, "Unassigned Switch"
+6, S, 10, 0, "Unassigned Device"

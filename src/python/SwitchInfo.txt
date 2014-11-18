@@ -22,3 +22,11 @@ Switch : 4 is Off
 Switch : 4 is Off
 Switch : 6 is On
 Switch : 6 is Off
+Switch : 3 is On
+Switch : 3 is Off
+Switch : 2 is On
+Switch : 2 is Off
+Switch : 9 is On
+Switch : 9 is Off
+Switch : 9 is On
+Switch : 9 is Off
