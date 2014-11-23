@@ -1,10 +1,13 @@
+#Straigth copy from read switches
+#Work in progress
+
 import time
 import httplib2
 import json
 
 # Conifguration Record,
 # Device Id (Assigned manually)
-# Device Type (S = Switch, T = Temp sensor)
+# Device Type (T = Temperatur Sensor)
 # Device Number (Assigned by Server)
 # Device Instance
 # Device Name
@@ -79,17 +82,16 @@ while StopRun == False:
         iDeviceInst = int(rConfigRecord[3])
         sDeviceName = rConfigRecord[4].strip()
 
-        if sDeviceType == "S":
-            sDevResp = get_currentstat(iDeviceNum, iDeviceInst)
-            if sDevResp != "":
-                sDevStatus = get_switchstat(sDevResp)
-                lRequestTime = get_currenttime(sDevResp)
-                sRequestTime = time.ctime(lRequestTime)
-                print("Device :", str(iDeviceNum), ":", sDeviceName, "- Time :", sRequestTime, "- Status :", sDevStatus, "\n")
-                fObiS.write("{}, {}, {}\n".format(str(iDeviceNum), lRequestTime, sDevStatus))
-            else:
-                print("Value Error thrown - ", time.ctime(time.time()))
-                fObiS.write("{} {}\n".format("Value erroro at :", time.ctime(time.time())))
+        sDevResp = get_currentstat(iDeviceNum, iDeviceInst)
+        if sDevResp != "":
+            sDevStatus = get_switchstat(sDevResp)
+            lRequestTime = get_currenttime(sDevResp)
+            sRequestTime = time.ctime(lRequestTime)
+            print("Device :", str(iDeviceNum), ":", sDeviceName, "- Time :", sRequestTime, "- Status :", sDevStatus, "\n")
+            fObiS.write("{}, {}, {}\n".format(str(iDeviceNum), lRequestTime, sDevStatus))
+        else:
+            print("Value Error thrown - ", time.ctime(time.time()))
+            fObiS.write("{} {}\n".format("Value erroro at :", time.ctime(time.time())))
 
     fObiS.close()
     fConfFile.close()
