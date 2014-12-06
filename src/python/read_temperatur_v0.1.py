@@ -11,7 +11,7 @@ import json
 
 iSleepTime = 10
 
-#sFileName = "/mnt/nas/switch.inf"
+#sFileName = "/mnt/nas/temp.inf"
 #sStopFileName = "/mnt/nas/stop.yes"
 #sDeviceConfigFileName = "config.txt"
 
