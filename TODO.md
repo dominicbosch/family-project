@@ -32,3 +32,8 @@ Average:
  - [stddev-on-times] = &sigma; = sqrrt ( sum( ( [on-time]<sub>i</sub> - &mu; )<sup>2</sup> ) / num-on-times [_&Nu;_] )
 
 ![Average and Standard Deviation](http://upload.wikimedia.org/math/e/3/6/e36a4d7f54d0a78db9a26b0156f41555.png)
+
+Then generate random variables from these attributes:
+
+- Python: random.normalvariate( &mu;, &sigma; )
+- Nodejs: include [Random module](http://simjs.com/random.html) then: Random.normal( &mu;, &sigma; )
