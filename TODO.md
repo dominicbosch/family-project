@@ -29,6 +29,6 @@ Graphs have Edges e and Vertices v.
 Average:
  - [on-time]<sub>i</sub> = time from when turned on until turned off
  - [avg-on-time] = &mu; = sum ( [on-time]<sub>i</sub> ) / num-on-times [_&Nu;_]
- - [stddev-on-times] = &sigma; = sum( ( [on-time]<sub>i</sub> - &mu; )<sup>2</sup> ) / num-on-times [_&Nu;_]
+ - [stddev-on-times] = &sigma; = sqrrt ( sum( ( [on-time]<sub>i</sub> - &mu; )<sup>2</sup> ) / num-on-times [_&Nu;_] )
 
 ![Average and Standard Deviation](http://upload.wikimedia.org/math/e/3/6/e36a4d7f54d0a78db9a26b0156f41555.png)
