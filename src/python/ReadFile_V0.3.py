@@ -1,5 +1,16 @@
 import time
 
+#sWorkData Array
+#0   = Switch Number
+#1   = Year
+#2   = Month
+#3   = Day in month
+#4   = Day in year
+#5   = Hour
+#6   = Minute
+#7   = Second
+#8   = Status (On/Off)
+
 fobj = open("switch.inf","r")
 i = 1
 iRecordsOk = 0
@@ -21,7 +32,7 @@ for line in fobj:
 
         t = time.gmtime(int(sOutBuf[1]))
 
-        sWorkBuf = [sOutBuf[0], int(t.tm_year), int(t.tm_mon), int(t.tm_mday), int(t.tm_hour), int(t.tm_min), int(t.tm_sec), sOutBuf[2]]
+        sWorkBuf = [sOutBuf[0], int(t.tm_year), int(t.tm_mon), int(t.tm_mday), int(t.tm_yday), int(t.tm_hour), int(t.tm_min), int(t.tm_sec), sOutBuf[2]]
         sWorkData.append(sWorkBuf)
 
 fobj.close()
@@ -39,7 +50,7 @@ iEndDay = int(t.tm_yday)
 iEndYear = int(t.tm_year)
 
 for x in range(len(sWorkData)):
-    print("{} -> {}, {}, {}, {}, {}, {}, {}, {}".format(x, sWorkData[x][0],sWorkData[x][1],sWorkData[x][2],sWorkData[x][3],sWorkData[x][4],sWorkData[x][5],sWorkData[x][6],sWorkData[x][7]))
+    print("{} -> {}, {}, {}, {}, {}, {}, {}, {}, {}".format(x, sWorkData[x][0],sWorkData[x][1],sWorkData[x][2],sWorkData[x][3],sWorkData[x][4],sWorkData[x][5],sWorkData[x][6],sWorkData[x][7],sWorkData[x][8]))
 
 #    for i in range(len(sWorkData[x])):
 #        print("{} ".format(sWorkData[x][i]))

@@ -3,6 +3,6 @@
 3, S, 4, 0, "Badzimmer 1 OG"
 4, S, 6, 0, "Fernsehzimmer"
 5, S, 9, 0, "Unassigned Switch"
-6, S, 10, 0, "Unassigned Device"
+6, S, 10, 0, "Eingang EG"
 20, T, 5, 0, "Büro"
 21, T, 8, 0, "Bad" 
