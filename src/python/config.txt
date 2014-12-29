@@ -5,4 +5,5 @@
 5, S, 9, 0, "Unassigned Switch"
 6, S, 10, 0, "Eingang EG"
 20, T, 5, 0, "Büro"
-21, T, 8, 0, "Bad" 
+21, T, 8, 0, "Bad"
+23, W, 11, 4, "Windmesser"
