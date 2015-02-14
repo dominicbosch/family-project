@@ -10,7 +10,7 @@ var eFT, pathDevices, getWantedDevice, oDeviceIndex, devId,
 	filename = '/var/log/z-way-server.log';
 
 // Read the config file with all devices
-pathDevices = path.resolve( __dirname, '..', '..', 'config', 'devices' );
+pathDevices = path.resolve( __dirname, '..', '..', 'config', 'devices.json' );
 oDevices = JSON.parse( fs.readFileSync( pathDevices ) );
 
 // Generate an index for all devices for faster access later on
