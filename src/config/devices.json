@@ -2,6 +2,11 @@
   "switch1": {
     "device": 1,
     "functions": {
+      "getEvent": {
+        "instance": 0,
+        "commandClass": 32,
+        "command": "data.level"
+      },
       "get": {
         "instance": 0,
         "commandClass": 37,
@@ -17,6 +22,11 @@
   "switch2": {
     "device": 2,
     "functions": {
+      "getEvent": {
+        "instance": 0,
+        "commandClass": 32,
+        "command": "data.level"
+      },
       "get": {
         "instance": 0,
         "commandClass": 37,
@@ -30,6 +40,11 @@
     }
   },
   "switch3": {
+      "getEvent": {
+        "instance": 0,
+        "commandClass": 32,
+        "command": "data.level"
+      },
     "device": 3,
     "functions": {
       "get": {
@@ -47,6 +62,11 @@
   "switch4": {
     "device": 4,
     "functions": {
+      "getEvent": {
+        "instance": 0,
+        "commandClass": 32,
+        "command": "data.level"
+      },
       "get": {
         "instance": 0,
         "commandClass": 37,
