@@ -80,6 +80,26 @@
     }
   },
   "switchStube": {
+    "device": 6,
+    "functions": {
+      "getEvent": {
+        "instance": 1,
+        "commandClass": 32,
+        "command": "data.level"
+      },
+      "get": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": "data.level"
+      },
+      "set": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": "Set(%arg%)"
+      }
+    }
+  },
+  "switchEsstisch": {
     "device": 10,
     "functions": {
       "getEvent": {
