@@ -10742,3 +10742,34 @@
 [2015-02-14 14:27:43.970] SETDATA devices.8.instances.0.commandClasses.49.data.5 = Empty
 [2015-02-14 14:27:43.980] EVENT YAY! on change in each el{"id":"ZWayVDev_8:0:49:5","metrics":{"probeTitle":"Humidity","scaleTitle":"%","level":68,"icon":"humidity","title":"Sensor 8:0:49:5"},"tags":[],"location":null,"deviceType":"sensorMultilevel","updateTime":1423920104}
 [2015-02-14 14:27:43.982] EVENT YAY! on all in each el{"id":"ZWayVDev_8:0:49:5","metrics":{"probeTitle":"Humidity","scaleTitle":"%","level":68,"icon":"humidity","title":"Sensor 8:0:49:5"},"tags":[],"location":null,"deviceType":"sensorMultilevel","updateTime":1423920104}
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+[2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000

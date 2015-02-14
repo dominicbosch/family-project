@@ -5,12 +5,12 @@
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".data.level.value"
+        "command": "data.level"
       },
       "set": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".Set(%arg%)"
+        "command": "Set(%arg%)"
       }
     }
   },
@@ -20,12 +20,12 @@
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".data.level.value"
+        "command": "data.level"
       },
       "set": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".Set(%arg%)"
+        "command": "Set(%arg%)"
       }
     }
   },
@@ -35,12 +35,12 @@
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".data.level.value"
+        "command": "data.level"
       },
       "set": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".Set(%arg%)"
+        "command": "Set(%arg%)"
       }
     }
   },
@@ -50,12 +50,12 @@
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".data.level.value"
+        "command": "data.level"
       },
       "set": {
         "instance": 0,
         "commandClass": 37,
-        "command": ".Set(%arg%)"
+        "command": "Set(%arg%)"
       }
     }
   },
@@ -65,12 +65,12 @@
       "getTemp": {
         "instance": 0,
         "commandClass": 49,
-        "command": ".data[1].val.value"
+        "command": "data[1].val"
       },
       "getLumi": {
         "instance": 0,
         "commandClass": 49,
-        "command": ".data[3].val.value"
+        "command": "data[3].val"
       }
     }
   },
@@ -80,12 +80,12 @@
       "getTemp": {
         "instance": 0,
         "commandClass": 49,
-        "command": ".data[1].val.value"
+        "command": "data[1].val"
       },
       "getHumi": {
         "instance": 0,
         "commandClass": 49,
-        "command": ".data[5].val.value"
+        "command": "data[5].val"
       }
     }
   }
