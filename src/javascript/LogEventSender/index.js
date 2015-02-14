@@ -20,25 +20,6 @@ for( var el in oDevices ) {
 	oDeviceIndex[ devId ] = el;
 }
 
-getWantedDevice = function( arrProperties ) {
-
-};
-// We want to see a line like this in the log file:
-// [2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
-eFT.on( 'line', function( line ) {
-	var i = line.indexOf( 'SETDATA' );
-	if( i > -1 ) {
-
-	// var arrProps = line.split( '.' );
-
-	// if( isWant)
-	// for ( var i = 0; i < arrListenerURLs.length; i++ ) {
-	// 	arrListenerURLs[ i ]
-	// }
-    console.log(line);
-	}
-});
-
 app.get( '/register/:url', function( req, res ) {
 	var url = req.params.url;
 	// Add the url only if it wasn't already registered
@@ -57,3 +38,22 @@ app.listen( 8123 );
 
 // Start to listen for events in the log file
 eFT = ft.startTailing( filename );
+
+getWantedDevice = function( arrProperties ) {
+
+};
+// We want to see a line like this in the log file:
+// [2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
+eFT.on( 'line', function( line ) {
+	var i = line.indexOf( 'SETDATA' );
+	if( i > -1 ) {
+
+	// var arrProps = line.split( '.' );
+
+	// if( isWant)
+	// for ( var i = 0; i < arrListenerURLs.length; i++ ) {
+	// 	arrListenerURLs[ i ]
+	// }
+    console.log(line);
+	}
+});
