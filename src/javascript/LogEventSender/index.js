@@ -52,7 +52,6 @@ getWantedDevice = function( arrProperties ) {
 		oFuncs = oDevices[ id ].functions;
 		for( var func in oFuncs ) {
 			cmd = oFuncs[ func ].command.replace( /\[/g, '.' ).replace( /\]/g, '' );
-			console.log(oFuncs[ func ], arrProperties.slice( 6 ).join( '.' ), cmd);
 			if( oFuncs[ func ].instance === parseInt(arrProperties[ 3 ])
 					&&  oFuncs[ func ].commandClass === parseInt(arrProperties[ 5 ])
 					&&  cmd === arrProperties.slice( 6 ).join( '.' ) ) {
@@ -75,7 +74,6 @@ eFT.on( 'line', function( line ) {
 
 		// A SETDATA log entry always has an equal sign...
 		arrKeyVal = line.substring( i + 8 ).split( ' = ' );
-		console.log( arrKeyVal );
 		// ... hence before the equal sign we find the key and ...
 		arrProps = arrKeyVal[ 0 ].split( '.' );
 		// ... after the equal sign we find the value (sometimes in two representations such as also HEX)
