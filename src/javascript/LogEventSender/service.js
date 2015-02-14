@@ -33,7 +33,8 @@ try {
 
 switch( process.argv[ 2 ] ) {
 	case 'start':
-		startApp();
+		if( pid ) console.log( 'Already running! Use stop or restart!' );
+		else startApp();
 		return;
 	case 'stop':
 		if( pid ) killProc( pid );
