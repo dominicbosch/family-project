@@ -29,7 +29,7 @@ app.get( '/register/:url', function( req, res ) {
 		arrListenerURLs.push( url );
 		console.log( 'New event listener registered: ', url );
 		res.send( 'Thank you for registering "' + url + '" for events! Enjoy!');
-	}
+	} else  res.send( 'Already registered: ' + url );
 });
 
 app.get( '/unregister/:url', function( req, res ) {
@@ -40,7 +40,7 @@ app.get( '/unregister/:url', function( req, res ) {
 		arrListenerURLs.splice( id, 1 );
 		console.log( 'Event listener removed: ', url );
 		res.send( 'You unregistered "' + url + '" for events! :\'-(');
-	}
+	} else res.send( 'Not existing: ' + url );
 });
 
 // Start to listen for events in the log file
