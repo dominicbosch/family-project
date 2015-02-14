@@ -1,5 +1,5 @@
 {
-  "switch1": {
+  "Lichtschalter 1": {
     "device": 1,
     "functions": {
       "getEvent": {
@@ -19,7 +19,7 @@
       }
     }
   },
-  "switch2": {
+  "Lichtschalter 2": {
     "device": 2,
     "functions": {
       "getEvent": {
@@ -39,7 +39,7 @@
       }
     }
   },
-  "switch3": {
+  "Lichtschalter 3": {
     "device": 3,
     "functions": {
       "getEvent": {
@@ -59,7 +59,7 @@
       }
     }
   },
-  "switch4": {
+  "Lichtschalter 4": {
     "device": 4,
     "functions": {
       "getEvent": {
@@ -79,7 +79,7 @@
       }
     }
   },
-  "switchStube": {
+  "Lichtschater Stube": {
     "device": 6,
     "functions": {
       "getEvent": {
@@ -99,7 +99,7 @@
       }
     }
   },
-  "switchEsstisch": {
+  "Lichtschater Esstisch": {
     "device": 10,
     "functions": {
       "getEvent": {
@@ -119,7 +119,7 @@
       }
     }
   },
-  "sensor1": {
+  "Temperatur & Heliigkeitssensor": {
     "device": 5,
     "functions": {
       "getTemp": {
@@ -134,7 +134,7 @@
       }
     }
   },
-  "sensor2": {
+  "Temperatur & Feuchtigkeitssensor": {
     "device": 8,
     "functions": {
       "getTemp": {

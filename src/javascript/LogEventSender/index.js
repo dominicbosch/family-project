@@ -3,6 +3,7 @@
 var eFT, pathDevices, getWantedDevice, devId,
 	oDevices, arrListenerURLs = [],
 	oDeviceIndex = {},
+	oDataStore = {},
 	fs = require( 'fs' ),
 	path = require( 'path' ),
 	needle = require( 'needle' ),
@@ -29,7 +30,7 @@ app.get( '/register/:url', function( req, res ) {
 		arrListenerURLs.push( url );
 		console.log( 'New event listener registered: ', url );
 		res.send( 'Thank you for registering "' + url + '" for events! Enjoy!');
-	} else  res.send( 'Already registered: ' + url );
+	} else res.send( 'Already registered: ' + url );
 });
 
 app.get( '/unregister/:url', function( req, res ) {
@@ -42,9 +43,6 @@ app.get( '/unregister/:url', function( req, res ) {
 		res.send( 'You unregistered "' + url + '" for events! :\'-(');
 	} else res.send( 'Not existing: ' + url );
 });
-
-// Start to listen for events in the log file
-eFT = ft.startTailing( filename );
 
 getWantedDevice = function( arrProperties ) {
 	var cmd, oFuncs, id = oDeviceIndex[ arrProperties[ 1 ] ];
@@ -65,37 +63,45 @@ getWantedDevice = function( arrProperties ) {
 	}
 };
 
+// Start to listen for events in the log file
+eFT = ft.startTailing( filename );
+
 // We want to see a line like this in the log file:
 // [2015-02-14 14:27:43.964] SETDATA devices.8.instances.0.commandClasses.49.data.5.val = 65.000000
 eFT.on( 'line', function( line ) {
-	var arrKeyVal, arrVals, arrProps, oDevice,
+	var arrKeyVal, arrVals, arrProps, oDevice, oDat,
 		i = line.indexOf( 'SETDATA' );
 	if( i > -1 ) {
-		console.log( 'New SETDATA line: ' + line );
+		console.log( 'Found in Log: ' + line );
 
 		// A SETDATA log entry always has an equal sign...
 		arrKeyVal = line.substring( i + 8 ).split( ' = ' );
+
 		// ... hence before the equal sign we find the key and ...
 		arrProps = arrKeyVal[ 0 ].split( '.' );
-		// ... after the equal sign we find the value (sometimes in two representations such as also HEX)
-		
-		if( arrKeyVal[ 1 ] ) {
-			arrVals = arrKeyVal[ 1 ].split( ' ' );
 
-			oDevice = getWantedDevice( arrProps );
-			if( oDevice ) {
-				oDevice.data = arrVals;
+		// ... after the equal sign we find the value (sometimes in two representations such as also HEX)
+		oDevice = getWantedDevice( arrProps );
+		if( oDevice ) {
+			oDat = oDataStore[ oDevice.deviceName ];
+			if( !oDat ) {
+				oDat = oDataStore[ oDevice.deviceName ] = {};
+			}
+			if( oDat[ oDevice.functionName ] !== arrKeyVal[ 1 ] ) {
+				oDevice.data = arrKeyVal[ 1 ];
+				console.log( 'Emitting event: Delta in "%s": "%s" !== "%s"', oDevice.deviceName, oDat[ oDevice.functionName ], arrKeyVal[ 1 ] );
 				for( var i = 0; i < arrListenerURLs.length; i++ ) {
 					needle.request( 'post', arrListenerURLs[ i ], oDevice, { json: true }, function( err, resp ) {
 						if( resp ) console.log( resp.body );
 					});
 				}
+				oDat[ oDevice.functionName ] = arrKeyVal[ 1 ];
 			}
 		}
 	}
 });
 
 // Start to listen for new URL registrations on port 8123
-app.listen( 8123 );
-
-console.log( 'Running on port 8123 and listening to file changes...');
+app.listen( 8123, function() {
+	console.log( 'Running on port 8123 and listening to file changes...');
+});
