@@ -57,6 +57,7 @@ getWantedDevice = function( arrProperties ) {
 					&&  cmd === arrProperties.slice( 6 ).join( '.' ) ) {
 				return {
 					functionName: func,
+					deviceName: id,
 					device: oDevices[ id ]
 				};
 			}
