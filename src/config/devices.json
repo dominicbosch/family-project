@@ -73,5 +73,20 @@
         "command": ".data[3].val.value"
       }
     }
+  },
+  "sensor2": {
+    "device": 8,
+    "functions": {
+      "getTemp": {
+        "instance": 0,
+        "commandClass": 49,
+        "command": ".data[1].val.value"
+      },
+      "getHumi": {
+        "instance": 0,
+        "commandClass": 49,
+        "command": ".data[5].val.value"
+      }
+    }
   }
 }

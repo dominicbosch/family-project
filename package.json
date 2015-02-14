@@ -1,5 +1,5 @@
 {
-  "name": "webapi-eca",
+  "name": "family-project",
   "author": {
     "name": "Dominic Bosch"
   },
@@ -16,8 +16,9 @@
     "url": "https://github.com/dominicbosch/family-project.git"
   },
   "dependencies": {
-    "request": "~2.46.0",
-    "express": "~4.10.0"
+    "express": "~4.10.0",
+    "file-tail": "^0.3.0",
+    "request": "~2.46.0"
   },
   "devDependencies": {}
 }
