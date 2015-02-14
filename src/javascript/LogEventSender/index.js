@@ -1,7 +1,8 @@
 'use strict';
 
-var eFT, pathDevices, getWantedDevice, oDeviceIndex, devId,
+var eFT, pathDevices, getWantedDevice, devId,
 	oDevices, arrListenerURLs, sendEvent,
+	oDeviceIndex = {},
 	fs = require( 'fs' ),
 	path = require( 'path' ),
 	ft = require( 'file-tail' ),
