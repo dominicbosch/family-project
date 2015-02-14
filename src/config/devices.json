@@ -3,7 +3,7 @@
     "device": 1,
     "functions": {
       "getEvent": {
-        "instance": 0,
+        "instance": 1,
         "commandClass": 32,
         "command": "data.level"
       },
@@ -23,7 +23,7 @@
     "device": 2,
     "functions": {
       "getEvent": {
-        "instance": 0,
+        "instance": 1,
         "commandClass": 32,
         "command": "data.level"
       },
@@ -40,13 +40,13 @@
     }
   },
   "switch3": {
+    "device": 3,
+    "functions": {
       "getEvent": {
-        "instance": 0,
+        "instance": 1,
         "commandClass": 32,
         "command": "data.level"
       },
-    "device": 3,
-    "functions": {
       "get": {
         "instance": 0,
         "commandClass": 37,
@@ -63,7 +63,7 @@
     "device": 4,
     "functions": {
       "getEvent": {
-        "instance": 0,
+        "instance": 1,
         "commandClass": 32,
         "command": "data.level"
       },
