@@ -7,8 +7,8 @@ var fs = require( 'fs' ),
 	server = require( 'http' ).Server( app ),
 	io = require( 'socket.io' )( server ),
 	ft = require( 'file-tail' ),
-	filename = path.resolve( __dirname, '..', '..', '..', 'logs', 'z-way-server.log' ),
-	// filename = '/var/log/z-way-server.log',
+	// filename = path.resolve( __dirname, '..', '..', '..', 'logs', 'z-way-server.log' ),
+	filename = '/var/log/z-way-server.log',
 	oListeners = {},
 	oDeviceIndex = {},
 	oDataStore = {},
@@ -99,8 +99,3 @@ eFT.on( 'line', function( line ) {
 		}
 	}
 });
-
-// Start to listen for new URL registrations on port 8123
-// app.listen( 8123, function() {
-// 	console.log( 'Running on port 8123 and listening to file changes...');
-// });

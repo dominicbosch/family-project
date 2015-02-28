@@ -22,7 +22,7 @@ $( document ).ready( function() {
 	// We got a new state event from the websocket provider:
 	socket.on( 'state', function( data ) {
 		console.log( data );
-		var str = data.deviceName + '(' + data.functionName + '): ' + data.data;
+		var str = '[' + (new Date).toLocaleString() + '] ' + data.deviceName + '(' + data.functionName + '): ' + data.data;
 		eventEl.after( $( '<div>' ).addClass( 'info' ).text( str ) );
 	});
 });
