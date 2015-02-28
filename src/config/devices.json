@@ -1,25 +1,5 @@
 {
-  "Lichtschalter 1": {
-    "device": 1,
-    "functions": {
-      "getEvent": {
-        "instance": 1,
-        "commandClass": 32,
-        "command": "data.level"
-      },
-      "get": {
-        "instance": 0,
-        "commandClass": 37,
-        "command": "data.level"
-      },
-      "set": {
-        "instance": 0,
-        "commandClass": 37,
-        "command": "Set(%arg%)"
-      }
-    }
-  },
-  "Lichtschalter 2": {
+  "Lichtschalter Büro": {
     "device": 2,
     "functions": {
       "getEvent": {
@@ -39,7 +19,7 @@
       }
     }
   },
-  "Lichtschalter 3": {
+  "Lichtschalter Gang 1. Stock": {
     "device": 3,
     "functions": {
       "getEvent": {
@@ -59,7 +39,7 @@
       }
     }
   },
-  "Lichtschalter 4": {
+  "Lichtschalter Badzimmer": {
     "device": 4,
     "functions": {
       "getEvent": {
@@ -99,7 +79,27 @@
       }
     }
   },
-  "Lichtschater Esstisch": {
+  "Lichtschater Fitnessraum": {
+    "device": 9,
+    "functions": {
+      "getEvent": {
+        "instance": 1,
+        "commandClass": 32,
+        "command": "data.level"
+      },
+      "get": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": "data.level"
+      },
+      "set": {
+        "instance": 0,
+        "commandClass": 37,
+        "command": "Set(%arg%)"
+      }
+    }
+  },
+  "Lichtschater Treppenhaus": {
     "device": 10,
     "functions": {
       "getEvent": {
@@ -119,7 +119,7 @@
       }
     }
   },
-  "Temperatur & Heliigkeitssensor": {
+  "Temperatur & Helligkeitssensor": {
     "device": 5,
     "functions": {
       "getTemp": {
