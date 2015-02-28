@@ -7,8 +7,8 @@ var fs = require( 'fs' ),
 	server = require( 'http' ).Server( app ),
 	io = require( 'socket.io' )( server ),
 	ft = require( 'file-tail' ),
-	// filename = path.resolve( __dirname, '..', '..', '..', 'logs', 'z-way-server.log' ),
-	filename = '/var/log/z-way-server.log',
+	filename = path.resolve( __dirname, '..', '..', '..', 'logs', 'z-way-server.log' ),
+	// filename = '/var/log/z-way-server.log',
 	oListeners = {},
 	oDeviceIndex = {},
 	oDataStore = {},
@@ -31,11 +31,6 @@ io.on( 'connection', function ( socket ) {
 	// We store the socket in an interal list
 	oListeners[ id ] = socket;
 	console.log( 'new socket connected from ' + socket.conn.remoteAddress );
-
-	socket.emit( 'event', { hello: 'world' });
-	socket.on('my other event', function (data) {
-		console.log(data);
-	});
 
 	// We purge the socket from the list because it's gone
 	socket.on( 'disconnect', function () {
