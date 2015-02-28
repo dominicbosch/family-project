@@ -81,7 +81,7 @@ eFT.on( 'line', function( line ) {
 	var arrKeyVal, arrVals, arrProps, oDevice, oDat,
 		i = line.indexOf( 'SETDATA' );
 	if( i > -1 ) {
-		// console.log( 'Found in Log: ' + line );
+		console.log( 'Found in Log: ' + line );
 
 		// A SETDATA log entry always has an equal sign...
 		arrKeyVal = line.substring( i + 8 ).split( ' = ' );
@@ -97,8 +97,8 @@ eFT.on( 'line', function( line ) {
 				oDat = oDataStore[ oDevice.deviceName ] = {};
 			}
 			if( oDat[ oDevice.functionName ] !== arrKeyVal[ 1 ] ) {
-				oDevice.data = oDat[ oDevice.functionName ] = arrKeyVal[ 1 ];
 				console.log( 'Emitting event: Delta in "%s": "%s" !== "%s"', oDevice.deviceName, oDat[ oDevice.functionName ], arrKeyVal[ 1 ] );
+				oDevice.data = oDat[ oDevice.functionName ] = arrKeyVal[ 1 ];
 				io.emit( 'state', oDevice );
 			}
 		}
