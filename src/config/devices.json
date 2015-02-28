@@ -1,6 +1,7 @@
 {
   "Lichtschalter Büro": {
     "device": 2,
+    "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
@@ -21,6 +22,7 @@
   },
   "Lichtschalter Gang 1. Stock": {
     "device": 3,
+    "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
@@ -41,6 +43,7 @@
   },
   "Lichtschalter Badzimmer": {
     "device": 4,
+    "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
@@ -61,6 +64,7 @@
   },
   "Lichtschater Stube": {
     "device": 6,
+    "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
@@ -81,6 +85,7 @@
   },
   "Lichtschater Fitnessraum": {
     "device": 9,
+    "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
@@ -101,6 +106,7 @@
   },
   "Lichtschater Treppenhaus": {
     "device": 10,
+    "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
@@ -121,6 +127,7 @@
   },
   "Temperatur & Helligkeitssensor": {
     "device": 5,
+    "type": "sensor",
     "functions": {
       "getTemp": {
         "instance": 0,
@@ -136,6 +143,7 @@
   },
   "Temperatur & Feuchtigkeitssensor": {
     "device": 8,
+    "type": "sensor",
     "functions": {
       "getTemp": {
         "instance": 0,

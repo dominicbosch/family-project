@@ -11,12 +11,12 @@ $( document ).ready( function() {
 
 	// As soon as we are connected we could handle it with this below:
 	socket.on( 'connect', function() {
-		eventEl.after( $( '<div>' ).addClass( 'success' ).text( 'WebSocket connected!' ) );
+		eventEl.after( $( '<div>' ).addClass( 'success' ).text( '[' + (new Date).toLocaleString() + '] WebSocket connected!' ) );
 	});
 	
 	// Somehow we got disconnected from the socket... dammit!
 	socket.on( 'disconnect', function() {
-		eventEl.after( $( '<div>' ).addClass( 'error' ).text( 'WebSocket disconnected!' ) );
+		eventEl.after( $( '<div>' ).addClass( 'error' ).text( '[' + (new Date).toLocaleString() + '] WebSocket disconnected!' ) );
 	});
 	
 	// We got a new state event from the websocket provider:
