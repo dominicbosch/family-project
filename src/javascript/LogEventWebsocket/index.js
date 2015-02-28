@@ -18,6 +18,7 @@ var fs = require( 'fs' ),
 
 // Starting to listen for clients on port 4321
 server.listen( 4321 );
+console.log( 'Starting to listen on port 4321' );
 
 // We serve static web content from the webserver folder
 app.use( express.static( __dirname + '/webserver' ) );
@@ -40,6 +41,9 @@ io.on( 'connection', function ( socket ) {
 	socket.on( 'disconnect', function () {
 		delete oListeners[ id ];
 	});
+});
+io.on( 'error', function(){
+	console.log('test');
 });
 
 // Read the config file with all devices
@@ -80,7 +84,7 @@ eFT.on( 'line', function( line ) {
 	var arrKeyVal, arrVals, arrProps, oDevice, oDat,
 		i = line.indexOf( 'SETDATA' );
 	if( i > -1 ) {
-		console.log( 'Found in Log: ' + line );
+		// console.log( 'Found in Log: ' + line );
 
 		// A SETDATA log entry always has an equal sign...
 		arrKeyVal = line.substring( i + 8 ).split( ' = ' );
