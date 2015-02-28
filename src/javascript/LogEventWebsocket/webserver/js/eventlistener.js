@@ -4,7 +4,7 @@ $( document ).ready( function() {
 		// we read the port of the current website
 	var port = (location.port === '') ? '' : ':' + location.port,
 		// we create a connection to the websocket server on exactly this port
-		socket = io( 'http://localhost' + port ),
+		socket = io( port + '/' ),
 		// we grab the element on the current website where we will put the event information
 		eventEl = $( '#events' );
 

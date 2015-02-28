@@ -42,9 +42,6 @@ io.on( 'connection', function ( socket ) {
 		delete oListeners[ id ];
 	});
 });
-io.on( 'error', function(){
-	console.log('test');
-});
 
 // Read the config file with all devices
 pathDevices = path.resolve( __dirname, '..', '..', 'config', 'devices.json' );
