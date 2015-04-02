@@ -9,16 +9,16 @@ import json
 # Device Instance
 # Device Name
 
-iSleepTime = 10
+iSleepTime = 30
+sServerAddress = "192.168.0.79:8083"
 
 #sFileName = "/mnt/nas/switch.inf"
 #sStopFileName = "/mnt/nas/stop.yes"
-#sDeviceConfigFileName = "config.txt"
+#sDeviceConfigFileName = "/mnt/nas/config.txt"
 
 sFileName = "switch.inf"
 sDeviceConfigFileName = "config.txt"
 sStopFileName = "stop.yes"
-sServerAddress = "192.168.0.79:8083"
 
 h = httplib2.Http()
 
@@ -49,9 +49,6 @@ def get_switchstat(DDevInfo):
         SDevStatus = "Off"
     return SDevStatus
 
-def get_currenttime(DDevInfo):
-    return DDevInfo["updateTime"]
-
 def get_openfile(SFileName):
     try:
         tobj = open(SFileName, "r")
@@ -69,6 +66,16 @@ while StopRun == False:
     fConfFile = open(sDeviceConfigFileName, "r")
     fObiS = open(sFileName, "a")
 
+    lRequestTime = time.time()
+    t = time.gmtime(lRequestTime)
+    tDay = int(t.tm_mday)
+    tMonth = int(t.tm_mon)
+    tYear = int(t.tm_year)
+    tHour = int(t.tm_hour)
+    tMin = int(t.tm_min)
+    tWeekDay = int(t.tm_wday)
+    print("Date : Time {} {} {} : {} {} - Weekday {}\n".format(tDay, tMonth, tYear, tHour, tMin, tWeekDay))
+
     for sLine in fConfFile:
 
         rConfigRecord = sLine.split(",")
@@ -83,13 +90,12 @@ while StopRun == False:
             sDevResp = get_currentstat(iDeviceNum, iDeviceInst)
             if sDevResp != "":
                 sDevStatus = get_switchstat(sDevResp)
-                lRequestTime = get_currenttime(sDevResp)
                 sRequestTime = time.ctime(lRequestTime)
-                print("Device :", str(iDeviceNum), ":", sDeviceName, "- Time :", sRequestTime, "- Status :", sDevStatus, "\n")
+                print("Device : {} - Status : {}\n".format(sDeviceName, sDevStatus))
                 fObiS.write("{}, {}, {}\n".format(str(iDeviceNum), lRequestTime, sDevStatus))
             else:
                 print("Value Error thrown - ", time.ctime(time.time()))
-                fObiS.write("{} {}\n".format("Value erroro at :", time.ctime(time.time())))
+                fObiS.write("{} {}\n".format("Value error at :", time.ctime(time.time())))
 
     fObiS.close()
     fConfFile.close()
