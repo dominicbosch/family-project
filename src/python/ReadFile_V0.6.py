@@ -32,19 +32,42 @@ sWorkBuf=[]
 iOldDay = 0
 iWeekCount = 1
 
+def IsDevInArr(iDevNum, iVarArr):
+    iFoundDev = -1
+    if len(iVarArr) > 0:
+        ix = 0
+        while iFoundDev == -1 and ix < len(iVarArr):
+            if iDevNum == iVarArr[ix] [0]:
+                iFoundDev = ix
+            ix = ix + 1
+    return iFoundDev
+
+def ClcTimeDiff(iLvar):
+    t = time.localtime(time.time())
+    iDiff = (iLvar[1] - t.tm_hour) * 3600 + (iLvar[2] - t.tm_min) * 60 + (iLvar[3] - t.tm_sec)
+    return iDiff
+
 def LimitArray(sInBuf, iWeek, iDay):
-    sTmpBuf=[]
+    iSched = []
     for x in range(len(sInBuf)):
         if (sInBuf[x] [3] == iWeek) and (sInBuf[x] [4] == iDay):
             sSwitchStat = sInBuf[x] [10]
             if sSwitchStat.find("Off") != -1:
                 iSwitchStat = 0
             else: 
-                iSwitchStat = 1       
+                iSwitchStat = 1
 
-#            sWorkBuf = [int(sInBuf[x] [0]), iSwitchStat, sInBuf[x] [7], sInBuf[x] [8], sInBuf[x] [9]]
-#            sTmpBuf.append(sWorkBuf)
-    return sTmpBuf
+            iRetVal = IsDevInArr(int(sInBuf[x] [0]), iSched)
+            if iRetVal != -1:
+                if iSwitchStat != iSched[iRetVal] [1]:
+                    iSched[iRetVal] [1] = iSwitchStat
+                    print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", sInBuf[x] [7], ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1])
+            else:
+                iOutBuf = [int(sInBuf[x] [0]), iSwitchStat]
+                iSched.append(iOutBuf)
+                print("New switch registerd = ", sInBuf[x] [0])
+                iRetVal = len(iSched) - 1
+                print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", sInBuf[x] [7], ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1])
 
 for line in fobj:
     i = i + 1
@@ -88,13 +111,4 @@ iSelDay = d.isoweekday()-1
 
 print("For today I would choose week number : {} and day number : {}\n".format (iSelWeek, iSelDay))
 
-sSelData = LimitArray(sWorkData, iSelWeek, iSelDay)
-
-print(str(len(sSelData)))
-
-#for x in range(len(sSelData)):
-#    pass
-
-#print(str(sSelData[x-1] [0]), sSelData[x-1] [1], sSelData[x-1] [2], sSelData[x-1] [3], sSelData[x-1] [4])
-    
-    
+LimitArray(sWorkData, iSelWeek, iSelDay)
