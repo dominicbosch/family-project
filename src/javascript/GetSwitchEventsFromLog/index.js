@@ -93,8 +93,8 @@ exports.startup = function( args ) {
 
 		for( var el in oDev.functions ) {
 			func = oDev.functions[ el ];
-			if( arrProps[ 3 ] === func.instance
-					&& arrProps[ 5 ] === func.commandClass ) {
+			if( parseInt(arrProps[ 3 ]) === func.instance
+					&& parseInt(arrProps[ 5 ]) === func.commandClass ) {
 				if( typeof( func.data ) === 'string' ) {
 					if( arrProps[ 7 ] === func.data ) {
 						return {
@@ -102,6 +102,7 @@ exports.startup = function( args ) {
 							deviceName: devName,
 							device: oDev
 						};
+					}
 				} else {
 					if( arrProps[ 7 ] === func.data.key
 							&& arrProps[ 8 ] === func.data.val ) {
@@ -118,7 +119,6 @@ exports.startup = function( args ) {
 
 	watchingDeviceID = -1;
 	eFT.on( 'line', function( line ) {
-		oFuncs = oDevices[ id ].functions;
 		var arrKeyVal, arrProps, oEvent, oDat,
 			i = line.indexOf( 'SETDATA' );
 		if( i > -1 ) {
@@ -141,6 +141,7 @@ exports.startup = function( args ) {
 					oEvent.data = oDat[ oEvent.functionName ] = arrKeyVal[ 1 ];
 					oEvent.detected = new Date;
 					io.emit( 'state', oEvent );
+					watchingDeviceID = -1;
 				}
 			}
 		
