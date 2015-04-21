@@ -25,6 +25,8 @@ import httplib2
 SfName = "/mnt/debian/switch.inf"
 
 fobj = open(SfName,"r")
+httpOut = httplib2.Http()
+scheduler = sched.scheduler(time.time, time.sleep)
 i = 1
 iRecordsOk = 0
 sWorkData=[]
@@ -49,16 +51,26 @@ def IsDevInArr(iDevNum, iVarArr):
         while iFoundDev == -1 and ix < len(iVarArr):
             if iDevNum == iVarArr[ix] [0]:
                 iFoundDev = ix
-            ix = ix + 1
+            ix += 1
     return iFoundDev
 
-def ClcTimeDiff(iLvar):
+def ClcTimeDiff(iHour, iMin, iSec):
     t = time.localtime(time.time())
-    iDiff = (iLvar[1] - t.tm_hour) * 3600 + (iLvar[2] - t.tm_min) * 60 + (iLvar[3] - t.tm_sec)
+    iDiff = (iHour - t.tm_hour) * 3600 + (iMin - t.tm_min) * 60 + (iSec - t.tm_sec)
     return iDiff
+
+def InitSwitches(vSwitchArr):
+    if len(vSwitchArr) > 0:
+        ix = 0
+        while ix < len(vSwitchArr):
+            switch_light(vSwitchArr[ix] [0], vSwitchArr[ix][1])
+            print("Initializing switch ", vSwitchArr[ix] [0], " to ", vSwitchArr[ix] [1])
+            ix += 1
 
 def LimitArray(sInBuf, iWeek, iDay):
     iSched = []
+    bSwitchInitialized = False
+    now = time.time()
     for x in range(len(sInBuf)):
         if (sInBuf[x] [3] == iWeek) and (sInBuf[x] [4] == iDay):
             sSwitchStat = sInBuf[x] [10]
@@ -67,18 +79,38 @@ def LimitArray(sInBuf, iWeek, iDay):
             else: 
                 iSwitchStat = 1
 
+            iAdjHour = sInBuf[x] [7] + 2
+# What to do if > 23 ?            
+            iTimeDiff = ClcTimeDiff(iAdjHour, sInBuf[x] [8], sInBuf[x] [9])
+    
             iRetVal = IsDevInArr(int(sInBuf[x] [0]), iSched)
             if iRetVal != -1:
                 if iSwitchStat != iSched[iRetVal] [1]:
-                    iSched[iRetVal] [1] = iSwitchStat
-                    print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", sInBuf[x] [7], ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1])
+                    if iTimeDiff >= 0 and bSwitchInitialized == False:
+                        InitSwitches(iSched)
+                        bSwitchInitialized = True
+                    if bSwitchInitialized == True:
+                        iSched[iRetVal] [1] = iSwitchStat
+                        iSwitchNum = iSched [iRetVal] [0]
+                        iSwitchStat = iSched [iRetVal] [1]
+                        vRetVal = scheduler.enterabs(now + iTimeDiff, 1, switch_light, (iSwitchNum, iSwitchStat))                       
+                        print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", iAdjHour, ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1], " -> Return value : ", vRetVal)
             else:
+                if iTimeDiff >= 0 and bSwitchInitialized == False:
+                    InitSwitches(iSched)
+                    bSwitchInitialized = True
+
                 iOutBuf = [int(sInBuf[x] [0]), iSwitchStat]
                 iSched.append(iOutBuf)
                 print("New switch registerd = ", sInBuf[x] [0])
-                iRetVal = len(iSched) - 1
-                print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", sInBuf[x] [7], ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1])
-
+                if bSwitchInitialized == True:
+                    iRetVal = len(iSched) - 1
+                    iSwitchNum = iSched [iRetVal] [0]
+                    iSwitchStat = iSched [iRetVal] [1]
+                    vRetVal = scheduler.enterabs(now + iTimeDiff, 1, switch_light, (iSwitchNum, iSwitchStat))                       
+                    print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", iAdjHour, ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1], " -> Return value : ", vRetVal)
+    scheduler.run()
+                    
 for line in fobj:
     i = i + 1
     sOutBuf = line.split(",")
@@ -97,8 +129,6 @@ for line in fobj:
         
 fobj.close()
 
-print(sWorkBuf)
-
 iLastIndex = len(sWorkData)-1
 
 iStartDay = int(sWorkData[0][6])
@@ -115,7 +145,9 @@ iEndDay = (iEndYear * 365) + iEndDay
 iNWeeks = int((iEndDay - iStartDay)/7)
 print("Number of weeks in file {} - counted {}\n".format(iNWeeks, iWeekCount))
 
-#iSelWeek = random.randint(1, iNWeeks)
+bForEver = True
+#while bForEver:
+    #iSelWeek = random.randint(1, iNWeeks)
 iSelWeek = iNWeeks-2
 d = datetime.date.today()
 iSelDay = d.isoweekday()-1
