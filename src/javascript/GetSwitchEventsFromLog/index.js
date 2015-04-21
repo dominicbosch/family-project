@@ -21,7 +21,11 @@ for( var el in oDevices ) {
 	oDeviceIndex[ devId ] = el;
 }
 
-
+/*
+ * Expects arguments:
+ * filepath: the path to the file where you expect the z-way-log to be written to
+ * port: the port on which to listen for clients to request the webpage or the socket events
+ */
 exports.startup = function( args ) {
 	var eFT, watchingDeviceID,
 		filepath = args.filepath || '/var/log/z-way-server.log',
