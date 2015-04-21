@@ -6,12 +6,12 @@
       "getEvent": {
         "instance": 1,
         "commandClass": 32,
-        "command": "data.level"
+        "data": "level"
       },
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": "data.level"
+        "data": "level"
       },
       "set": {
         "instance": 0,
@@ -27,12 +27,12 @@
       "getEvent": {
         "instance": 1,
         "commandClass": 32,
-        "command": "data.level"
+        "data": "level"
       },
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": "data.level"
+        "data": "level"
       },
       "set": {
         "instance": 0,
@@ -48,12 +48,12 @@
       "getEvent": {
         "instance": 1,
         "commandClass": 32,
-        "command": "data.level"
+        "data": "level"
       },
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": "data.level"
+        "data": "level"
       },
       "set": {
         "instance": 0,
@@ -62,19 +62,19 @@
       }
     }
   },
-  "Lichtschater Stube": {
+  "Lichtschalter Stube": {
     "device": 6,
     "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
         "commandClass": 32,
-        "command": "data.level"
+        "data": "level"
       },
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": "data.level"
+        "data": "level"
       },
       "set": {
         "instance": 0,
@@ -83,19 +83,19 @@
       }
     }
   },
-  "Lichtschater Fitnessraum": {
+  "Lichtschalter Fitnessraum": {
     "device": 9,
     "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
         "commandClass": 32,
-        "command": "data.level"
+        "data": "level"
       },
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": "data.level"
+        "data": "level"
       },
       "set": {
         "instance": 0,
@@ -104,19 +104,19 @@
       }
     }
   },
-  "Lichtschater Treppenhaus": {
+  "Lichtschalter Treppenhaus": {
     "device": 10,
     "type": "switch",
     "functions": {
       "getEvent": {
         "instance": 1,
         "commandClass": 32,
-        "command": "data.level"
+        "data": "level"
       },
       "get": {
         "instance": 0,
         "commandClass": 37,
-        "command": "data.level"
+        "data": "level"
       },
       "set": {
         "instance": 0,
@@ -132,12 +132,18 @@
       "getTemp": {
         "instance": 0,
         "commandClass": 49,
-        "command": "data[1].val"
+        "data": {
+          "key": "1",
+          "val": "val"
+        }
       },
       "getLumi": {
         "instance": 0,
         "commandClass": 49,
-        "command": "data[3].val"
+        "data": {
+          "key": "3",
+          "val": "val"
+        }
       }
     }
   },
@@ -148,12 +154,18 @@
       "getTemp": {
         "instance": 0,
         "commandClass": 49,
-        "command": "data[1].val"
+        "data": {
+          "key": "1",
+          "val": "val"
+        }
       },
       "getHumi": {
         "instance": 0,
         "commandClass": 49,
-        "command": "data[5].val"
+        "data": {
+          "key": "5",
+          "val": "val"
+        }
       }
     }
   }

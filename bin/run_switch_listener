@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+var eventBroadcaster = require( './src/GetSwitchEventsFromLog' );
+
+eventBroadcaster.startup({
+	port: 4321,
+	filepath: '/var/log/z-way-server.log'
+});
