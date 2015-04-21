@@ -3,5 +3,5 @@ var eventBroadcaster = require( '../src/javascript/GetSwitchEventsFromLog' );
 
 eventBroadcaster.startup({
 	port: 4321,
-	filepath: __dirname + '/test.txt'
+	filepath: '/var/log/z-way-server.log'
 });
