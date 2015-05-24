@@ -9,7 +9,7 @@ import json
 # Device Instance
 # Device Name
 
-iSleepTime = 30
+iSleepTime = 3
 sServerAddress = "192.168.0.79:8083"
 
 #sFileName = "/mnt/nas/switch.inf"

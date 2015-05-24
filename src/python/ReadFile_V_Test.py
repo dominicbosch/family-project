@@ -22,8 +22,7 @@ import httplib2
 #9   = Second
 #10  = Status (On/Off)
 
-#SfName = "/mnt/debian/switch.inf"
-SfName = "/mnt/nas/switch.inf"
+SfName = "/mnt/debian/switch.inf"
 
 httpOut = httplib2.Http()
 scheduler = sched.scheduler(time.time, time.sleep)
@@ -35,8 +34,11 @@ sWorkBuf=[]
 iOldDay = 0
 iWeekCount = 1
 
-def print_event(name):
-    print('EVENT:', name)
+#def print_event(name):
+#    print('EVENT:', time.time(), name)
+
+def print_event(txt_to_display):
+    print("This is the event, waiting for the next day.\n", txt_to_display )
 
 def compile_httpset(IDeviceNum, IDeviceSet):
     sOutBuf = "http://192.168.0.79:8083/ZWaveAPI/Run/devices[" + str(IDeviceNum)
@@ -45,8 +47,8 @@ def compile_httpset(IDeviceNum, IDeviceSet):
     return sOutBuf
 
 def switch_light(iDeviceNum, iDeviceSet):
-    print("Switching device : ", str(iDeviceNum), " to : ", str(iDeviceSet))
-    resp, content = httpOut.request(compile_httpset(iDeviceNum, iDeviceSet), "GET")
+    print("Switching ", iDeviceNum, " to ", iDeviceSet)
+#    resp, content = httpOut.request(compile_httpset(iDeviceNum, iDeviceSet), "GET")
 
 def IsDevInArr(iDevNum, iVarArr):
     iFoundDev = -1
@@ -72,58 +74,78 @@ def InitSwitches(vSwitchArr):
             ix += 1
 
 def LimitArray(sInBuf, iWeek, iDay):
-    iSched = []
 
-    bSwitchInitialized = False
+    x = 1
+    iAdd = 2
+    iStart = 0
+
+    iSwitchNum = 2
+    iSwitchStat = 1
+
     now = time.time()
 
-    for x in range(len(sInBuf)):
-        if (sInBuf[x] [3] == iWeek) and (sInBuf[x] [4] == iDay):
-            sSwitchStat = sInBuf[x] [10]
-            if sSwitchStat.find("Off") != -1:
-                iSwitchStat = 0
-            else: 
-                iSwitchStat = 1
+    while x <= 30:
+        iStart = iStart + iAdd
+        if iSwitchStat == 1:
+            iSwitchStat = 0
+        else:
+            iSwitchStat = 1            
+        vRetVal = scheduler.enterabs(now + iStart, 1, switch_light, (iSwitchNum, iSwitchStat))
+        print("Event triggered : ", vRetVal)
+        x = x + 1
 
-            iAdjHour = sInBuf[x] [7] + 2
+#    iSched = []
+
+#    bSwitchInitialized = False
+#    now = time.time()
+
+#    for x in range(len(sInBuf)):
+#        if (sInBuf[x] [3] == iWeek) and (sInBuf[x] [4] == iDay):
+#            sSwitchStat = sInBuf[x] [10]
+#            if sSwitchStat.find("Off") != -1:
+#                iSwitchStat = 0
+#            else: 
+#                iSwitchStat = 1
+
+#            iAdjHour = sInBuf[x] [7] + 2
 
 # What to do if > 23 ? We will fix that later           
-            if iAdjHour <= 23:
+#            if iAdjHour <= 23:
 
-                iTimeDiff = ClcTimeDiff(iAdjHour, sInBuf[x] [8], sInBuf[x] [9])
+#                iTimeDiff = ClcTimeDiff(iAdjHour, sInBuf[x] [8], sInBuf[x] [9])
     
-                iRetVal = IsDevInArr(int(sInBuf[x] [0]), iSched)
-                if iRetVal != -1:
+#                iRetVal = IsDevInArr(int(sInBuf[x] [0]), iSched)
 
-                    if iSwitchStat != iSched[iRetVal] [1]:
+#                if iRetVal != -1:
+#                    if iSwitchStat != iSched[iRetVal] [1]:
 
-                        if iTimeDiff >= 0 and bSwitchInitialized == False:
-                            InitSwitches(iSched)
-                            bSwitchInitialized = True
+#                        if iTimeDiff >= 0 and bSwitchInitialized == False:
+#                            InitSwitches(iSched)
+#                            bSwitchInitialized = True
 
-                        if bSwitchInitialized == True:
-                            iSched[iRetVal] [1] = iSwitchStat
-                            iSwitchNum = iSched [iRetVal] [0]
-                            iSwitchStat = iSched [iRetVal] [1]
-                            vRetVal = scheduler.enterabs(now + iTimeDiff, 1, switch_light, (iSwitchNum, iSwitchStat))                       
-                            print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", iAdjHour, ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1], " -> Return value : ", vRetVal)
+#                        if bSwitchInitialized == True:
+#                            iSched[iRetVal] [1] = iSwitchStat
+#                            iSwitchNum = iSched [iRetVal] [0]
+#                            iSwitchStat = iSched [iRetVal] [1]
+#                            vRetVal = scheduler.enterabs(now + iTimeDiff, 1, switch_light, (iSwitchNum, iSwitchStat))                       
+#                            print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", iAdjHour, ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1], " -> Return value : ", vRetVal)
 
-                else:
+#                else:
 
-                    if iTimeDiff >= 0 and bSwitchInitialized == False:
-                        InitSwitches(iSched)
-                        bSwitchInitialized = True
+#                    if iTimeDiff >= 0 and bSwitchInitialized == False:
+#                        InitSwitches(iSched)
+#                        bSwitchInitialized = True
 
-                    iOutBuf = [int(sInBuf[x] [0]), iSwitchStat]
-                    iSched.append(iOutBuf)
-                    print("New switch registerd = ", sInBuf[x] [0])
+#                    iOutBuf = [int(sInBuf[x] [0]), iSwitchStat]
+#                    iSched.append(iOutBuf)
+#                    print("New switch registerd = ", sInBuf[x] [0])
 
-                    if bSwitchInitialized == True:
-                        iRetVal = len(iSched) - 1
-                        iSwitchNum = iSched [iRetVal] [0]
-                        iSwitchStat = iSched [iRetVal] [1]
-                        vRetVal = scheduler.enterabs(now + iTimeDiff, 1, switch_light, (iSwitchNum, iSwitchStat))                       
-                        print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", iAdjHour, ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1], " -> Return value : ", vRetVal)
+#                    if bSwitchInitialized == True:
+#                        iRetVal = len(iSched) - 1
+#                        iSwitchNum = iSched [iRetVal] [0]
+#                        iSwitchStat = iSched [iRetVal] [1]
+#                        vRetVal = scheduler.enterabs(now + iTimeDiff, 1, switch_light, (iSwitchNum, iSwitchStat))                       
+#                        print("New Event for Switch : ", iSched[iRetVal] [0], " at : ", iAdjHour, ":", sInBuf[x] [8], ":", sInBuf[x] [9] , " to : ", iSched[iRetVal] [1], " -> Return value : ", vRetVal)
     scheduler.run()
                     
 fobj = open(SfName,"r")
@@ -174,9 +196,9 @@ while bForEver:
     LimitArray(sWorkData, iSelWeek, iSelDay)
 
     now = time.time()
-    iSecWait = ClcTimeDiff(23, 59, 59) + 10
-
+#    iSecWait = ClcTimeDiff(23, 59, 59) + 10
+    iSecWait = 10
     print("Waiting ", str(iSecWait), " seconds !")
-    vRetVal = scheduler.enterabs(now + iSecWait, 1, print_event, ("Starting a new day."))
+    vRetVal = scheduler.enterabs(now + iSecWait, 1, print_event, ("OK",))
     scheduler.run()
 
