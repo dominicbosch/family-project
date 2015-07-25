@@ -30,7 +30,7 @@ def compile_httprefresh(iDeviceNum, iDeviceInstance):
 
 def compile_httpgettemp(IDeviceNum, ICmdClass):
     sOutBuf = "http://192.168.0.79:8083/ZWaveAPI/Run/devices[" + str(IDeviceNum)
-    sOutBuf = sOutBuf + "].instances[5].commandClasses[" + str(ICmdClass)
+    sOutBuf = sOutBuf + "].instances[0].commandClasses[" + str(ICmdClass)
     sOutBuf = sOutBuf + "].data.level.value"
 #    sOutBuf = sOutBuf +"].Get()"
 #    sOutBuf = sOutBuf + "].data[1]"
@@ -42,7 +42,7 @@ def get_currenttemp(iDeviceNum, iDeviceInstance):
 #    print(resp,"\n")
 #    print(content,"\n")
 #    print("Run Get --->")
-    resp, content = h.request(compile_httpgettemp(iDeviceNum, 38), "GET")
+    resp, content = h.request(compile_httpgettemp(iDeviceNum, 49), "GET")
 #    print(resp,"\n")
     print(content,"\n")
 #    try:
@@ -83,7 +83,7 @@ while StopRun == False:
 #        sDeviceName = rConfigRecord[4].strip()
 
 #        if sDeviceType == "T":
-    sDevResp = get_currenttemp(11, 0)
+    sDevResp = get_currenttemp(12, 0)
     print("sDevResp :", sDevResp)
 #            if sDevResp != "":
 #                sDevTemp = sDevResp

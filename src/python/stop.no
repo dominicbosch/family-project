@@ -1,2 +1,0 @@
-If Extension is Yes, then app wil stop
-

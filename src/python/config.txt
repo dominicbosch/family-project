@@ -6,4 +6,5 @@
 6, S, 10, 0, "Eingang EG"
 20, T, 5, 0, "Büro"
 21, T, 8, 0, "Bad"
-30, W, 11, 4, "Windmesser" 
+22, T, 12, 0, "Balkon"
+30, W, 11, 4, "Windmesser"

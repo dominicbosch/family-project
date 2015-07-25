@@ -2,11 +2,19 @@ import time
 import httplib2
 import json
 
+#sFile Structure
+#0 Device Number
+#1 Date / Time Stamp
+#2 Status (on/off)
+
 sServerAddress = "192.168.0.79:8083"
 httpRequest = httplib2.Http()
 
-#sDeviceConfigFileName = "/mnt/nas/config.txt"
+#sDeviceConfigFileName = "/mnt/nas/config.txt#
 sDeviceConfigFileName = "config.txt"
+
+#SfName = "/mnt/debian/switch.inf"
+SfName = "/mnt/nas/switch.inf"
 
 class powerSwitch:
     def __init__(self, iSwitchNum, iSwitchInst, sSwitchName, sServerAddress):
@@ -61,15 +69,16 @@ class powerSwitch:
         except (ValueError):
             return -1
 
-
     def SwitchTo(self,iSwitchStat):
+        resp, content = httpRequest.request(self.compile_httprefresh(), "GET")
         resp, content = httpRequest.request(self.compile_httpset(iSwitchStat), "GET")
         iLoopCounter = 0
 
         while self.iStatus() != iSwitchStat and iLoopCounter < 10:
             print("Retrying ... \n")
             time.sleep(1)
-            resp, content = httpRequest.request(self.compile_httpset(1), "GET")
+            resp, content = httpRequest.request(self.compile_httprefresh(), "GET")
+            resp, content = httpRequest.request(self.compile_httpset(iSwitchStat), "GET")
             iLoopCounter += 1
         if self.iStatus() != iSwitchStat:
             return False

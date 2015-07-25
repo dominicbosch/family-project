@@ -1,2 +1,0 @@
-Switch : 3 is On
-Switch : 3 is Off
