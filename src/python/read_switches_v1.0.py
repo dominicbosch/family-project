@@ -9,16 +9,16 @@ import json
 # Device Instance
 # Device Name
 
-iSleepTime = 3
+iSleepTime = 30
 sServerAddress = "192.168.0.79:8083"
 
-#sFileName = "/mnt/nas/switch.inf"
-#sStopFileName = "/mnt/nas/stop.yes"
-#sDeviceConfigFileName = "/mnt/nas/config.txt"
+sFileName = "/mnt/nas/switch.inf"
+sStopFileName = "/mnt/nas/stop.yes"
+sDeviceConfigFileName = "/mnt/nas/config.txt"
 
-sFileName = "switch.inf"
-sDeviceConfigFileName = "config.txt"
-sStopFileName = "stop.yes"
+#sFileName = "switch.inf"
+#sDeviceConfigFileName = "config.txt"
+#sStopFileName = "stop.yes"
 
 h = httplib2.Http()
 

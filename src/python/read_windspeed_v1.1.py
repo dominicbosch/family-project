@@ -9,18 +9,17 @@ import json
 # Data Level
 # Device Name
 
-iSleepTime = 60
-#sFileName = "/mnt/nas/Windspeed.inf"
-#sStopFileName = "/mnt/nas/stop.yes"
-#sDeviceConfigFileName = "WindDevCOnfig.txt"
+iSleepTime = 30
+sFileName = "/mnt/nas/Windspeed.inf"
+sStopFileName = "/mnt/nas/stop.yes"
+sDeviceConfigFileName = "/mnt/nas/WindDevCOnfig.txt"
 
-sFileName = "Windspeed.inf"
-sDeviceConfigFileName = "WindDevCOnfig.txt"
-sStopFileName = "stop.yes"
+#sFileName = "Windspeed.inf"
+#sDeviceConfigFileName = "WindDevCOnfig.txt"
+#sStopFileName = "stop.yes"
 sServerAddress = "192.168.0.79:8083"
 
 h = httplib2.Http()
-
 
 def compile_httprefresh(iDeviceNum, iDeviceInstance):
     sOutBuf = "http://" + sServerAddress + "/ZWaveAPI/Run/devices[" + str(iDeviceNum)
@@ -56,6 +55,7 @@ def get_openfile(SFileName):
 StopRun = False
 
 print("Application started !\n")
+iOldVelocity = 0
 
 while StopRun == False:
 
@@ -72,23 +72,26 @@ while StopRun == False:
         iDataLevel = int(rConfigRecord[4])
         sDeviceName = rConfigRecord[5].strip()
 
-        lRequestTime = time.time()
+        if iDataLevel == 6:
 
-        sDevResp = get_current(iDeviceNum, iDeviceInst, iDataLevel)
+            lRequestTime = time.time()
 
-        if sDevResp != "":
-            sDevTemp = sDevResp
-            sRequestTime = time.ctime(time.time())
-            print(sDeviceName, " -> ", sDevTemp, " - Time :", sRequestTime)
-            fObiS.write("{}, {}, {}, {}\n".format(str(iDataLevel), sDeviceName, lRequestTime, sDevTemp))
-        else:
-            print("Value Error thrown - ", time.ctime(time.time()))
-            fObiS.write("{} {}\n".format("Value error at :", time.ctime(time.time())))
+            sDevResp = get_current(iDeviceNum, iDeviceInst, iDataLevel)
+
+            if sDevResp != "":
+                sDevTemp = sDevResp
+                sRequestTime = time.ctime(time.time())
+                if int(sDevTemp) != iOldVelocity:
+                    iOldVelocity = int(sDevTemp)
+                    print(sDeviceName, " -> ", sDevTemp, " - Time :", sRequestTime)
+                    fObiS.write("{}, {}, {}, {}\n".format(str(iDataLevel), sDeviceName, lRequestTime, sDevTemp))
+            else:
+                print("Value Error thrown - ", time.ctime(time.time()))
+#                fObiS.write("{} {}\n".format("Value error at :", time.ctime(time.time())))
 
     fObiS.close()
     fConfFile.close()
 
-    print("\n")
 
     time.sleep(iSleepTime)
     StopRun = get_openfile(sStopFileName)    
