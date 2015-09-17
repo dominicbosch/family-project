@@ -9,10 +9,10 @@ import json
 # Data Level
 # Device Name
 
-iSleepTime = 30
-sFileName = "/mnt/nas/Windspeed.inf"
-sStopFileName = "/mnt/nas/stop.yes"
-sDeviceConfigFileName = "/mnt/nas/WindDevCOnfig.txt"
+iSleepTime = 10
+sFileName = "/mnt/debian/Windspeed.inf"
+sStopFileName = "/mnt/debian/stop.yes"
+sDeviceConfigFileName = "/mnt/debian/WindDevCOnfig.txt"
 
 #sFileName = "Windspeed.inf"
 #sDeviceConfigFileName = "WindDevCOnfig.txt"
@@ -60,7 +60,7 @@ iOldVelocity = 0
 while StopRun == False:
 
     fConfFile = open(sDeviceConfigFileName, "r")
-    fObiS = open(sFileName, "a")
+#    fObiS = open(sFileName, "a")
     
     for sLine in fConfFile:
 
@@ -84,16 +84,16 @@ while StopRun == False:
                 if int(sDevTemp) != iOldVelocity:
                     iOldVelocity = int(sDevTemp)
                     print(sDeviceName, " -> ", sDevTemp, " - Time :", sRequestTime)
-                    fObiS.write("{}, {}, {}, {}\n".format(str(iDataLevel), sDeviceName, lRequestTime, sDevTemp))
+#                    fObiS.write("{}, {}, {}, {}\n".format(str(iDataLevel), sDeviceName, lRequestTime, sDevTemp))
             else:
                 print("Value Error thrown - ", time.ctime(time.time()))
 #                fObiS.write("{} {}\n".format("Value error at :", time.ctime(time.time())))
 
-    fObiS.close()
+#    fObiS.close()
     fConfFile.close()
 
 
     time.sleep(iSleepTime)
-    StopRun = get_openfile(sStopFileName)    
+#    StopRun = get_openfile(sStopFileName)    
 
 print("\nApplication halted !\n")

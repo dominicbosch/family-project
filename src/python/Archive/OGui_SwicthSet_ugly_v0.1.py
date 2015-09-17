@@ -6,7 +6,7 @@ import json
 sServerAddress = "192.168.0.79:8083"
 httpRequest = httplib2.Http()
 
-sDeviceConfigFileName = "/mnt/debian/config.txt"
+sDeviceConfigFileName = "config.txt"
 
 class Application(Frame):
     def __init__(self, aSwitchArr, master=None):
@@ -317,10 +317,21 @@ def iFindSwitchNum(iSwitchNum, aSwitchArr):
 
     return iFound
 
+def task():
+    print("After ")
+    app.displaySwitch
+    root.after(2000,task)
+
+print("Application started")
+
 aSwitchArr =  []
 bRetval = aReadConfigFile(sDeviceConfigFileName, aSwitchArr)
 
 root = Tk()
+print("Init Application")
 app = Application(aSwitchArr, master=root)
-app.mainloop()
-root.destroy()
+print("Root After")
+task()
+
+#app.mainloop()
+#root.destroy()
