@@ -22,6 +22,12 @@ Pushing commits to remote repository:
 
     git push
 
+INSTALLATION
+------------
+
+workon cv
+pip install imutils
+
 
 ZWave Data Model
 ----------------

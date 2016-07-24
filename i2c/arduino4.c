@@ -16,8 +16,7 @@ static const int waitForResponse = 20000;
 // The I2C bus: This is for V1 pi's. For V2 Model B you need i2c-1
 static const char *devName = "//dev/i2c-1";
 
-int main(int argc, char **argv)
-	{
+int main(int argc, char **argv) {
 
 	char sOut[3];
 
@@ -26,27 +25,22 @@ int main(int argc, char **argv)
 	int dist;
 	int fRetval;
 
-	if (argc == 1)
-		{
+	if (argc == 1) {
 		printf("Supply one or more commands to send to the Arduino\n");
 		exit(1);
 		}
 
-	for(arg=1; arg < argc; arg++)
-		{
+	for(arg=1; arg < argc; arg++) {
 		iOut[arg-1] = strToint((argv) [arg]);
-		if(iOut[arg-1] < 1)
-			{
+		if(iOut[arg-1] < 1) {
 			iOut[arg-1] = 1;
 			}
-		if(iOut[arg-1] > 255)
-			{
+		if(iOut[arg-1] > 255) {
 			iOut[arg-1] = 255;
 			}
 		}
 
-	for(arg = 0; arg <= 2; arg++)
-	{
+	for(arg = 0; arg <= 2; arg++) {
 	sOut[arg] = (char)iOut[arg];
 //	printf("Argument %i : %i\n", arg, iOut[arg]);
 	}
@@ -57,37 +51,35 @@ int main(int argc, char **argv)
 	printf("I2C: Connecting\n");
 	int file;
 
-	if ((file = open(devName, O_RDWR)) < 0) 
-		{
+	if ((file = open(devName, O_RDWR)) < 0)  {
 		fprintf(stderr, "I2C: Failed to access %d\n", devName);
 		exit(1);
 		}
 
 	printf("I2C: acquiring bus to 0x%x\n", ADDRESS);
 	
-	if (ioctl(file, I2C_SLAVE, ADDRESS) < 0) 
-		{
+	if (ioctl(file, I2C_SLAVE, ADDRESS) < 0)  {
 		fprintf(stderr, "I2C: Failed to acquire bus access/talk to slave 0x%x\n", ADDRESS);
 		exit(1);
 		}
 
-	if(write(file, sOut, strlen(sOut)) == 1) 
-		{
+
+	printf("I2C: Writing something\n");
+
+	if(write(file, sOut, strlen(sOut)) == 1)  {
 //		usleep(100000);
 		printf("Sending data\n");
 		}
 
 	fRetval = 0;
 
-	if(iOut[0] == 10)
-		{
+	if(iOut[0] == 10) {
 		usleep(waitForResponse);
 		printf("Receiving data\n");
 		char buf[1];
 		read(file, buf,1);
 		usleep(waitForResponse);
-		if(read(file, buf, 1) == 1) 
-			{
+		if(read(file, buf, 1) == 1)  {
 //			printf("%s\n", buf);
 			int dist = (int) buf[0];
 			printf("Distance received %d\n", dist);
@@ -95,15 +87,13 @@ int main(int argc, char **argv)
 			}
 		}
 
-	if(iOut[0] == 11)
-		{
+	if(iOut[0] == 11) {
 		usleep(waitForResponse);
 		printf("Receiving data\n");
 		char buf[1];
 		read(file, buf,1);
 		usleep(waitForResponse);
-		if(read(file, buf, 1) == 1) 
-			{
+		if(read(file, buf, 1) == 1)  {
 //			printf("%s\n", buf);
 			int temp = (int) buf[0];
 			printf("Temperature received %d\n", temp);
@@ -124,8 +114,7 @@ int strToint(char *inString)
 //printf("String %s\n", inString);
 
 	len = strlen(inString);
-	for(i = 0; i < len; i++)
-	{
+	for(i = 0; i < len; i++) {
 	result = result * 10 + (inString[i] - '0');
 	}
 
