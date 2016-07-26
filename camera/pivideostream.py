@@ -20,10 +20,10 @@ class PiVideoStream:
 		self.frame = None
 		self.stopped = False
 
-	def start(self):
+	def start(self, callback):
+		self.callback = callback
 		# start the thread to read frames from the video stream
 		Thread(target=self.update, args=()).start()
-		return self
 
 	def update(self):
 		# keep looping infinitely until the thread is stopped
@@ -32,6 +32,7 @@ class PiVideoStream:
 			# preparation for the next frame
 			self.frame = f.array
 			self.rawCapture.truncate(0)
+			self.callback(self.frame)
 
 			# if the thread indicator variable is set, stop the thread
 			# and resource camera resources
@@ -39,11 +40,7 @@ class PiVideoStream:
 				self.stream.close()
 				self.rawCapture.close()
 				self.camera.close()
-				return
-	def read(self):
-		# return the frame most recently read
-		return self.frame
- 
+
 	def stop(self):
 		# indicate that the thread should be stopped
 		self.stopped = True
