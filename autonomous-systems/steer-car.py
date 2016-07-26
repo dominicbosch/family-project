@@ -34,7 +34,7 @@ def callback(arrFaces):
 		print "hallo"
 
 def sendCommand(device, value):
-	answer = subprocess.check_output(['../i2c/arduinoCaller', str(device), str(value), '255'])
+	answer = subprocess.check_output(['../i2c/arduino4', str(device), str(value), '255'])
 	print('the answer is {}'.format(answer))
 
 
