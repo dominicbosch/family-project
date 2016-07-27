@@ -6,12 +6,13 @@ from threading import Thread
 from pivideostream import PiVideoStream
 
 class FaceDetect:
-	def __init__(self, resolution=(1024, 768), framerate=32, hflip=True, vflip=True):
+	def __init__(self, resolution=(1024, 768), framerate=32, hflip=True, vflip=True, path=""):
 		self.imageWidth = resolution[0]
 		self.imageHeight = resolution[1]
 		self.framerate = framerate
 		self.hflip = hflip
 		self.vflip = vflip
+		self.path = path
 		self.isRunning = False
 		self.face_cascade = cv2.CascadeClassifier('../camera/facedetect.xml')
 		self.stream = PiVideoStream(resolution=resolution, framerate=framerate)
@@ -47,9 +48,7 @@ class FaceDetect:
 
 			timestamp = datetime.datetime.now()
 			ts = timestamp.strftime("%Y.%m.%d_%I:%M:%S")
-			cv2.imwrite("face_{}.jpg".format(ts), frame)
-
-
+			cv2.imwrite("{}face_{}.jpg".format(self.path, ts), frame)
 
 			# sort the faces list, first the biggest ones
 			self.callback(arrFaces)
