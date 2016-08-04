@@ -149,6 +149,7 @@ def faceHasBeenDetected(arrFaces):
 # Temperatur:	arduino4	11		0		255
 # keep-alive:	arduino4	254		0		255
 def commandArduino(device, value):
+	print('Executing Arduino command device {}, value {}'.format(device, value))
 	answer = subprocess.check_output(['../i2c/arduino4', str(device), str(value), '255'])
 	print('the answer is {}'.format(answer))
 	return answer
