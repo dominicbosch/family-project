@@ -57,7 +57,7 @@ def pollDistance():
 		adjustSteering()
 
 		# we only poll the ultrasonic sensor every 200 ms
-		time.sleep(0.2)
+		time.sleep(0.1)
 
 
 def adjustSpeed():
@@ -116,7 +116,7 @@ def adjustSteering():
 
 
 	else:
-
+		print "else"
 	# use sinus if face hasnt been detected for 3 seconds
 	# steering will do a bit of left right left in order to acquire a new target
 	
