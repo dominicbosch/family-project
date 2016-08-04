@@ -82,8 +82,8 @@ int main(int argc, char **argv) {
 		if(read(file, buf, 1) == 1)  {
 //			printf("%s\n", buf);
 			int dist = (int) buf[0];
-			printf("Distance received %d\n", dist);
-			fRetval = dist;
+			printf("%d\n", dist);
+			// fRetval = dist;
 			}
 		}
 
@@ -96,8 +96,8 @@ int main(int argc, char **argv) {
 		if(read(file, buf, 1) == 1)  {
 //			printf("%s\n", buf);
 			int temp = (int) buf[0];
-			printf("Temperature received %d\n", temp);
-			fRetval = temp;			}
+			printf("%d\n", temp);
+			// fRetval = temp;			}
 		}
 
 

@@ -150,7 +150,11 @@ def faceHasBeenDetected(arrFaces):
 # keep-alive:	arduino4	254		0		255
 def commandArduino(device, value):
 	print('Executing Arduino command device {}, value {}'.format(device, value))
-	answer = subprocess.check_output(['../i2c/arduino4', str(device), str(value), '255'])
+	answerString = subprocess.check_output(['../i2c/arduino4', str(device), str(value), '255'])
+	arr = answerString.split('\n')
+	answer = 0
+	if len(arr) == 5:
+		answer = int(arr[4])
 	print('the answer is {}'.format(answer))
 	return answer
 
