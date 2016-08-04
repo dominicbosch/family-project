@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
 	if(write(file, sOut, strlen(sOut)) == 1)  {
 //		usleep(100000);
 		printf("Sending data\n");
-		}
+	}
 
 	fRetval = 0;
 
@@ -84,8 +84,8 @@ int main(int argc, char **argv) {
 			int dist = (int) buf[0];
 			printf("%d\n", dist);
 			// fRetval = dist;
-			}
 		}
+	}
 
 	if(iOut[0] == 11) {
 		usleep(waitForResponse);
@@ -97,8 +97,9 @@ int main(int argc, char **argv) {
 //			printf("%s\n", buf);
 			int temp = (int) buf[0];
 			printf("%d\n", temp);
-			// fRetval = temp;			}
+			// fRetval = temp;			
 		}
+	}
 
 
 	close(file);
