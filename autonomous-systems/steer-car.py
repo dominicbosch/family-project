@@ -10,8 +10,8 @@ steeringLeft = 45
 steeringRight = 150
 steeringCenter = 100
 
-# is this 200 cm? what comes back from the arduin4 command?
-ultrasonic = 200
+# is this 100 cm? what comes back from the arduin4 command?
+ultrasonic = 100
 
 # this will stop the thread that polls for the distance
 isRunning = True
@@ -24,7 +24,7 @@ lastRelativeFacePosition = 0.5
 
 # when a distance under threshold is measured, the counter is increased
 # if more than two subsequent measurements are under threshold we start to slow down
-slowDownDistance = 100 # 1 m
+slowDownDistance = 90 # 90 cm
 numMeasurements = 0
 
 # linear ramp for motor deceleration:
@@ -103,7 +103,7 @@ def adjustSteering():
 	
 	if timePassed < 3:
 		if relX < 0.5:
-			commandArduino(1, 45)
+			commandArduino(1, steeringLeft + 2*(steeringCenter-steeringLeft)*relX)
 			print "left"
 			# start when face detected
 			# send keep-alive every 300ms
@@ -111,6 +111,7 @@ def adjustSteering():
 			# reduce speed when no face detected, steer left right and finally stop
 			# send stop when no face detected after 5 s
 		else:
+			commandArduino(1, steeringCenter + 2*(steeringRight-steeringCenter)*(relX-0.5))
 			print "right"
 
 
