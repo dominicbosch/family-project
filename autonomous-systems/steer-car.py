@@ -37,6 +37,9 @@ b = 122.5
 
 # Thread function, looping forever
 def pollDistance():
+	global numMeasurements
+	global ultrasonic
+
 	while isRunning:
 
 		# Refresh the ultrasonic measurement
@@ -61,7 +64,6 @@ def pollDistance():
 
 
 def adjustSpeed():
-	
 	# we stay basically still unless...
 	arduinoValue = 150
 
@@ -100,20 +102,17 @@ def adjustSteering():
 	
 	# how much time since the last face detection passed 
 	timePassed = now - lastFaceDetected
-	
+	relX = lastRelativeFacePosition
 	if timePassed < 3:
 		if relX < 0.5:
-			commandArduino(1, steeringLeft + 2*(steeringCenter-steeringLeft)*relX)
-			print "left"
-			# start when face detected
-			# send keep-alive every 300ms
-			# send steering
-			# reduce speed when no face detected, steer left right and finally stop
-			# send stop when no face detected after 5 s
-		else:
-			commandArduino(1, steeringCenter + 2*(steeringRight-steeringCenter)*(relX-0.5))
-			print "right"
+			prct = 2*relX
+			print "left {}%".format(prct*100)
+			commandArduino(1, steeringLeft + (steeringCenter-steeringLeft)*prct)
 
+		else:
+			prct = 2*(relX-0.5)
+			print "right {}%".format(prct*100)
+			commandArduino(1, steeringCenter + (steeringRight-steeringCenter)*prct)
 
 	else:
 		print "else"
@@ -130,6 +129,9 @@ def adjustSteering():
 	# else head towards the face
 
 def faceHasBeenDetected(arrFaces):
+	global lastFaceDetected
+	global lastRelativeFacePosition
+
 	# new timestamp for last face detection
 	lastFaceDetected = time.time()
 	adjustSpeed()
@@ -153,12 +155,14 @@ def commandArduino(device, value):
 	answerString = subprocess.check_output(['../i2c/arduino4', str(device), str(value), '255'])
 	arr = answerString.split('\n')
 	answer = 0
-	if len(arr) == 5:
-		answer = int(arr[4])
-	print('the answer is {}'.format(answer))
+	if len(arr) > 4:
+		try:
+			answer = int(arr[4])
+		except ValueError:
+			answer = -1
 	return answer
 
-
+time.sleep(0.1)
 try:
 	detector = FaceDetect(resolution=(1024, 768), framerate=32, path='detected-faces/')
 	Thread(target=pollDistance, args=()).start()

@@ -1,7 +1,6 @@
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 from threading import Thread
-import cv2
 
 class PiVideoStream:
 	def __init__(self, resolution=(1024, 768), framerate=32, hflip=True, vflip=True):
