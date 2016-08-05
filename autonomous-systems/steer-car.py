@@ -166,7 +166,7 @@ def commandArduino(device, value):
 		try:
 			answer = int(arr[4])
 		except ValueError:
-			answer = -1ce
+			answer = -1
 	return answer
 
 time.sleep(0.1)
