@@ -21,8 +21,8 @@ class FaceDetect:
 		self.callback = callback
 		self.stream.start(self.detect)
 
-	def getSortMeasure(self, (x,y,w,h)):
-		return 1 / (w*h) # calculate the area of the face
+	def getSortMeasure(self, (x,y,w,h), t):
+		return int(100 / (w*h)) # calculate the area of the face
 
 	def detect(self, frame):
 		faces = self.face_cascade.detectMultiScale(frame, 1.1, 5)
