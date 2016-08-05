@@ -35,15 +35,21 @@ m = (10 - 100) / (100 - 20)
 # e.g. 20 = m * 100 + b (m is defined above because we have two points), then solve for b
 b = 122.5
 
+numPoll = 0
 # Thread function, looping forever
 def pollDistance():
 	global numMeasurements
 	global ultrasonic
+	global numPoll
 
 	while isRunning:
 
 		# Refresh the ultrasonic measurement
 		ultrasonic = commandArduino(10, 0)
+		numPoll += 1
+		if numPoll == 10:
+			print 'Next obstacle in {}cm'.format(ultrasonic)
+			numPoll = 0
 
 		# if measured distance is below slowdown distance
 		if ultrasonic < slowDownDistance:
@@ -115,7 +121,8 @@ def adjustSteering():
 			commandArduino(1, steeringCenter + (steeringRight-steeringCenter)*prct)
 
 	else:
-		print "else"
+		pass
+		# print "else"
 	# use sinus if face hasnt been detected for 3 seconds
 	# steering will do a bit of left right left in order to acquire a new target
 	
@@ -151,7 +158,7 @@ def faceHasBeenDetected(arrFaces):
 # Temperatur:	arduino4	11		0		255
 # keep-alive:	arduino4	254		0		255
 def commandArduino(device, value):
-	print('Executing Arduino command device {}, value {}'.format(device, value))
+	# print('Executing Arduino command device {}, value {}'.format(device, value))
 	answerString = subprocess.check_output(['../i2c/arduino4', str(device), str(value), '255'])
 	arr = answerString.split('\n')
 	answer = 0
@@ -159,7 +166,7 @@ def commandArduino(device, value):
 		try:
 			answer = int(arr[4])
 		except ValueError:
-			answer = -1
+			answer = -1ce
 	return answer
 
 time.sleep(0.1)
