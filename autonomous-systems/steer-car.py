@@ -112,12 +112,12 @@ def adjustSteering():
 	if timePassed < 3:
 		if relX < 0.5:
 			prct = 2*relX
-			print "left {}%".format(prct*100)
+			print "steering left {}%".format(prct*100)
 			commandArduino(1, steeringLeft + (steeringCenter-steeringLeft)*prct)
 
 		else:
 			prct = 2*(relX-0.5)
-			print "right {}%".format(prct*100)
+			print "steering right {}%".format(prct*100)
 			commandArduino(1, steeringCenter + (steeringRight-steeringCenter)*prct)
 
 	else:
@@ -142,6 +142,8 @@ def faceHasBeenDetected(arrFaces):
 	# new timestamp for last face detection
 	lastFaceDetected = time.time()
 	adjustSpeed()
+
+	print '{} new face(s) detected'.format(len(arrFaces))
 
 	# we only head for the biggest face
 	(x, y, w, h, relX, relY, relW, relH) = arrFaces[0]
@@ -171,7 +173,7 @@ def commandArduino(device, value):
 
 time.sleep(0.1)
 try:
-	detector = FaceDetect(resolution=(1024, 768), framerate=32, path='detected-faces/')
+	detector = FaceDetect(resolution=(1920, 1088), framerate=32, path='detected-faces/')
 	Thread(target=pollDistance, args=()).start()
 	detector.start(faceHasBeenDetected)
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')
