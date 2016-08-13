@@ -1,17 +1,156 @@
 import time
 import sys
 import math
+import os.path
+
+# easy logging:
+import logging
+
+# easy parsing of command line:
+import argparse
+
+# easy parsing of config file
+import ConfigParser
+
 import subprocess
 from threading import Thread
-sys.path.insert(0, '../camera')
-from facedetect import FaceDetect
+# sys.path.insert(0, '../camera')
+# from facedetect import FaceDetect
 
-steeringLeft = 45
-steeringRight = 150
-steeringCenter = 100
+# Define possible command line arguments
+parser = argparse.ArgumentParser(description='Autonomously drive a car')
 
+parser.add_argument('--configfile',
+	nargs=1,
+	help='Location of the config file')
+
+parser.add_argument('-v',
+	action='store_true',
+	dest='verbose',
+	help='Give a lot of output')
+
+# Parse command line arguments and see if something useful was provided
+args = parser.parse_args()
+
+# Define the log leveld epending on whether verbose is desired
+if args.verbose:
+	loglevel = logging.DEBUG
+else:
+	loglevel = logging.INFO
+
+# logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s',
+logging.basicConfig(format='%(asctime)s %(message)s',
+	datefmt='[%Y-%m-%d|%H:%M:%S]',
+	level=loglevel)
+
+def exitWithError(msg):
+	logging.error('ERROR: '+msg)
+	print 'Have a nice day!'
+	sys.exit()
+
+# Define the standard config file location
+configfile = os.path.abspath('config.ini')
+if args.configfile != None:
+	configfile = os.path.abspath(args.configfile[0])
+# Finally read the configuration file
+if not os.path.isfile(configfile):
+	exitWithError('Configuration file not existing: "'+configfile+'"')
+
+logging.info('Using configuration file "{}"'.format(configfile))
+oConfig = ConfigParser.ConfigParser()
+oConfig.read(configfile)
+
+# Test the available config file sections against what we actually need
+avlSections = oConfig.sections()
+logging.debug('Configuration file sections: {}'.format(', '.join(avlSections)))
+
+# Helper function to safely parse the whole configuration file
+def parseConfigOptions():
+	cfg = {}
+	for s in avlSections:
+		cfg[s] = {}
+		options = oConfig.options(s)
+		for opt in options:
+			# try:
+			# 	# Try to fetch an integer
+			# 	cfg[s][opt] = oConfig.getint(s, opt)
+			# except:
+			try:
+				# Otherwise fetch the string
+				cfg[s][opt] = oConfig.get(s, opt)
+			except:
+				logging.warn('exception on {}!'.format(opt))
+				cfg[s][opt] = None
+	return cfg
+
+
+# Parse the configuration file
+config = parseConfigOptions()
+requiredConfig = {
+	'Steering': ['stop-distance','slowdown-distance'],
+	'Servo': ['device','servo-left','servo-center','servo-right'],
+	'Motor': ['device','fullspeed','neutral','break','reverse'],
+	'Ultrasonic': ['device','maximum-distance'],
+	'Temperature': ['device'],
+	'KeepAlive': ['device'],
+	'Camera': ['width','height','framerate','imagepath']	
+}
+
+# Beautiful Python magic to find all the missing config options... :-D
+notExisting = []
+for s in requiredConfig:
+	if not s in config:
+		notExisting.append('Section '+s)
+	else:
+		for o in requiredConfig[s]: 
+			if not any(xo in o for xo in config[s]):
+				notExisting.append(s+':'+o)
+
+# If some configurations are not existing we stop because we really need them, really
+if len(notExisting) > 0:
+	# Yes we really take the time for this plural beauty: :)
+	plur  = 's' if len(notExisting) > 1 else ''
+	exitWithError('Missing configuration section'+plur+': '+', '.join(notExisting))
+
+# Helps casting config params to integers or exits completely if not successful
+def castConfigToInt(section, option):
+	text = config[section][option]
+	try:
+		return int(text)
+	except:
+		exitWithError('Unable to parse config '+section+':'+option+' to integer: '+text)
+
+
+# FINALLY we start reading the configuration!
+
+stopDistance = castConfigToInt('Steering','stop-distance')
+slowDownDistance = castConfigToInt('Steering','slowdown-distance')
+
+servoDevice = castConfigToInt('Servo','device')
+servoLeft = castConfigToInt('Servo','servo-left')
+servoCenter = castConfigToInt('Servo','servo-center')
+servoRight = castConfigToInt('Servo','servo-right')
+
+motorDevice = castConfigToInt('Motor','device')
+motorFull = castConfigToInt('Motor','fullspeed')
+motorNeutral = castConfigToInt('Motor','neutral')
+motorBreak = castConfigToInt('Motor','break')
+motorReverse = castConfigToInt('Motor','reverse')
+
+ultrasonicDevice = castConfigToInt('Ultrasonic','device')
 # is this 100 cm? what comes back from the arduin4 command?
-ultrasonic = 100
+ultrasonicMaxDistance = castConfigToInt('Ultrasonic','maximum-distance')
+# ultrasonic = ultrasonicMaxDistance # we assume no obstacles at the beginning
+ultrasonic = 0 # we assume obstacles unless arduino tells us something else
+
+temperatureDevice = castConfigToInt('Temperature','device')
+keepAliveDevice = castConfigToInt('KeepAlive','device')
+camRes = (castConfigToInt('Camera','width'), castConfigToInt('Camera','height'))
+camRate = castConfigToInt('Camera','framerate')
+imagePath = config['Camera']['imagepath']
+
+
+# AND we initialize some more variables
 
 # this will stop the thread that polls for the distance
 isRunning = True
@@ -22,15 +161,14 @@ lastFaceDetected = 1
 # we initialize at the center
 lastRelativeFacePosition = 0.5
 
-# when a distance under threshold is measured, the counter is increased
-# if more than two subsequent measurements are under threshold we start to slow down
-slowDownDistance = 90 # 90 cm
+# when a distance under slowDownDistance is measured, the counter is increased
+# if more than two subsequent measurements are under slowDownDistance we start to slow down
 numMeasurements = 0
 
 # linear ramp for motor deceleration:
 # y = m*x + b 
 # m = (maxArduinoValue - minArduinoValue) / (farDistance - minDistance)
-m = (10 - 100) / (100 - 20)
+m = (motorFull - motorNeutral) / (ultrasonicMaxDistance - stopDistance)
 # calculate b (= y-intercept of linear ramp) by putting any point into the equation,
 # e.g. 20 = m * 100 + b (m is defined above because we have two points), then solve for b
 b = 122.5
@@ -45,7 +183,7 @@ def pollDistance():
 	while isRunning:
 
 		# Refresh the ultrasonic measurement
-		ultrasonic = commandArduino(10, 0)
+		ultrasonic = commandArduino(ultrasonicDevice, 0)
 		numPoll += 1
 		if numPoll == 10:
 			print 'Next obstacle in {}cm'.format(ultrasonic)
@@ -100,7 +238,7 @@ def adjustSpeed():
 			else:
 				arduinoValue = 150
 
-	commandArduino(2, arduinoValue)
+	commandArduino(motorDevice, arduinoValue)
 
 
 def adjustSteering():
@@ -113,12 +251,12 @@ def adjustSteering():
 		if relX < 0.5:
 			prct = 2*relX
 			print "steering left {}%".format(prct*100)
-			commandArduino(1, steeringLeft + (steeringCenter-steeringLeft)*prct)
+			commandArduino(servoDevice, servoLeft + (servoCenter-servoLeft)*prct)
 
 		else:
 			prct = 2*(relX-0.5)
 			print "steering right {}%".format(prct*100)
-			commandArduino(1, steeringCenter + (steeringRight-steeringCenter)*prct)
+			commandArduino(servoDevice, servoCenter + (servoRight-servoCenter)*prct)
 
 	else:
 		pass
@@ -173,7 +311,7 @@ def commandArduino(device, value):
 
 time.sleep(0.1)
 try:
-	detector = FaceDetect(resolution=(1920, 1088), framerate=32, path='detected-faces/')
+	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath)
 	Thread(target=pollDistance, args=()).start()
 	detector.start(faceHasBeenDetected)
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')
