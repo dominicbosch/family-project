@@ -2,7 +2,6 @@ from __future__ import division
 import cv2
 import numpy as np
 import datetime
-from threading import Thread
 from pivideostream import PiVideoStream
 
 class FaceDetect:
@@ -13,7 +12,6 @@ class FaceDetect:
 		self.hflip = hflip
 		self.vflip = vflip
 		self.path = path
-		self.isRunning = False
 		self.face_cascade = cv2.CascadeClassifier('../camera/facedetect.xml')
 		self.stream = PiVideoStream(resolution=resolution, framerate=framerate)
 
@@ -54,7 +52,6 @@ class FaceDetect:
 			self.callback(arrFaces)
 
 	def stop(self):
-		self.isRunning = False
 		self.stream.stop()
 
 

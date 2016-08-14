@@ -14,8 +14,6 @@ import ConfigParser
 
 import subprocess
 from threading import Thread
-# sys.path.insert(0, '../camera')
-# from facedetect import FaceDetect
 
 # Define possible command line arguments
 parser = argparse.ArgumentParser(description='Autonomously drive a car')
@@ -29,8 +27,24 @@ parser.add_argument('-v',
 	dest='verbose',
 	help='Give a lot of output')
 
+parser.add_argument('-s',
+	action='store_true',
+	dest='simulate',
+	help='Simulation Mode where face detection is not loaded. '
+		+ 'Helpful for testing on a PC with no camera.')
+
 # Parse command line arguments and see if something useful was provided
 args = parser.parse_args()
+
+# We add the camera folder to the path where python looks for imports
+sys.path.insert(0, '../camera')
+if args.simulate:
+	from simulatefacedetect import SimulateFaceDetect as FaceDetect
+	arduinoCommand = '../i2c/simulateArduino.py'
+else:
+	from facedetect import FaceDetect
+	arduinoCommand = '../i2c/arduino4'
+
 
 # Define the log leveld epending on whether verbose is desired
 if args.verbose:
@@ -121,7 +135,9 @@ def castConfigToInt(section, option):
 		exitWithError('Unable to parse config '+section+':'+option+' to integer: '+text)
 
 
+# ###
 # FINALLY we start reading the configuration!
+# ###
 
 stopDistance = castConfigToInt('Steering','stop-distance')
 slowDownDistance = castConfigToInt('Steering','slowdown-distance')
@@ -150,7 +166,9 @@ camRate = castConfigToInt('Camera','framerate')
 imagePath = config['Camera']['imagepath']
 
 
+# ###
 # AND we initialize some more variables
+# ###
 
 # this will stop the thread that polls for the distance
 isRunning = True
@@ -282,6 +300,7 @@ def faceHasBeenDetected(arrFaces):
 	adjustSpeed()
 
 	print '{} new face(s) detected'.format(len(arrFaces))
+	print 'Nearest face at {}'.format(arrFaces[0][4])
 
 	# we only head for the biggest face
 	(x, y, w, h, relX, relY, relW, relH) = arrFaces[0]
@@ -299,15 +318,23 @@ def faceHasBeenDetected(arrFaces):
 # keep-alive:	arduino4	254		0		255
 def commandArduino(device, value):
 	# print('Executing Arduino command device {}, value {}'.format(device, value))
-	answerString = subprocess.check_output(['../i2c/arduino4', str(device), str(value), '255'])
+	answerString = subprocess.check_output([arduinoCommand, str(device), str(value), '255'])
 	arr = answerString.split('\n')
 	answer = 0
 	if len(arr) > 4:
 		try:
 			answer = int(arr[4])
 		except ValueError:
-			answer = -1
+			try:
+				answer = float(arr[4])
+			except ValueError:
+				answer = -1
 	return answer
+
+
+# ###
+# EVERYTHING starts here, after above definitions
+# ###
 
 time.sleep(0.1)
 try:
