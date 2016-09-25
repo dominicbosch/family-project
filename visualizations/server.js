@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const cp = require('child_process');
 
 // We will keep track of the number of users. as soon as there is at least one connected
 // we start polling the accelerator on a certain interval basis and stop otherwise.
@@ -20,6 +21,7 @@ app.use('/', express.static(__dirname+'/www'));
 
 // we start the server to listen on port 8080
 // Open the browser and enter: http://localhost:8080/accelerator.html to see the web page
+// Press Ctrl + Shift + I to open the developer tools in the browser and go to the console tab 
 server.listen(8080, () => {
 	console.log('Server running! Access webpages on http://localhost:8080');
 	console.log('\n --> Open your browser and enter following URL: '
@@ -64,12 +66,25 @@ io.on('connection', function (socket) {
 });
 
 function pollAccelerator() {
-	// broadcast
-	io.emit('measurement', {
-		x: Math.random(),
-		y: Math.random(),
-		z: Math.random()
-	});
+	// this is the concept of promise chaining in order to cope for async executions
+	Promise.all([callArduino(0), callArduino(1), callArduino(2)])
+		.then(function(values) {
+			// All Promises successfully executed over time until here, hence we have a valid result.
+			// values holds the last promise's result (in this case all return values from the array)
+			let measured = {
+				x: values[0],
+				y: values[1],
+				z: values[2]
+			};
+			console.log('broadcasting measurement: \n', JSON.stringify(measured, null, 2));
+			// broadcast
+			io.emit('measurement', measured);
+
+		})
+		.catch(function(reason) {
+            console.error('Promise rejected: '+reason);
+
+		});
 }
 
 /*
@@ -79,11 +94,29 @@ function pollAccelerator() {
 function checkNeedsToRun() {
 	if(numUsers < 1) {
 		console.log('Last client disconnected, stopping polling');
-		clearInterval(intervalIdx);
 	} else if(numUsers === 1) {
 		console.log('Client connected, starting polling');
+		clearInterval(intervalIdx); // just to be sure nothing else is running
 		intervalIdx = setInterval(pollAccelerator, intervalLength);
 	} else {
 		console.log('Accelerator is already being polled!');
 	}
+}
+
+function callArduino(attr, store) {
+	// We need promises (for simplicity) because the call to arduino is asynchronous
+	return new Promise(function(resolve, reject) {	
+		cp.exec('./arduinoSimulation.out '+attr, (error, stdout, stderr) => {
+			// if an error happens, we have to reject the promise which will immediately
+			// let the runtime jump into the catch handler of the promise
+			if(error) reject(`exec error for attribute ${attr}: ${error}`)
+			else {
+				try {
+					resolve(parseFloat(stdout));
+				} catch(err) {
+					reject(`parseFloat failed for attribute ${attr}: ${err}`);
+				}
+			}
+		});
+	})
 }
