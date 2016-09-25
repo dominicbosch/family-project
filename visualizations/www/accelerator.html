@@ -66,24 +66,36 @@
 			// to have the range [-1, 1), and then format them to two point precision
 			return df((val-0.5)*2);
 		}
+		// we received an accelerator measurement over the socket from the server
 		socket.on('measurement', function (data) {
 			console.log('Got measurement', data);
+
+			// we update the arrow tip position
 			d3.select('#arrow')
 				.attr('x2', data.x*200)
 				.attr('y2', data.y*200);
 			
+			// we add the new point to the path that shows the arrow history
 			var d = d3.select('#xypath').attr('d');
 			d3.select('#xypath').attr('d', d+' L '+data.x*200+' '+data.y*200);
 			
+			// we also need to update the text label with the new values
 			d3.select('#xyval')
 				.attr('x', data.x*200+(Math.sign(data.x-0.5)*20))
 				.attr('y', data.y*200+(Math.sign(data.y-0.5)*20))
 				.text('('+fVal(data.x)+','+fVal(data.y)+')');
 
+
+
+			// Z is a bit more complicated because it is not allowed to have negative heights
 			var zdir = Math.sign(data.z-0.5);
 			var zsize = zdir*(data.z-0.5)*200;
+
+			// the size is set as simple as for x/y on the arrow
 			d3.select('#zrect')
 				.attr('height', zsize);
+
+			// the y position depends on whether we are in the positive or negative range
 			if(zdir > 0) {
 				d3.select('#zrect')
 					.attr('y', 100);
@@ -91,6 +103,7 @@
 				d3.select('#zrect')
 					.attr('y', 100-zsize);
 			}
+			// at  last we also update the text label for Z with the new values
 			d3.select('#zval')
 				.attr('y', data.z*200+(zdir*10))
 				.text(fVal(data.z));
@@ -111,7 +124,9 @@
 				obj: { test: '3' }
 			}
 		};
+		// The user pressed the send button and wants to send a command to the server
 		function sendCommand() {
+			// if the socket is ready we try to send the command from the input box,
 			if(socket) {
 				var val = document.getElementById('cmd').value;
 				complexDataObject.commandValue = val;
@@ -126,14 +141,15 @@
 <!-- The body contains what actually will be displayed in the browser -->
 <body>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 350 260">
+
+		<!-- The marker attached to the arrow as pointy tip -->
 		<marker id="triangle" class="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto">
 			<path d="M 0 0 L 10 5 L 0 10 z"/>
 		</marker>
 
-		<!-- the axis lines through the circle -->
-
 		<!-- the circle needs a bit shifting to left down by 10 pixel each -->
 		<g transform="translate(10, 10)">
+			<!-- the axis lines through the circle -->
 			<line class="axis" x1="-10" y1="100" x2="210" y2="100" />
 			<line class="axis" x1="100" y1="-10" x2="100" y2="210" />
 			<text x="210" y="110">x</text>

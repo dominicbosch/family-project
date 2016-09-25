@@ -49,7 +49,7 @@ io.on('connection', function (socket) {
 	console.log('Sending PING to client '+socket.id);
 	socket.emit('myping');
 
-	// We use the event command for commands sent by the client to the server
+	// We use the event 'command' for commands sent by the client to the server
 	socket.on('command', function (msg) {
 		console.log('The server received a command from '+socket.id);
 		console.log(JSON.stringify(msg, null, 2)); // pretty format with indent of 2
@@ -82,8 +82,7 @@ function pollAccelerator() {
 
 		})
 		.catch(function(reason) {
-            console.error('Promise rejected: '+reason);
-
+			console.error('Promise rejected: '+reason);
 		});
 }
 
@@ -94,6 +93,7 @@ function pollAccelerator() {
 function checkNeedsToRun() {
 	if(numUsers < 1) {
 		console.log('Last client disconnected, stopping polling');
+		clearInterval(intervalIdx);
 	} else if(numUsers === 1) {
 		console.log('Client connected, starting polling');
 		clearInterval(intervalIdx); // just to be sure nothing else is running
@@ -105,7 +105,9 @@ function checkNeedsToRun() {
 
 function callArduino(attr, store) {
 	// We need promises (for simplicity) because the call to arduino is asynchronous
-	return new Promise(function(resolve, reject) {	
+	return new Promise(function(resolve, reject) {
+		// we also pass the attr attribute to the arduino command. this gives the arduino
+		// the instruction on which axis he should get the current value. (0, 1 or 2?)
 		cp.exec('./arduinoSimulation.out '+attr, (error, stdout, stderr) => {
 			// if an error happens, we have to reject the promise which will immediately
 			// let the runtime jump into the catch handler of the promise
