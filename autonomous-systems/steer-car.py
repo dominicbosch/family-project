@@ -345,11 +345,13 @@ try:
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')
 	detector.stop()
 	isRunning = False
+	commandArduino(motorDevice, motorBreak)
 	print 'Bye!'
 
 except KeyboardInterrupt:
 	print 'Forced Bye!'
 	detector.stop()
+	commandArduino(motorDevice, motorBreak)
 
 
 
