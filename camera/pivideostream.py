@@ -3,8 +3,9 @@ from picamera.array import PiRGBArray
 from threading import Thread
 
 class PiVideoStream:
-	def __init__(self, resolution=(1024, 768), framerate=32, hflip=True, vflip=True):
+	def __init__(self, resolution=(1024, 768), framerate=32, hflip=False, vflip=False):
 		# initialize the camera and stream
+		print 'Starting camera with hflip={}, vflip={}, resolution={}, framerate={}'.format(hflip, vflip, '|'.join(resolution), framerate)
 		self.camera = PiCamera()
 		self.camera.resolution = resolution
 		self.camera.framerate = framerate
