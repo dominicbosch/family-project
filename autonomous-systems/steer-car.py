@@ -1,4 +1,5 @@
 import time
+import datetime
 import sys
 import math
 import os.path
@@ -57,9 +58,14 @@ logging.basicConfig(format='%(asctime)s %(message)s',
 	datefmt='[%Y-%m-%d|%H:%M:%S]',
 	level=loglevel)
 
+def writeLog(msg):
+	timestamp = datetime.datetime.now()
+	ts = timestamp.strftime('[%Y.%m.%d_%I:%M:%S]: ')
+	print ts + msg
+
 def exitWithError(msg):
 	logging.error('ERROR: '+msg)
-	print 'Have a nice day!'
+	writeLog('Have a nice day!')
 	sys.exit()
 
 # Define the standard config file location
@@ -204,7 +210,7 @@ def pollDistance():
 		ultrasonic = commandArduino(ultrasonicDevice, 0)
 		numPoll += 1
 		if numPoll == 10:
-			print 'Next obstacle in {}cm'.format(ultrasonic)
+			writeLog('Next obstacle in {}cm'.format(ultrasonic))
 			numPoll = 0
 
 		# if measured distance is below slowdown distance
@@ -269,12 +275,12 @@ def adjustSteering():
 	if timePassed < 3:
 		if relX < 0:
 			cmd = servoCenter+(servoCenter-servoLeft)*relX #relX will be negative
-			print "steering left {}% = command to arduino: {}".format(relX*100, cmd)
+			writeLog("steering left {}% = command to arduino: {}".format(relX*100, cmd))
 			commandArduino(servoDevice, cmd)
 
 		else:
 			cmd = servoCenter+(servoRight-servoCenter)*relX
-			print "steering right {}% = command to arduino: {}".format(relX*100, cmd)
+			writeLog("steering right {}% = command to arduino: {}".format(relX*100, cmd))
 			commandArduino(servoDevice, cmd)
 
 	else:
@@ -300,8 +306,8 @@ def faceHasBeenDetected(arrFaces):
 	lastFaceDetected = time.time()
 	adjustSpeed()
 
-	print '{} new face(s) detected'.format(len(arrFaces))
-	print 'Nearest face at {}'.format(arrFaces[0][4])
+	writeLog('{} new face(s) detected'.format(len(arrFaces)))
+	writeLog('Nearest face at {}'.format(arrFaces[0][4]))
 
 	# we only head for the biggest face
 	(x, y, w, h, relX, relY, relW, relH) = arrFaces[0]
@@ -346,10 +352,10 @@ try:
 	detector.stop()
 	isRunning = False
 	commandArduino(motorDevice, motorBreak)
-	print 'Bye!'
+	writeLog('Bye!')
 
 except KeyboardInterrupt:
-	print 'Forced Bye!'
+	writeLog('Forced Bye!')
 	detector.stop()
 	commandArduino(motorDevice, motorBreak)
 
