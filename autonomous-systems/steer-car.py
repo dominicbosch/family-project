@@ -250,7 +250,7 @@ def adjustSpeed():
 		# the last face was only 3 seconds ago detected, we stay at full speed
 		if timePassed < 3:
 			# speedup with linear ramp over three seconds!
-			arduinoValue = motorFull + (motorFull-motorNeutral)*timePassed/3
+			arduinoValue = motorFull + (motorNeutral-motorFull)*timePassed/3
 
 		else:
 			# we gradually slow down over the next ten seconds until we stop
