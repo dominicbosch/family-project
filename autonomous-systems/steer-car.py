@@ -327,7 +327,7 @@ def commandArduino(device, value):
 	# print('Executing Arduino command device {}, value {}'.format(device, value))
 	dev = str(device)
 	cmd = str(int(value))
-	writeLog('Executing device={}, command={}', dev, cmd)
+	writeLog('Executing device={}, command={}'.format(dev, cmd))
 	answerString = subprocess.check_output([arduinoCommand, dev, cmd, '255'])
 	arr = answerString.split('\n')
 	answer = 0
