@@ -177,7 +177,7 @@ isRunning = True
 lastFaceDetected = 1
 
 # we initialize at the center
-lastRelativeFacePosition = 0.5
+lastRelativeFacePosition = 0
 
 # when a distance under slowDownDistance is measured, the counter is increased
 # if more than two subsequent measurements are under slowDownDistance we start to slow down
@@ -227,7 +227,7 @@ def pollDistance():
 
 def adjustSpeed():
 	# we stay basically still unless...
-	arduinoValue = 150
+	arduinoValue = motorBreak
 
 	# if more than twice an obstacle has been detected
 	if numMeasurements > 2:
@@ -243,18 +243,19 @@ def adjustSpeed():
 
 		# the last face was only 3 seconds ago detected, we stay at full speed
 		if timePassed < 3:
-			arduinoValue = 10
+			# speedup with linear ramp over three seconds!
+			arduinoValue = motorFull + (motorFull-motorNeutral)*timePassed/3
 
 		else:
 			# we gradually slow down over the next ten seconds until we stop
 			if timePassed < 10:
 				# 10 is full speed, the other 90 (to reach 100, which is stop)
 				# are spread over ten seconds
-				arduinoValue = 10 + 9*timePassed
+				arduinoValue = motorFull + (motorNeutral-motorFull)*timePassed/10
 
 			# if the last face has been detected more than 10 seconds ago, we stay still
 			else:
-				arduinoValue = 150
+				arduinoValue = motorBreak
 
 	commandArduino(motorDevice, arduinoValue)
 
@@ -266,15 +267,15 @@ def adjustSteering():
 	timePassed = now - lastFaceDetected
 	relX = lastRelativeFacePosition
 	if timePassed < 3:
-		if relX < 0.5:
-			prct = 2*relX
-			print "steering left {}%".format(prct*100)
-			commandArduino(servoDevice, servoLeft + (servoCenter-servoLeft)*prct)
+		if relX < 0:
+			cmd = servoCenter+(servoCenter-servoLeft)*relX #relX will be negative
+			print "steering left {}% = command to arduino: {}".format(relX*100, cmd)
+			commandArduino(servoDevice, cmd)
 
 		else:
-			prct = 2*(relX-0.5)
-			print "steering right {}%".format(prct*100)
-			commandArduino(servoDevice, servoCenter + (servoRight-servoCenter)*prct)
+			cmd = servoCenter+(servoRight-servoCenter)*relX
+			print "steering right {}% = command to arduino: {}".format(relX*100, cmd)
+			commandArduino(servoDevice, cmd)
 
 	else:
 		pass

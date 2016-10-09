@@ -31,16 +31,21 @@ class FaceDetect:
 			sortedFaces = sorted(faces, self.getSortMeasure)
 			arrFaces = []
 			for af in faces:
-				# gonna be: [x, y, w, h, relX, relY, relW, relH]
-				face = [af[0], af[1], af[2], af[3]]
 				cv2.rectangle(frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
-				# percentage; left 0%, right 100%
+				# gonna be: [x, y, w, h, relX, relY, relW, relH]
+				# set x, y, w, h
+				face = [af[0], af[1], af[2], af[3]]
+				# percentage; left -100%, right 100%: [-1,1]
 				fw = float(self.imageWidth)
 				fh = float(self.imageHeight)
-				face.append((af[0]+af[2]/2)/fw)
-				# percentage; top 0%, bottom 100%
-				face.append((af[1]+af[3]/2)/fh)
+
+				# range; [-1, 1]
+				face.append((2*af[0]+af[2])/fw-1)
+				# range[-1, 1]
+				face.append((2*af[1]+af[3])/fh-1)
+				# appending relative width
 				face.append(af[2]/fw)
+				# appending relative height
 				face.append(af[3]/fh)
 				arrFaces.append(face)
 
