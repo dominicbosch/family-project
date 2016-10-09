@@ -325,8 +325,10 @@ def faceHasBeenDetected(arrFaces):
 # keep-alive:	arduino4	254		0		255
 def commandArduino(device, value):
 	# print('Executing Arduino command device {}, value {}'.format(device, value))
-	writeLog('{} new face(s) detected'.format(len(arrFaces)))
-	answerString = subprocess.check_output([arduinoCommand, str(device), str(int(value)), '255'])
+	dev = str(device)
+	cmd = str(int(value))
+	writeLog('Executing device={}, command={}', dev, cmd)
+	answerString = subprocess.check_output([arduinoCommand, dev, cmd, '255'])
 	arr = answerString.split('\n')
 	answer = 0
 	if len(arr) > 4:
