@@ -338,7 +338,7 @@ def commandArduino(device, value):
 
 time.sleep(0.1)
 try:
-	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath, vflip=False)
+	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath)
 	Thread(target=pollDistance, args=()).start()
 	detector.start(faceHasBeenDetected)
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')

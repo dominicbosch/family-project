@@ -5,7 +5,7 @@ import datetime
 from pivideostream import PiVideoStream
 
 class FaceDetect:
-	def __init__(self, resolution=(1024, 768), framerate=32, hflip=True, vflip=True, path=""):
+	def __init__(self, resolution=(1024, 768), framerate=32, hflip=False, vflip=False, path=""):
 		self.imageWidth = resolution[0]
 		self.imageHeight = resolution[1]
 		self.framerate = framerate
