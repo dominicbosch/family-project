@@ -47,8 +47,10 @@ if args.simulate:
 	arduinoCommand = '../i2c/simulateArduino.py'
 	timeFactor = 20 # simulation slowdown
 else:
-	from facedetect import FaceDetect
-	arduinoCommand = '../i2c/arduino4'
+	from simulatefacedetect import SimulateFaceDetect as FaceDetect
+	# from facedetect import FaceDetect
+	arduinoCommand = '../i2c/simulateArduino.py'
+	# arduinoCommand = '../i2c/arduino4'
 
 
 
@@ -168,6 +170,8 @@ motorReverse = castConfigToInt('Motor','reverse')
 ultrasonicDevice = castConfigToInt('Ultrasonic','device')
 # is this 100 cm? what comes back from the arduin4 command?
 ultrasonicMaxDistance = castConfigToInt('Ultrasonic','maximum-distance')
+pollPerSecond = castConfigToInt('Ultrasonic','poll-per-second')
+writeLog('Polling {} times per second'.format(pollPerSecond))
 # ultrasonic = ultrasonicMaxDistance # we assume no obstacles at the beginning
 ultrasonic = 0 # we assume obstacles unless arduino tells us something else
 
@@ -205,10 +209,10 @@ lastRelativeFacePosition = 0
 # linear ramp for motor deceleration:
 # y = m*x + b 
 # m = (maxArduinoValue - minArduinoValue) / (farDistance - minDistance)
-m = (motorFull - motorNeutral) / (ultrasonicMaxDistance - stopDistance)
+m = (motorFull - motorNeutral) / (slowDownDistance - stopDistance)
 # calculate b (= y-intercept of linear ramp) by putting any point into the equation,
-# e.g. 20 = m * 100 + b (m is defined above because we have two points), then solve for b
-b = 122.5
+# e.g. 100 = m * 20 + b (m is defined above because we have two points), then solve for b
+b = motorNeutral - stopDistance * m
 
 # Thread function, looping forever
 def pollDistance():
@@ -221,9 +225,10 @@ def pollDistance():
 
 		# if measured distance is below slowdown distance
 		if ultrasonic < slowDownDistance:
-			writeLog('obstc | Verified obstacle in {:.2f}cm'.format(ultrasonic))
 			# we increment the obstacle measurement counter 
 			numMeasurements += 1
+			if numMeasurements > 2:
+				writeLog('obstc | Verified obstacle in {:.2f}cm'.format(ultrasonic))
 			adjustSpeed()
 
 		# we reset the obstacle measurement counter because ther is nothing anymore
@@ -237,7 +242,7 @@ def pollDistance():
 		adjustSteering()
 
 		# we only poll the ultrasonic sensor every 100 ms
-		time.sleep(0.1*timeFactor)
+		time.sleep(timeFactor/pollPerSecond)
 
 
 # We need to know whether we are already ramping up, so that new pictures 
@@ -281,17 +286,19 @@ def adjustSpeed():
 
 	# if more than twice an obstacle has been detected we slow down if we are not already breaking
 	if arduinoValue != motorBreak and numMeasurements > 2:
-		writeLog('motor | obstacle in: {}cm'.format(ultrasonic))
-		# slow down with a linear ramp y = m*x + b defined above.
-		# if it is far away, the value would be under motorFull, thus we take
-		# the maximum value in order to not send negative numbers to the arduino command
-		arduinoValue = max(m*ultrasonic+b, motorFull)
-		if arduinoValue > motorNeutral:
-			# if we are closer than neutral position, we break
-			arduinoValue = motorBreak
-			writeLog('motor | !BREAKING! because of obstacle')
-		else:
-			writeLog('motor | Slowing down because of obstacle')
+		if ultrasonic < slowDownDistance:
+			writeLog('motor | obstacle in: {}cm'.format(ultrasonic))
+			# slow down with a linear ramp y = m*x + b defined above.
+			# if it is far away, the value would be under motorFull, thus we take
+			# the maximum value in order to not send negative numbers to the arduino command
+			arduinoValue = max(m*ultrasonic+b, motorFull)
+			# writeLog('us={}, m={}, b={}, mF={}, aV={}, '.format(ultrasonic, m, b, motorFull, arduinoValue))
+			if arduinoValue > motorNeutral:
+				# if we are closer than neutral position, we break
+				arduinoValue = motorBreak
+				writeLog('motor | !BREAKING! because of obstacle')
+			else:
+				writeLog('motor | Slowing down because of obstacle')
 	writeLog('MOTOR | FINAL DECISION: {}'.format(arduinoValue))
 	commandArduino(motorDevice, arduinoValue)
 
@@ -302,6 +309,7 @@ def adjustSteering():
 	# how much time since the last face detection passed 
 	timePassed = now - lastFaceDetected
 	relX = lastRelativeFacePosition
+	writeLog('steer | time since last face {:.2f}s'.format(timePassed))
 
 	# if we are still in valid turn time, we turn
 	if timePassed < turnTime*timeFactor:
