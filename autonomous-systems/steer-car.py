@@ -297,7 +297,7 @@ def adjustSpeed():
 				writeLog('motor | !BREAKING! because of obstacle')
 			else:
 				writeLog('motor | Slowing down because of obstacle')
-	writeLog('MOTOR | FINAL DECISION: {}'.format(arduinoValue))
+	writeLog('MOTOR | FINAL DECISION SENT: {}'.format(arduinoValue))
 	commandArduino(motorDevice, arduinoValue)
 
 
