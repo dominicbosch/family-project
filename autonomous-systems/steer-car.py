@@ -1,3 +1,5 @@
+from __future__ import division
+
 import time
 import datetime
 import sys
@@ -37,14 +39,17 @@ parser.add_argument('-s',
 # Parse command line arguments and see if something useful was provided
 args = parser.parse_args()
 
+timeFactor = 1
 # We add the camera folder to the path where python looks for imports
 sys.path.insert(0, '../camera')
 if args.simulate:
 	from simulatefacedetect import SimulateFaceDetect as FaceDetect
 	arduinoCommand = '../i2c/simulateArduino.py'
+	timeFactor = 20 # simulation slowdown
 else:
 	from facedetect import FaceDetect
 	arduinoCommand = '../i2c/arduino4'
+
 
 
 # Define the log leveld epending on whether verbose is desired
@@ -147,6 +152,7 @@ def castConfigToInt(section, option):
 
 stopDistance = castConfigToInt('Steering','stop-distance')
 slowDownDistance = castConfigToInt('Steering','slowdown-distance')
+turnTime = castConfigToInt('Steering','turn-time-ms')
 
 servoDevice = castConfigToInt('Servo','device')
 servoLeft = castConfigToInt('Servo','servo-left')
@@ -165,11 +171,17 @@ ultrasonicMaxDistance = castConfigToInt('Ultrasonic','maximum-distance')
 # ultrasonic = ultrasonicMaxDistance # we assume no obstacles at the beginning
 ultrasonic = 0 # we assume obstacles unless arduino tells us something else
 
+# when a distance under slowDownDistance is measured, the counter is increased
+# if more than two subsequent measurements are under slowDownDistance we start to slow down
+# initially we assume obstacles
+numMeasurements = 3
+
 temperatureDevice = castConfigToInt('Temperature','device')
 keepAliveDevice = castConfigToInt('KeepAlive','device')
 camRes = (castConfigToInt('Camera','width'), castConfigToInt('Camera','height'))
 camRate = castConfigToInt('Camera','framerate')
 imagePath = config['Camera']['imagepath']
+avgDetectTime = castConfigToInt('Camera', 'average-detect-time-ms')
 
 
 # ###
@@ -181,13 +193,14 @@ isRunning = True
 
 # we initialize the last face detected at the beginning of the (unix) time
 lastFaceDetected = 1
+# If we are ramping up, new lastFaceDetected can't influence the ramp,
+# thus we need to register the ramp up face
+rampUpFace = 1
+rampUpTime = 1 # we ramp up the speed for one second
 
 # we initialize at the center
 lastRelativeFacePosition = 0
 
-# when a distance under slowDownDistance is measured, the counter is increased
-# if more than two subsequent measurements are under slowDownDistance we start to slow down
-numMeasurements = 0
 
 # linear ramp for motor deceleration:
 # y = m*x + b 
@@ -197,72 +210,89 @@ m = (motorFull - motorNeutral) / (ultrasonicMaxDistance - stopDistance)
 # e.g. 20 = m * 100 + b (m is defined above because we have two points), then solve for b
 b = 122.5
 
-numPoll = 0
 # Thread function, looping forever
 def pollDistance():
 	global numMeasurements
 	global ultrasonic
-	global numPoll
 
 	while isRunning:
-
 		# Refresh the ultrasonic measurement
 		ultrasonic = commandArduino(ultrasonicDevice, 0)
-		numPoll += 1
-		if numPoll == 10:
-			writeLog('Next obstacle in {}cm'.format(ultrasonic))
-			numPoll = 0
 
 		# if measured distance is below slowdown distance
 		if ultrasonic < slowDownDistance:
+			writeLog('obstc | Verified obstacle in {:.2f}cm'.format(ultrasonic))
 			# we increment the obstacle measurement counter 
 			numMeasurements += 1
 			adjustSpeed()
 
 		# we reset the obstacle measurement counter because ther is nothing anymore
 		else:
+			if args.simulate:
+				writeLog('obstc | Cleared obstacle counter')
 			numMeasurements = 0
 
 		# we do want to adjust the steering at any point in time because
 		# we might have lost contact to the face and need to acquire a new target
 		adjustSteering()
 
-		# we only poll the ultrasonic sensor every 200 ms
-		time.sleep(0.1)
+		# we only poll the ultrasonic sensor every 100 ms
+		time.sleep(0.1*timeFactor)
 
 
+# We need to know whether we are already ramping up, so that new pictures 
+# are not causing an immediate slow down
+isRampingUp = True
 def adjustSpeed():
-	# we stay basically still unless...
-	arduinoValue = motorBreak
+	global rampUpFace
+	now = time.time()
 
-	# if more than twice an obstacle has been detected
-	if numMeasurements > 2:
-		# slow down with a linear ramp y = m*x + b defined above
-		# set the decelerated speed
-		arduinoValue = m * ultrasonic + b
+	# how much time since the last face detection passed 
+	timePassed = now - lastFaceDetected
+	writeLog('motor | Last face detected {:.2f}s ago'.format(timePassed))
+	# the last face was only 1 second ago detected, we speed up
+	# if we are already in a speedup ramp we do not adjust to latest picture!
+	if timePassed < 1*timeFactor and now-rampUpFace < rampUpTime:
+		# speedup with linear ramp over one second!
+		arduinoValue = motorNeutral-(motorNeutral-motorFull)*timePassed/3
+		writeLog('motor | Speeding up!')
 
-	else:
-		now = time.time()
+	# between 1 to 3 seconds since lasg face detected we stay at full speed
+	elif timePassed < 3*timeFactor:
+		arduinoValue = motorFull
+		writeLog('motor | Staying at full speed!')
+
+	# if more than 3 seconds passed since last face detected, 
+	# we gradually slow down over the next seven seconds until we stop
+	elif timePassed < 10*timeFactor:
+		# we reset the ramp up face
+		rampUpFace = 1
 		
-		# how much time since the last face detection passed 
-		timePassed = now - lastFaceDetected
+		# 10 is full speed, the other 90 (to reach 100, which is stop)
+		# are spread over ten seconds
+		arduinoValue = motorFull+(motorNeutral-motorFull)*timePassed/10
+						# 70				100			70			
+		writeLog('motor | Slowing down because no more face detected')
 
-		# the last face was only 3 seconds ago detected, we stay at full speed
-		if timePassed < 3:
-			# speedup with linear ramp over three seconds!
-			arduinoValue = motorNeutral-(motorNeutral-motorFull)*timePassed/3
+	# if the last face has been detected more than 10 seconds ago, we stay still
+	else:
+		arduinoValue = motorBreak
+		writeLog('motor | !BREAKING! because no faces')
 
+	# if more than twice an obstacle has been detected we slow down if we are not already breaking
+	if arduinoValue != motorBreak and numMeasurements > 2:
+		writeLog('motor | obstacle in: {}cm'.format(ultrasonic))
+		# slow down with a linear ramp y = m*x + b defined above.
+		# if it is far away, the value would be under motorFull, thus we take
+		# the maximum value in order to not send negative numbers to the arduino command
+		arduinoValue = max(m*ultrasonic+b, motorFull)
+		if arduinoValue > motorNeutral:
+			# if we are closer than neutral position, we break
+			arduinoValue = motorBreak
+			writeLog('motor | !BREAKING! because of obstacle')
 		else:
-			# we gradually slow down over the next ten seconds until we stop
-			if timePassed < 10:
-				# 10 is full speed, the other 90 (to reach 100, which is stop)
-				# are spread over ten seconds
-				arduinoValue = motorFull+(motorNeutral-motorFull)*timePassed/10
-								# 70				100			70			
-			# if the last face has been detected more than 10 seconds ago, we stay still
-			else:
-				arduinoValue = motorBreak
-
+			writeLog('motor | Slowing down because of obstacle')
+	writeLog('MOTOR | FINAL DECISION: {}'.format(arduinoValue))
 	commandArduino(motorDevice, arduinoValue)
 
 
@@ -272,18 +302,28 @@ def adjustSteering():
 	# how much time since the last face detection passed 
 	timePassed = now - lastFaceDetected
 	relX = lastRelativeFacePosition
-	if timePassed < 3:
+
+	# if we are still in valid turn time, we turn
+	if timePassed < turnTime*timeFactor:
 		if relX < 0:
 			cmd = servoCenter+(servoCenter-servoLeft)*relX #relX will be negative
-			writeLog("steering left {}% = command to arduino: {}".format(relX*100, cmd))
+			# writeLog("steering left {}% = command to arduino: {}".format(relX*100, cmd))
 			commandArduino(servoDevice, cmd)
 
 		else:
 			cmd = servoCenter+(servoRight-servoCenter)*relX
-			writeLog("steering right {}% = command to arduino: {}".format(relX*100, cmd))
+			# writeLog("steering right {}% = command to arduino: {}".format(relX*100, cmd))
 			commandArduino(servoDevice, cmd)
+		writeLog('STEER | TURNING: {}'.format(cmd))
 
+	# if we are under the detect time we assume we are heading the right direction, thus we stop turning
+	elif timePassed < avgDetectTime*timeFactor:
+		writeLog('steer | Heading straight')
+		commandArduino(servoDevice, servoCenter)
+
+	# if turn time passed, we don't know what to do anymore. So we start going left right
 	else:
+		writeLog('steer | TODO should go left, right, left,... until new face detected or stop')
 		pass
 		# print "else"
 	# use sinus if face hasnt been detected for 3 seconds
@@ -299,15 +339,21 @@ def adjustSteering():
 	# else head towards the face
 
 def faceHasBeenDetected(arrFaces):
+	global rampUpFace
 	global lastFaceDetected
 	global lastRelativeFacePosition
 
+	numF = len(arrFaces)
+	xPerc = arrFaces[0][4]*100
+	writeLog('faces | {} new face(s) detected, nearest at {:.2f}%'.format(numF, xPerc))
+
 	# new timestamp for last face detection
 	lastFaceDetected = time.time()
+	# if the rampUpFace is not set (=1), we take this timestamp for it
+	if rampUpFace == 1:
+		rampUpFace = lastFaceDetected
 	adjustSpeed()
 
-	writeLog('{} new face(s) detected'.format(len(arrFaces)))
-	writeLog('Nearest face at {}'.format(arrFaces[0][4]))
 
 	# we only head for the biggest face
 	(x, y, w, h, relX, relY, relW, relH) = arrFaces[0]
@@ -327,7 +373,7 @@ def commandArduino(device, value):
 	# print('Executing Arduino command device {}, value {}'.format(device, value))
 	dev = str(device)
 	cmd = str(int(value))
-	writeLog('Executing device={}, command={}'.format(dev, cmd))
+	# writeLog('Executing device={}, command={}'.format(dev, cmd))
 	answerString = subprocess.check_output([arduinoCommand, dev, cmd, '255'])
 	arr = answerString.split('\n')
 	answer = 0

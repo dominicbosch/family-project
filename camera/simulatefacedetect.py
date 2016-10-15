@@ -18,18 +18,20 @@ class SimulateFaceDetect:
 		Thread(target=self.simulate, args=()).start()
 
 	def simulate(self):
+		time.sleep(5) # we just wait 5 seconds at the beginning
 		while self.isRunning:
 			self.loopNum += 1
 			# gonna be: [x, y, w, h, relX, relY, relW, relH]
 			arrFaces = [[
 				self.fw, self.fh, self.fw, self.fh,
-				random.random(), random.random(), 1/4, 1/4
-			]]
+				# shift random number from [0, 1) to [-1,1)
+				2*random.random()-1, 2*random.random()-1, 1/4, 1/4
+			]] 
 			self.callback(arrFaces)
 			# This is a delaying function which means that after ten iterations
 			# the possibility to not see a face for twenty seconds is pretty high
 			sleep = random.random()+10*abs(math.sin(math.pi*self.loopNum/5))
-			print '\nface detect sleeping {}s\n'.format(sleep)
+			# print '\nface detect sleeping {}s\n'.format(sleep)
 			time.sleep(sleep)
 
 	def stop(self):
