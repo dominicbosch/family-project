@@ -47,10 +47,8 @@ if args.simulate:
 	arduinoCommand = '../i2c/simulateArduino.py'
 	timeFactor = 20 # simulation slowdown
 else:
-	from simulatefacedetect import SimulateFaceDetect as FaceDetect
-	# from facedetect import FaceDetect
-	arduinoCommand = '../i2c/simulateArduino.py'
-	# arduinoCommand = '../i2c/arduino4'
+	from facedetect import FaceDetect
+	arduinoCommand = '../i2c/arduino4'
 
 
 
