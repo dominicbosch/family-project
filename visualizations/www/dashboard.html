@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accelerator Visualization</title>
+	<link rel="stylesheet" href="css/dashboard.css">
+	<script src="http://d3js.org/d3.v4.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script src="js/dashboard.js"></script>
+</head>
+
+<!-- The body contains what actually will be displayed in the browser -->
+<body>
+	<h1>Cat(ch) Dashboard</h1>
+	<div id="controls">
+		<img id="starter" class="stopped">
+	</div>
+	<svg id="sensors" xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 350 260">
+
+		<!-- The marker attached to the arrow as pointy tip -->
+		<marker id="triangle" class="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto">
+			<path d="M 0 0 L 10 5 L 0 10 z"/>
+		</marker>
+
+		<!-- the circle needs a bit shifting to left down by 10 pixel each -->
+		<g transform="translate(10, 10)">
+			<!-- the axis lines through the circle -->
+			<line class="axis" x1="-10" y1="100" x2="210" y2="100" />
+			<line class="axis" x1="100" y1="-10" x2="100" y2="210" />
+			<text x="210" y="110">x</text>
+			<text x="105" y="-5">y</text>
+			<!-- the circle around the axis -->
+			<!-- <circle class="axis" cx="100" cy="100" r="100"></circle> -->
+			<rect class="axis" x="0" y="0" width="200" height="200"></rect>
+			
+			<!-- the actual arrow -->
+			<line id="arrow" class="arrow" x1="100" y1="100" x2="200" y2="15" marker-end="url(#triangle)" />
+			<text id="xyval" class="val" x="220" y="35">(1,1)</text>
+			
+			<!-- a little dot in the middle of the circle -->
+			<circle class="arrow" cx="100" cy="100" r="5"></circle>
+			<path id="xypath" d="M 200 15" />
+		</g>
+
+		<!-- the Z Axis -->
+		<g transform="translate(10, 10)">
+			<rect id="zrect" x="240" y="100" width="35" height="100" />
+			<line class="axis" x1="230" y1="100" x2="285" y2="100" />
+			<text id="zval" class="val" x="257" y="210">-1</text>
+			<text x="290" y="110">z</text>
+		</g>
+	</svg>
+	<div id="camwrap">
+		<img id="camera" />
+		<div id="elapsed"></div>
+	</div>
+	<!-- The command section to send commands to the server and receive them back -->
+	<table>
+		<tr>
+			<td class="linetitle">Command to send to server: </td>
+			<td>
+				<input type="text" id="cmd" />
+				<button onclick="sendCommand()">send</button>
+			</td>
+		</tr>
+		<tr>
+			<td class="linetitle">Command received from server: </td>
+			<td id="currentcommand"></td>
+		</tr>
+	</table>
+</body>
+</html>

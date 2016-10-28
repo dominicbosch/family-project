@@ -58,6 +58,7 @@ if args.verbose:
 else:
 	loglevel = logging.INFO
 
+# Define logging format
 # logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s',
 logging.basicConfig(format='%(asctime)s %(message)s',
 	datefmt='[%Y-%m-%d|%H:%M:%S]',
@@ -96,12 +97,8 @@ def parseConfigOptions():
 		cfg[s] = {}
 		options = oConfig.options(s)
 		for opt in options:
-			# try:
-			# 	# Try to fetch an integer
-			# 	cfg[s][opt] = oConfig.getint(s, opt)
-			# except:
 			try:
-				# Otherwise fetch the string
+				# try to fetch the string
 				cfg[s][opt] = oConfig.get(s, opt)
 			except:
 				logging.warn('exception on {}!'.format(opt))
@@ -112,13 +109,14 @@ def parseConfigOptions():
 # Parse the configuration file
 config = parseConfigOptions()
 requiredConfig = {
-	'Steering': ['stop-distance','slowdown-distance'],
+	'Steering': ['stop-distance','slowdown-distance', 'turn-time-ms'],
 	'Servo': ['device','servo-left','servo-center','servo-right'],
 	'Motor': ['device','fullspeed','neutral','break','reverse'],
 	'Ultrasonic': ['device','maximum-distance'],
 	'Temperature': ['device'],
+	'Accelerator': ['device'],
 	'KeepAlive': ['device'],
-	'Camera': ['width','height','framerate','imagepath']	
+	'Camera': ['width','height','framerate','imagepath', 'average-detect-time-ms']	
 }
 
 # Beautiful Python magic to find all the missing config options... :-D
@@ -179,6 +177,7 @@ ultrasonic = 0 # we assume obstacles unless arduino tells us something else
 numMeasurements = 3
 
 temperatureDevice = castConfigToInt('Temperature','device')
+acceleratorDevice = castConfigToInt('Accelerator','device')
 keepAliveDevice = castConfigToInt('KeepAlive','device')
 camRes = (castConfigToInt('Camera','width'), castConfigToInt('Camera','height'))
 camRate = castConfigToInt('Camera','framerate')
@@ -216,10 +215,25 @@ b = motorNeutral - stopDistance * m
 def pollDistance():
 	global numMeasurements
 	global ultrasonic
+	i = 0
 
 	while isRunning:
 		# Refresh the ultrasonic measurement
 		ultrasonic = commandArduino(ultrasonicDevice, 0)
+
+		# After polling the distance 10 times, we poll all other sensor data as well:
+		i += 1
+		if i == 10:
+			temp = commandArduino(temperatureDevice, 0)
+			x = commandArduino(acceleratorDevice, 0)
+			y = commandArduino(acceleratorDevice, 1)
+			z = commandArduino(acceleratorDevice, 2)
+			writeLog('sensr | Temperature: {:.2f} C'.format(temp))
+			writeLog('sensr | Accelerator: X={:.2f}'.format(x))
+			writeLog('sensr | Accelerator: Y={:.2f}'.format(y))
+			writeLog('sensr | Accelerator: Z={:.2f}'.format(z))
+
+			i = 1
 
 		# if measured distance is below slowdown distance
 		if ultrasonic < slowDownDistance:
@@ -252,7 +266,7 @@ def adjustSpeed():
 
 	# how much time since the last face detection passed 
 	timePassed = now - lastFaceDetected
-	writeLog('motor | Last face detected {:.2f}s ago'.format(timePassed))
+	writeLog('faces | Last face detected {:.2f}s ago'.format(timePassed))
 	# the last face was only 1 second ago detected, we speed up
 	# if we are already in a speedup ramp we do not adjust to latest picture!
 	if timePassed < 1*timeFactor and now-rampUpFace < rampUpTime:
@@ -297,7 +311,8 @@ def adjustSpeed():
 				writeLog('motor | !BREAKING! because of obstacle')
 			else:
 				writeLog('motor | Slowing down because of obstacle')
-	writeLog('MOTOR | FINAL DECISION SENT: {}'.format(arduinoValue))
+
+	writeLog('MOTOR | FINAL DECISION SENT: {}'.format(int(arduinoValue)))
 	commandArduino(motorDevice, arduinoValue)
 
 
@@ -320,7 +335,7 @@ def adjustSteering():
 			cmd = servoCenter+(servoRight-servoCenter)*relX
 			# writeLog("steering right {}% = command to arduino: {}".format(relX*100, cmd))
 			commandArduino(servoDevice, cmd)
-		writeLog('STEER | TURNING: {}'.format(cmd))
+		writeLog('STEER | TURNING: {}'.format(int(cmd)))
 
 	# if we are under the detect time we assume we are heading the right direction, thus we stop turning
 	elif timePassed < avgDetectTime*timeFactor:
@@ -351,7 +366,7 @@ def faceHasBeenDetected(arrFaces):
 
 	numF = len(arrFaces)
 	xPerc = arrFaces[0][4]*100
-	writeLog('faces | {} new face(s) detected, nearest at {:.2f}%'.format(numF, xPerc))
+	writeLog('faces | new face(s) detected ({}), nearest at {:.2f}%'.format(numF, xPerc))
 
 	# new timestamp for last face detection
 	lastFaceDetected = time.time()
