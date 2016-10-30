@@ -2,7 +2,7 @@ window.addEventListener('load', function load(event){
 	window.removeEventListener('load', load, false);
 
 
-	var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://'+window.location.hostname+':8080');
 	var df = d3.format('.2');
 	function fVal(val) {
 		// since currently we receive values between [0,1), we transform them 
