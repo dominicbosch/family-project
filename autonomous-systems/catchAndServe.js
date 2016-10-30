@@ -11,7 +11,10 @@ const io = require('socket.io')(server);
 const cp = require('child_process');
 const chokidar = require('chokidar');
 
-let lastImage, pythonProcess;
+let lastImage;
+let lastImagePath;
+let pythonProcess;
+let hasStarted = false;
 
 
 // Mir serviere alli website us family-project/visualizations/www
@@ -131,15 +134,22 @@ function extractValue(line, str, cutoff) {
 	return ret;
 }
 
-// One-liner for current directory, ignores .dotfiles
-chokidar.watch('detected-faces/*').on('add', path => {
-	console.log('new file', path);
+chokidar.watch('detected-faces/*.jpg').on('add', path => {
 	// Give the raspberry 100ms time to store the image properly before reading it
 	// Only needed for huge images...
-	setTimeout(() => {
-		fs.readFile(path, (err, buf) => {
-			lastImage = buf.toString('base64');
-			io.emit('faceCapture', lastImage);
-		});
-	}, 100);
+	if(hasStarted) setTimeout(() => broadcastImage(path), 100);
+	else lastImagePath = path;
 });
+setTimeout(() => {
+	hasStarted = true;
+	console.log('Initialization finished. loading last image');
+	broadcastImage(lastImagePath);
+}, 5000);
+
+function broadcastImage(path) {
+	console.log('loading new image', path);
+	fs.readFile(path, (err, buf) => {
+		lastImage = buf.toString('base64');
+		io.emit('faceCapture', lastImage);
+	});
+}

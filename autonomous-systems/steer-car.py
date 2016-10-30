@@ -5,6 +5,8 @@ import datetime
 import sys
 import math
 import os.path
+import atexit
+import signal
 
 # easy logging:
 import logging
@@ -111,7 +113,7 @@ config = parseConfigOptions()
 requiredConfig = {
 	'Steering': ['stop-distance','slowdown-distance', 'turn-time-ms'],
 	'Servo': ['device','servo-left','servo-center','servo-right'],
-	'Motor': ['device','fullspeed','neutral','break','reverse'],
+	'Motor': ['device','fullspeed','neutral','fullback','break'],
 	'Ultrasonic': ['device','maximum-distance'],
 	'Temperature': ['device'],
 	'Accelerator': ['device'],
@@ -161,7 +163,6 @@ motorDevice = castConfigToInt('Motor','device')
 motorFull = castConfigToInt('Motor','fullspeed')
 motorNeutral = castConfigToInt('Motor','neutral')
 motorBreak = castConfigToInt('Motor','break')
-motorReverse = castConfigToInt('Motor','reverse')
 
 ultrasonicDevice = castConfigToInt('Ultrasonic','device')
 # is this 100 cm? what comes back from the arduin4 command?
@@ -385,7 +386,7 @@ def faceHasBeenDetected(arrFaces):
 # commandArduino
 								# 100 = center
 # Servo:		arduino4	1	[45-150]	255
-								# stop 150 fullback 200
+								# stop 200 fullback 200
 # Motor:		arduino4	2	[100-10]	255
 # Ultraschall:	arduino4	10		0		255 
 # Temperatur:	arduino4	11		0		255
@@ -408,6 +409,19 @@ def commandArduino(device, value):
 				answer = -1
 	return answer
 
+def exitHandler(*args):
+	writeLog('Killed! Bye!')
+	detector.stop()
+	isRunning = False
+	commandArduino(motorDevice, motorBreak)
+	sys.exit(0)
+
+signal.signal(signal.SIGINT, exitHandler)
+signal.signal(signal.SIGTERM, exitHandler)
+# atexit.register(exitHandler)
+# signal.signal(signal.SIGINT, exitHandler)
+# signal.signal(signal.SIGTERM, exitHandler)
+
 
 # ###
 # EVERYTHING starts here, after above definitions
@@ -419,15 +433,12 @@ try:
 	Thread(target=pollDistance, args=()).start()
 	detector.start(faceHasBeenDetected)
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')
-	detector.stop()
-	isRunning = False
-	commandArduino(motorDevice, motorBreak)
 	writeLog('Bye!')
 
 except KeyboardInterrupt:
 	writeLog('Forced Bye!')
+
+finally:
 	detector.stop()
+	isRunning = False
 	commandArduino(motorDevice, motorBreak)
-
-
-
