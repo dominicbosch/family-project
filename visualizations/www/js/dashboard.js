@@ -132,7 +132,7 @@ window.addEventListener('load', function load(event){
 	var cam = document.getElementById('camera');
 	socket.on('faceCapture', function(img) {
 		lastFaceDetected = (new Date()).getTime();
-		cam.setAttribute('src', 'data:image/png;base64,'+img);
+		cam.setAttribute('src', 'data:image/jpg;base64,'+img);
 		if(!timer) {
 			timer = setInterval(function() {
 				var now = (new Date()).getTime();
