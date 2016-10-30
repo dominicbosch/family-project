@@ -143,7 +143,7 @@ chokidar.watch('detected-faces/*.jpg').on('add', path => {
 setTimeout(() => {
 	hasStarted = true;
 	console.log('Initialization finished. loading last image');
-	broadcastImage(lastImagePath);
+	if(lastImagePath) broadcastImage(lastImagePath);
 }, 5000);
 
 function broadcastImage(path) {
