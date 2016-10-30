@@ -198,7 +198,7 @@ lastFaceDetected = 1
 # If we are ramping up, new lastFaceDetected can't influence the ramp,
 # thus we need to register the ramp up face
 rampUpFace = 1
-rampUpTime = 1 # we ramp up the speed for one second
+rampUpTime = 3 # we ramp up the speed for one second
 
 # we initialize at the center
 lastRelativeFacePosition = 0
@@ -226,13 +226,13 @@ def pollDistance():
 		i += 1
 		if i == 10:
 			temp = commandArduino(temperatureDevice, 0)
-			x = commandArduino(acceleratorDevice, 0)
-			y = commandArduino(acceleratorDevice, 1)
-			z = commandArduino(acceleratorDevice, 2)
+			# x = commandArduino(acceleratorDevice, 0)
+			# y = commandArduino(acceleratorDevice, 1)
+			# z = commandArduino(acceleratorDevice, 2)
 			writeLog('sensr | Temperature: {:.2f} C'.format(temp))
-			writeLog('sensr | Accelerator: X={:.2f}'.format(x))
-			writeLog('sensr | Accelerator: Y={:.2f}'.format(y))
-			writeLog('sensr | Accelerator: Z={:.2f}'.format(z))
+			# writeLog('sensr | Accelerator: X={:.2f}'.format(x))
+			# writeLog('sensr | Accelerator: Y={:.2f}'.format(y))
+			# writeLog('sensr | Accelerator: Z={:.2f}'.format(z))
 
 			i = 1
 
