@@ -77,7 +77,12 @@ window.addEventListener('load', function load(event){
 			.classed('stopped', true);
 	});
 
-
+	socket.on('steer', function(val) {
+		d3.select('#wheel')
+			.transition()
+			.duration(500)
+			.style('transform', 'rotate('+val+'deg)');
+	});
 
 
 	// 	io.emit('ultrasonic', parseFloat(extractValue(line, strng, 2)));
@@ -122,11 +127,19 @@ window.addEventListener('load', function load(event){
 	// } else if(line.indexOf(strng='steer | Heading straight') > -1) {
 	// 	io.emit('steer', 0);
 
-
+	var timer;
+	var lastFaceDetected;
 	var cam = document.getElementById('camera');
 	socket.on('faceCapture', function(img) {
 		lastFaceDetected = (new Date()).getTime();
-		cam.setAttribute('src', 'data:image/png;base64,'+img);   
+		cam.setAttribute('src', 'data:image/png;base64,'+img);
+		if(!timer) {
+			timer = setInterval(function() {
+				var now = (new Date()).getTime();
+				var elapsed = Math.round((now-lastFaceDetected)/10);
+				d3.select('#elapsed').text((elapsed/100)+'s since face detection');
+			}, 1000/11);
+		} 
 	});
 
 	// The user pressed the send button and wants to send a command to the server
@@ -141,11 +154,5 @@ window.addEventListener('load', function load(event){
 		}
 	}
 
-
-	var timer = setInterval(function() {
-		var now = (new Date()).getTime();
-		var elapsed = Math.round((now-lastFaceDetected)/10);
-		d3.select('#elapsed').text((elapsed/100)+'s since last update');
-	}, 1000/11);
 
 },false);

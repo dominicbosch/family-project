@@ -120,7 +120,7 @@ function processLine(line) {
 }
 
 function broadcast(cmd, val) {
-	io.emit('steer', val);
+	io.emit(cmd, val);
 	console.log('Broadcasting command='+cmd+', value='+val);
 }
 

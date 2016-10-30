@@ -11,8 +11,14 @@
 <!-- The body contains what actually will be displayed in the browser -->
 <body>
 	<h1>Cat(ch) Dashboard</h1>
+	<div id="camwrap">
+		<img id="camera" /><br>
+		<div id="elapsed"></div>
+	</div>
 	<div id="controls">
+		<img id="wheel" src="img/steer.png">
 		<img id="starter" class="stopped">
+		<div id="ultrasonic">
 	</div>
 	<svg id="sensors" xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 350 260">
 
@@ -49,10 +55,6 @@
 			<text x="290" y="110">z</text>
 		</g>
 	</svg>
-	<div id="camwrap">
-		<img id="camera" />
-		<div id="elapsed"></div>
-	</div>
 	<!-- The command section to send commands to the server and receive them back -->
 	<table>
 		<tr>

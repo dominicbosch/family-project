@@ -7,7 +7,6 @@ html, body {
 h1 {
 	text-align: center;
 	text-decoration: underline;
-	background: darkgrey;
 }
 #controls {
 	width: 100%;
@@ -64,16 +63,14 @@ text.val {
 	fill: none;
 	stroke: lightblue;
 }
-#camera {
-	background: lightgreen;
-	width: 50%;
-	float: left;
-	height: auto;
-}
-#elapsed {
-	background: lightblue;
-}
+
 #camwrap {
-	background: lightyellow;
+	width: 70%;
+	margin-left: 15%;
+}
+#camera {
+	width: 100%;
+	height: auto;
+	border: 1px solid;
 }
 
