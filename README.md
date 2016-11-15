@@ -25,8 +25,8 @@ Pushing commits to remote repository:
 INSTALLATION
 ------------
 
-workon cv
-pip install imutils
+    workon cv
+    pip install imutils
 
 
 ZWave Data Model
