@@ -1,1 +1,5 @@
-test
+bad
+wow test
+ cause of merge
+
+conflict
