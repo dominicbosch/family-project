@@ -62,8 +62,8 @@ Servo/Modul, Value, 255
     2 = Motor Servo                             -> Write
     3 = Camera Servo - Horizontal               -> Write
     4 = Camera Servo - Vertical                 -> Write
-    10 = Distance (Temparature corrected)       -> Read
-    11 = Temparature                            -> Read
+    10 = Distance (Temperature corrected)       -> Read
+    11 = Temperature                            -> Read
     12 = Movement X                             -> Read
     13 = Movement Y                             -> Read
     14 = Movement Z                             -> Read
