@@ -118,6 +118,8 @@ function processLine(line) {
 		
 	} else if(line.indexOf(strng='steer | Heading straight') > -1) {
 		broadcast('steer', 0);
+	} else if(line.indexOf('Camera | FPS: ') > -1) {
+		broadcast('camera-fps', extractValue(line, strng));
 	} 
 
 }
