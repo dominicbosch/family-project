@@ -410,6 +410,7 @@ def commandArduino(device, value):
 				answer = -1
 	return answer
 
+detector = None
 def exitHandler(*args):
 	writeLog('Killed! Bye!')
 	detector.stop()
@@ -430,7 +431,7 @@ signal.signal(signal.SIGTERM, exitHandler)
 
 time.sleep(0.1)
 try:
-	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath, cascade=)
+	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath)
 	Thread(target=pollDistance, args=()).start()
 	detector.start(faceHasBeenDetected)
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')
