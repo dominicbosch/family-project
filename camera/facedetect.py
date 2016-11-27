@@ -5,14 +5,18 @@ import datetime
 from pivideostream import PiVideoStream
 
 class FaceDetect:
-	def __init__(self, resolution=(1024, 768), framerate=32, hflip=False, vflip=False, path=""):
+	def __init__(self, resolution=(1024, 768), framerate=32, hflip=False, vflip=False, path="", cascade=None):
 		self.imageWidth = resolution[0]
 		self.imageHeight = resolution[1]
 		self.framerate = framerate
 		self.hflip = hflip
 		self.vflip = vflip
 		self.path = path
-		self.face_cascade = cv2.CascadeClassifier('../camera/facedetect.xml')
+		if cascade:
+			cascPath = '../camera/cascades/haarcascade_frontalcatface.xml'
+		else:
+			cascPath = '../camera/cascades/'+cascade
+		self.face_cascade = cv2.CascadeClassifier(cascPath)
 		self.stream = PiVideoStream(resolution=resolution, framerate=framerate)
 
 	def start(self, callback):

@@ -118,7 +118,7 @@ requiredConfig = {
 	'Temperature': ['device'],
 	'Accelerator': ['device'],
 	'KeepAlive': ['device'],
-	'Camera': ['width','height','framerate','imagepath', 'average-detect-time-ms']	
+	'Camera': ['width','height','framerate','imagepath', 'average-detect-time-ms', 'cascade-file']	
 }
 
 # Beautiful Python magic to find all the missing config options... :-D
@@ -184,6 +184,7 @@ camRes = (castConfigToInt('Camera','width'), castConfigToInt('Camera','height'))
 camRate = castConfigToInt('Camera','framerate')
 imagePath = config['Camera']['imagepath']
 avgDetectTime = castConfigToInt('Camera', 'average-detect-time-ms')
+avgDetectTime = config['Camera']['cascade-file']
 
 
 # ###
@@ -429,7 +430,7 @@ signal.signal(signal.SIGTERM, exitHandler)
 
 time.sleep(0.1)
 try:
-	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath)
+	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath, cascade=)
 	Thread(target=pollDistance, args=()).start()
 	detector.start(faceHasBeenDetected)
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')

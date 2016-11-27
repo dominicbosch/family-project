@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
 function startEngine() {
 	console.log('Received start command!');
 	if(!pythonProcess) {
-		pythonProcess = cp.spawn('python', ['-u', 'steer-car.py']);
+		pythonProcess = cp.spawn('python', ['-u', 'steer-car.py', '-s']);
 		pythonProcess.stdout.on('data', (data) => {
 			let arr = data.toString().split('\n');
 			for(let i = 0; i < arr.length; i++) processLine(arr[i]);
