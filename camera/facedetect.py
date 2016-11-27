@@ -25,7 +25,11 @@ class FaceDetect:
 
 	def getSortMeasure(self, (x,y,w,h), t):
 		return int(100 / (w*h)) # calculate the area of the face
-
+	# FIXME since this is a callback, the pivideostream gets to exectue this
+	# hence one thread needs to fetch the frame AND detect faces.
+	# though we might run into too few cpus if we also create a thread for this.
+	# on the other hand FPS will increase. we should really use two threads for those
+	# two compute intensive tasks
 	def detect(self, frame):
 		faces = self.face_cascade.detectMultiScale(frame, 1.1, 5)
 		# Execute the callback whenever faces have been detected

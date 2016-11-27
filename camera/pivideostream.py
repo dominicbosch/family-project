@@ -1,3 +1,5 @@
+from __future__ import division
+import time
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 from threading import Thread
@@ -19,6 +21,7 @@ class PiVideoStream:
 		# if the thread should be stopped
 		self.frame = None
 		self.stopped = False
+		self.frameNum = 0
 
 	def start(self, callback):
 		self.callback = callback
@@ -26,8 +29,15 @@ class PiVideoStream:
 		Thread(target=self.update, args=()).start()
 
 	def update(self):
+		wallStart = time.time()
 		# keep looping infinitely until the thread is stopped
 		for f in self.stream:
+			self.frameNum += 1
+			if self.frameNum == 10
+				now = time.time()
+				print 'Camera FPS: {}'.format((now-wallStart)/10)
+				self.frameNum = 0
+				wallStart = now
 			# grab the frame from the stream and clear the stream in
 			# preparation for the next frame
 			self.frame = f.array
