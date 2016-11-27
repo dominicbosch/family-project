@@ -1,21 +1,32 @@
-family-project
-==============
+Cat Catcher (family-project)
+============================
 
-Using the Raspberry / Python / Nodejs to create a personal Web Of Things
+Using the Raspberry / Arduino / C / Python / Nodejs to create an autonmously driving car.
 
 INSTALLATION
 ------------
 
-    workon cv
-    pip install imutils
+# TODO
 
 
-Car commands
-------------
+USAGE
+-----
 
-Servo/Modul, Value, 255
+### Main Program ###
 
-    0 = Initiate                                -> Write
+nodejs catchAndServe
+
+
+### Hardware Commands ###
+
+cardo sends commands to the wonderful:yum: hardware devices. The first argument addresses the `device`, the second argument defines the `value` to be sent to the `device` and the third argument is the required control value 255 to ensure commands arrived completely. The possible values depend on each device respectively. The return value of the command is a string. In case of a read, the value from the device is located on line number one. If said value is 255, an error has occurred.
+
+    cardo [device] [value] 255
+
+#### Device(s) ####
+
+* (0) Initiate: Initializes the hardware
+* (1) Steering Servo: Commands the steering servo. `value` has to be between 0-1
     1 = Steering Servo                          -> Write
     2 = Motor Servo                             -> Write
     3 = Camera Servo - Horizontal               -> Write
