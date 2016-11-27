@@ -440,6 +440,9 @@ try:
 except KeyboardInterrupt:
 	writeLog('Forced Bye!')
 
+except:
+    print("Unexpected error:", sys.exc_info()[0])
+
 finally:
 	detector.stop()
 	isRunning = False
