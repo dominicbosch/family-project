@@ -1,4 +1,5 @@
 from __future__ import division
+import time
 import cv2
 import numpy as np
 import datetime
@@ -18,19 +19,23 @@ class FaceDetect:
 			cascPath = '../camera/cascades/'+cascade
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
 		self.stream = PiVideoStream(resolution=resolution, framerate=framerate)
+		self.frame = None
+		self.lastFrameAccessed = time.time()
 
 	def start(self, callback):
 		self.callback = callback
-		self.stream.start(self.detect)
+		self.stream.start(self.newFrame)
 
 	def getSortMeasure(self, (x,y,w,h), t):
 		return int(100 / (w*h)) # calculate the area of the face
+
 	# FIXME since this is a callback, the pivideostream gets to exectue this
 	# hence one thread needs to fetch the frame AND detect faces.
 	# though we might run into too few cpus if we also create a thread for this.
 	# on the other hand FPS will increase. we should really use two threads for those
 	# two compute intensive tasks
-	def detect(self, frame):
+	def newFrame(self, frame):
+		self.frame = frame
 		faces = self.face_cascade.detectMultiScale(frame, 1.1, 5)
 		# Execute the callback whenever faces have been detected
 		if len(faces) > 0:

@@ -23,21 +23,27 @@ cardo sends commands to the wonderful:yum: hardware devices. The first argument 
 
     cardo [device] [value] 255
 
-#### Device(s) ####
+Available Device(s):
 
-* (0) Initiate: Initializes the hardware
-* (1) Steering Servo: `value` has to be an integer in the range -100 (full left) to 100 (full right)
-* (2) Motor Servo : `value` has to be an integer in the range -100 (full backwards) to 100 (full forward)
-* (3) Camera Servo - Horizontal : `value`
+#### Virtual Device ####
 
-    1 = Steering Servo                          -> Write
-    2 = Motor Servo                             -> Write
-    3 = Camera Servo - Horizontal               -> Write
-    4 = Camera Servo - Vertical                 -> Write
-    10 = Distance (Temperature corrected)       -> Read
-    11 = Temperature                            -> Read
-    12 = Movement X                             -> Read
-    13 = Movement Y                             -> Read
-    14 = Movement Z                             -> Read
-    20 = Calibrate                              -> Write
+* [0] Initiate : Initializes the hardware
+* [20] Calibrate : tbd.
+
+#### Servos ####
+
+* [1] Steering Servo : `value` has to be an integer in the range [-100 .. 100], -100 = full left, 100 = full right
+* [2] Motor Servo : `value` has to be an integer in the range [-200 .. 100], -100 = full backwards, 100 = full forward, or -200 for a full break.
+* [3] Camera Servo - Horizontal : `value` has to be an integer in the range [-100 .. 100], -100 = full left, 100 = full right
+* [4] Camera Servo - Vertical : `value` has to be an integer in the range [-100 .. 100], -100 = full up, 100 = full down
+
+#### Sensors ####
+
+* [10] Distance : Returns the distance to the next obstacle. `value` can be any integer.
+* [11] Temperature : Returns the current temperature. `value` can be any integer.
+* [12] Gyro : Returns the acceleration along the x, y or z axis. `value` defines the axis to be returned:
+    * [0] x-Axis
+    * [1] y-Axis
+    * [2] z-Axis
+
     
