@@ -25,8 +25,8 @@ Pushing commits to remote repository:
 INSTALLATION
 ------------
 
-workon cv
-pip install imutils
+    workon cv
+    pip install imutils
 
 
 ZWave Data Model
@@ -52,3 +52,21 @@ CommandClasses of Fibar Relay Switch:
 	- 138: Time
 	- 143: MultiCmd
 	- 152: Security
+
+Car commands
+------------
+
+Servo/Modul, Value, 255
+
+    0 = Initiate                                -> Write
+    1 = Steering Servo                          -> Write
+    2 = Motor Servo                             -> Write
+    3 = Camera Servo - Horizontal               -> Write
+    4 = Camera Servo - Vertical                 -> Write
+    10 = Distance (Temperature corrected)       -> Read
+    11 = Temperature                            -> Read
+    12 = Movement X                             -> Read
+    13 = Movement Y                             -> Read
+    14 = Movement Z                             -> Read
+    20 = Calibrate                              -> Write
+    
