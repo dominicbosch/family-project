@@ -140,9 +140,7 @@ bool bRetval;
 	iArduinoHatFD = wiringPiI2CSetup(0x04);
 
 	printf("Init I2C to PWM HAt\n");
-//	iPWMHatFD = wiringPiI2CSetup(0x40);
-
-	initPWM();
+	iPWMHatFD = wiringPiI2CSetup(0x40);
 
 	if (argc <= 3) {
 		printf("Supply 3 commands to send to the Arduino\n");
@@ -159,20 +157,19 @@ bool bRetval;
 			}
 		}
 
-
-
-	if(iOut[0] == 10)
+	if(iOut[0] >= 10 )
 		{
 		printf("Sending command to receive values for device %i\n", iOut[0]);
 		bRetval = bSendArduinoData(iOut[0], 0);
-		iIn[0] = wiringPiI2CRead(iArduinoHatFD);
-		printf("Received low byte %i\n", iIn[0]);
+		iResult = wiringPiI2CRead(iArduinoHatFD);
+//		iIn[0] = wiringPiI2CRead(iArduinoHatFD);
+//		printf("Received low byte %i\n", iIn[0]);
 
-		bRetval = bSendArduinoData(iOut[0], 1);
-		iIn[1] = wiringPiI2CRead(iArduinoHatFD);
-		printf("Received high byte %i\n", iIn[1]);
+//		bRetval = bSendArduinoData(iOut[0], 1);
+//		iIn[1] = wiringPiI2CRead(iArduinoHatFD);
+//		printf("Received high byte %i\n", iIn[1]);
 
-		iResult = 255 * iIn[1] + iIn[0];
+//		iResult = 255 * iIn[1] + iIn[0];
 		printf("Value received %i\n", iResult);
 		}
 	else

@@ -11,6 +11,10 @@ int servoMax = 560;
 int servoMid = 350;
 int hServoMid = 300;
 
+int iHorizontalServo = 4;
+int iVerticalServo = 5;
+int iSteeringServo = 0;
+int iMotorServo = 1;
 
 void initPWM(int address)
 {
@@ -99,36 +103,56 @@ int hOldPos;
 printf("Init PWM\n");
 initPWM(0x40);
 
+printf("Set Servo 0 to mid\n");
+setPWM(iSteeringServo, 0, servoMid);
+
 printf("Set Servo 1 to mid\n");
-setPWM(0, 0, servoMid);
+setPWM(iMotorServo, 0, servoMid);
+
+printf("Set Servo 4 to mid\n");
+setPWM(iHorizontalServo, 0, servoMid);
 hOldPos = servoMid;
 
-printf("Set Servo 2 to mid\n");
-setPWM(1, 0, hServoMid);
+printf("Set Servo 5 to mid\n");
+setPWM(iVerticalServo, 0, hServoMid);
 
-printf("Move Servo 1 to min\n");
-moveSlow(0, hOldPos, servoMin, 1);
+printf("Move Servo 4 to min\n");
+moveSlow(iHorizontalServo, hOldPos, servoMin, 1);
 hOldPos = servoMin;
 sleep(1);
 
-printf("Set Servo 2 to min\n");
-setPWM(1, 0, servoMin);
+printf("Set Servo 5 to min\n");
+setPWM(iVerticalServo, 0, servoMin);
 sleep(1);
 
-printf("Move Servo 1 to max\n");
-moveSlow(0, hOldPos, servoMax, 1);
+printf("Move Servo 4 to max\n");
+moveSlow(iHorizontalServo, hOldPos, servoMax, 1);
 hOldPos = servoMax;
 sleep(1);
 
-printf("Set Servo 2 to max\n");
-setPWM(1, 0, servoMax);
+printf("Set Servo 5 to max\n");
+setPWM(iVerticalServo, 0, servoMax);
 sleep(1);
 
-printf("Move Servo 1 to mid\n");
-moveSlow(0, hOldPos, servoMid, 1);
+printf("Set Servo 0 to max\n");
+setPWM(iSteeringServo, 0, servoMax);
+sleep(1);
 
-printf("Set Servo 2 to mid\n");
-setPWM(1, 0, hServoMid);
+printf("Set Servo 1 to max\n");
+setPWM(iMotorServo, 0, servoMax);
+sleep(1);
+
+printf("Move Servo 4 to mid\n");
+moveSlow(iHorizontalServo, hOldPos, servoMid, 1);
+
+printf("Set Servo 5 to mid\n");
+setPWM(iVerticalServo, 0, hServoMid);
+
+printf("Set Servo 0 to mid\n");
+setPWM(iSteeringServo, 0, servoMid);
+
+printf("Set Servo 1 to mid\n");
+setPWM(iMotorServo, 0, servoMid);
 
 return 0;
 }
