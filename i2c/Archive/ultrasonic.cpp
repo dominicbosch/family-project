@@ -4,8 +4,8 @@
 
 //#define TRUE 1
 
-#define TRIG 5
-#define ECHO 6
+#define TRIG 4
+#define ECHO 5
 
 void setup()
 {
@@ -53,7 +53,7 @@ int main(void)
 	{
 	setup();
 	
-	//printf("Distance : %dcm\n", getCM());
+	printf("Distance : %dcm\n", getCM());
 
 	return(0);
 	}

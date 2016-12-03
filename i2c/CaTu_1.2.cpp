@@ -1,10 +1,10 @@
- #include "PWM.h"
+#include "PWM.h"
+#include <wiringPi.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <dos.h>
 
 int iNumTries = 5;
 
@@ -18,19 +18,53 @@ int iVerticalServo = 5;
 int iSteeringServo = 0;
 int iMotorServo = 1;
 
-int iArduinoHatFD = -1;
+#define TRIG 4
+#define ECHO 5
+
 int iPWMHatFD = -1;
 
-int bSendArduinoData(int iSendVal1, int iSendVal2)
+void gpioSetup()
 {
+	wiringPiSetup();
+	pinMode(TRIG, OUTPUT);
+	pinMode(ECHO, INPUT);
 
-  wiringPiI2CWrite(iArduinoHatFD, iSendVal1);
-  wiringPiI2CWrite(iArduinoHatFD, iSendVal2);
-  wiringPiI2CWrite(iArduinoHatFD, 255);
+	//TRIG pin has to be low
+	digitalWrite(TRIG,LOW);
 
-  return 0;
-
+	delay(30);
 }
+
+int getCM()
+	{
+	//Send trig pulse
+
+	printf("Send trig pulse\n");
+
+	digitalWrite(TRIG, HIGH);
+
+	delayMicroseconds(20);
+
+	digitalWrite(TRIG, LOW);
+
+	printf("Echo start\n");
+	
+	// Wait for echo start
+	while(digitalRead(ECHO) == LOW);
+
+	printf("Echo end\n");
+
+	// Wait for Echo end
+	long startTime = micros();
+	while(digitalRead(ECHO) == HIGH);
+	long travelTime = micros() - startTime;
+
+	// get distance in cm
+	int distance = travelTime / 58;
+
+	return distance;
+	}
+
 
 int strToint(char *inString)
 {
@@ -136,13 +170,6 @@ int iIn[1];
 
 bool bRetval;
 
-	printf("Init I2C to Arduino\n");
-	iArduinoHatFD = wiringPiI2CSetup(0x04);
-
-	printf("Init I2C to PWM HAt\n");
-//	iPWMHatFD = wiringPiI2CSetup(0x40);
-
-	initPWM();
 
 	if (argc <= 3) {
 		printf("Supply 3 commands to send to the Arduino\n");
@@ -154,39 +181,25 @@ bool bRetval;
 		if(iOut[iArg-1] < 0) {
 			iOut[iArg-1] = 0;
 			}
-		if(iOut[iArg-1] > 255) {
-			iOut[iArg-1] = 255;
-			}
+//		if(iOut[iArg-1] > 255) {
+//			iOut[iArg-1] = 255;
+//			}
 		}
 
 
 
 	if(iOut[0] == 10)
 		{
-		printf("Sending command to receive values for device %i\n", iOut[0]);
-		bRetval = bSendArduinoData(iOut[0], 0);
-		iIn[0] = wiringPiI2CRead(iArduinoHatFD);
-		printf("Received low byte %i\n", iIn[0]);
-
-		bRetval = bSendArduinoData(iOut[0], 1);
-		iIn[1] = wiringPiI2CRead(iArduinoHatFD);
-		printf("Received high byte %i\n", iIn[1]);
-
-		iResult = 255 * iIn[1] + iIn[0];
-		printf("Value received %i\n", iResult);
+		gpioSetup();
+		printf("Distance : %dcm\n", getCM());
 		}
 	else
 		{
-		if(iOut[0] <= 9)
-			{
-			printf("Sending command %i, %i, %i \n", iOut[0], iOut[1], 255);
-			setPWM(iOut[0], 0, iOut[1]);			
-			}
-		else
-			{
-			printf("Sending command %i, %i, %i \n", iOut[0], iOut[1], 255);
-			bRetval = bSendArduinoData(iOut[0], iOut[1]);
-			}
+		printf("Init I2C to PWM HAt\n");
+		iPWMHatFD = wiringPiI2CSetup(0x40);
+		initPWM();
+		printf("Sending command %i, %i, %i \n", iOut[0], iOut[1], 255);
+		setPWM(iOut[0], 0, iOut[1]);			
 		}
 
 
