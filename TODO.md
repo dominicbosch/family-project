@@ -41,8 +41,8 @@ Then generate random variables from these attributes:
 3. Configuration File Structure
 ===============================
 
-Proposed structure would not match the requirement for multiple special events per device :
-- {Min, Mid, Max, Special, Delta Plus, Delta Minus}
+Proposed structure {Min, Mid, Max, Special, Delta Plus, Delta Minus} would not match the requirement for multiple special events per device :
+
 - Min   = Minimal Value (e.g. Full left)
 - Mid  = Neutral Position
 - Max   =  Maximal Value (e.g. Full right)
