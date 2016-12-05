@@ -37,3 +37,18 @@ Then generate random variables from these attributes:
 
 - Python: random.normalvariate( &mu;, &sigma; )
 - Nodejs: include [Random module](http://simjs.com/random.html) then: Random.normal( &mu;, &sigma; )
+
+3. Configuration File Structure
+===============================
+
+Proposed structure would not match the requirement for multiple special events per device :
+- {Min, Mid, Max, Special, Delta Plus, Delta Minus}
+- Min   = Minimal Value (e.g. Full left)
+- Mid  = Neutral Position
+- Max   =  Maximal Value (e.g. Full right)
+- Special  = Special move (e.g. Motor Full Stop)
+- Delta Plus  = Movement for a plus value based on [-100 ... 100] Range
+- Delta Minus = Movement for a minus value based on [-100 ... 100] Range 
+
+Example :
+double dLimitArray[] = {200, 325, 500, 0, 0, 0};
