@@ -23,7 +23,7 @@ int iMotorServo = 1;
 
 int iPWMHatFD = -1;
 
-double dLimitArray[] = {200, 325, 500, 0, 0};
+double dLimitArray[] = {140, 325, 550, 0, 0};
 
 void gpioSetup()
 {
@@ -41,7 +41,7 @@ int getCM()
 	{
 	//Send trig pulse
 
-	printf("Send trig pulse\n");
+//	printf("Send trig pulse\n");
 
 	digitalWrite(TRIG, HIGH);
 
@@ -49,12 +49,12 @@ int getCM()
 
 	digitalWrite(TRIG, LOW);
 
-	printf("Echo start\n");
+//	printf("Echo start\n");
 	
 	// Wait for echo start
 	while(digitalRead(ECHO) == LOW);
 
-	printf("Echo end\n");
+//	printf("Echo end\n");
 
 	// Wait for Echo end
 	long startTime = micros();
@@ -210,15 +210,16 @@ bool bRetval;
 		}
 
 	bRetval = bCalcArray(dLimitArray);
+
 	if(iOut[1] <= -1)
 		{
-		iResult = dLimitArray[1] + (dLimitArray[3] * iOut[0]);
+		iResult = dLimitArray[1] + (dLimitArray[3] * iOut[1]);
 		}
 	else
 		{
 		if(iOut[1] >= 1)
 			{
-			iResult = dLimitArray[1] + (dLimitArray[4] * iOut[0]);
+			iResult = dLimitArray[1] + (dLimitArray[4] * iOut[1]);
 			}
 		else
 			{
@@ -230,7 +231,8 @@ bool bRetval;
 	if(iOut[0] == 10)
 		{
 		gpioSetup();
-		printf("Distance : %dcm\n", getCM());
+//		printf("Distance : %dcm\n", getCM());
+		printf("%d\n", getCM());
 		}
 	else
 		{
