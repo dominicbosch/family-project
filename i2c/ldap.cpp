@@ -9,6 +9,9 @@ int main(int argc, char **argv)
     const char *base = NULL;
     int count, n, enabled;
 
+    char sSelVal[] = "a.min";
+    config_setting_t *iMinVal = 0;
+
     cf = &cfg;
     config_init(cf);
 
@@ -21,13 +24,16 @@ int main(int argc, char **argv)
         return(EXIT_FAILURE);
     }
 
-    if (config_lookup_bool(cf, "enabled", &enabled))
+/*    if (config_lookup_bool(cf, "enabled", &enabled))
         printf("Enabled: %s\n", enabled ? "Yep" : "Nope");
     else 
         printf("Enabled is not defined\n");
+*/
 
+/*
     if (config_lookup_string(cf, "ldap.base", &base))
         printf("Host: %s\n", base);
+*/
 
     retries = config_lookup(cf, "ldap.retries");
     count = config_setting_length(retries);
@@ -37,6 +43,10 @@ int main(int argc, char **argv)
         printf("\t#%d. %d\n", n + 1,
             config_setting_get_int_elem(retries, n));
     }
+
+    iMinVal = config_lookup(cf, sSelVal);
+
+    printf("%i\n", config_setting_get_int(iMinVal));
 
     config_destroy(cf);
     return 0;
