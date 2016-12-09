@@ -8,6 +8,7 @@
 #include <libconfig.h>
 
 double dLimitArray[] = {0, 0, 0, 0, 0};
+char sConfigFileName[] = "carconfig.ini";
 
 bool bCalcArray(double *dArray)
 {
@@ -30,7 +31,7 @@ int strToint(char *inString)
 
 	if (inString[0] == '-')
 		{
-		for(i = 1; i < iLen; i++) 
+		for(i = 1; i < iLen; i++)
 			{
 			iResult = iResult * 10 + (inString[i] - '0');
 			}
@@ -38,12 +39,12 @@ int strToint(char *inString)
 		}
 	else
 		{
-		for(i = 0; i < iLen; i++) 
+		for(i = 0; i < iLen; i++)
 			{
 			iResult = iResult * 10 + (inString[i] - '0');
 			}
 		}
-		
+
 	return(iResult);
 }
 
@@ -58,7 +59,7 @@ int main(int argc, char **argv)
 
 	int iCount, iResult, i;
 
-	int iOut[3];
+	int iIn[3];
 	int iRetval;
 	int iArg;
 	int iChar;
@@ -70,17 +71,17 @@ int main(int argc, char **argv)
 		exit(1);
 		}
 
-	for(iArg=1; iArg < argc; iArg++) 
+	for(iArg=1; iArg < argc; iArg++)
 		{
-		iOut[iArg-1] = strToint((argv) [iArg]);
+		iIn[iArg-1] = strToint((argv) [iArg]);
 		}
 
-	printf("iOut[0] = %i\n", iOut[0]);
+	printf("iIn[0] = %i\n", iIn[0]);
 
 	cf = &cfg;
     	config_init(cf);
 
-	if (!config_read_file(cf, "carconfig.ini")) 
+	if (!config_read_file(cf, sConfigFileName)) 
 	{
         	fprintf(stderr, "%s:%d - %s\n",
             	config_error_file(cf),
@@ -89,42 +90,70 @@ int main(int argc, char **argv)
         	config_destroy(cf);
         	return(EXIT_FAILURE);
     	}
-					
+
 	iValues = config_lookup(cf, "valid.devices");
 	iCount = config_setting_length(iValues);
-	
+
 	char sValidDev[iCount];
-	for (i = 0; i < iCount; i++)		
+	for (i = 0; i < iCount; i++)
 		{
-		sValidDev[i] = config_setting_get_int_elem(iValues, i);
+		sValidDev[i] = char(config_setting_get_int_elem(iValues, i));
 		}
-		
-	sFChar = char(97 + iOut[0]);
 
-	iInVal = config_lookup(cf, sMinVal); 
-	dLimitArray[0] = config_setting_get_int(iInVal);
-
-	char sMidVal[] = "9.mid";
-	sMidVal[0]= char(97 + iOut[0]);
-	iInVal = config_lookup(cf, sMidVal); 
-	dLimitArray[1] = config_setting_get_int(iInVal);
-
-	char sMaxVal[] = "9.max";
-	sMaxVal[0]= char(97 + iOut[0]);
-	iInVal = config_lookup(cf, sMaxVal); 
-	dLimitArray[2] = config_setting_get_int(iInVal);
-
-	bRetval = bCalcArray(dLimitArray);
-
-	if(iOut[1] <= -1)
+	bRetval = false;
+	i = 0;
+	while(i <= iCount && bRetval == false)
 		{
-		iResult = dLimitArray[1] + (dLimitArray[3] * iOut[1]);
+		if(char(iIn[0]+97) == sValidDev[i])
+			{
+			bRetval = true;
+			}
+		i++;
+		}
+
+	if(bRetval == false)
+		{
+		printf("Device %i not found in %s\n", iIn[0], sConfigFileName);
+		return 1;
+		}
+
+	char sValChar[] = "x.values";
+	sFChar = char(97 + iIn[0]);
+	sValChar[0] = sFChar;
+//printf("sValChar %s\n", sValChar);
+	iValues = config_lookup(cf, sValChar); 
+	iCount = config_setting_length(iValues);
+//printf("iCount %i\n", iCount);
+
+	if(iIn[0] <= 9)
+		{
+		if(iCount <= 2)
+			{
+			printf("Too few parameters for a servo device. Servo = %i\n", iIn[0]);
+			return 2;
+			}
+		for(i = 0; i <= 2; i++)
+			{
+			dLimitArray[i] = config_setting_get_int_elem(iValues, i);
+			}
 		}
 	else
 		{
-		if(iOut[1] >= 1)
+printf("Else\n");
+		}
+
+
+	bRetval = bCalcArray(dLimitArray);
+
+	if(iIn[1] <= -1)
+		{
+		iResult = dLimitArray[1] + (dLimitArray[3] * iIn[1]);
+		}
+	else
+		{
+		if(iIn[1] >= 1)
 			{
-			iResult = dLimitArray[1] + (dLimitArray[4] * iOut[1]);
+			iResult = dLimitArray[1] + (dLimitArray[4] * iIn[1]);
 			}
 		else
 			{
