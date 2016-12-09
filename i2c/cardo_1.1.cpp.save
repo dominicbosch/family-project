@@ -2,7 +2,7 @@
 #include <wiringPi.h>
 #include <stdio.h>
 #include <unistd.h>
-//#include <math.h>
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <libconfig.h>
@@ -215,7 +215,7 @@ int main(int argc, char **argv)
 	iValues = config_lookup(cf, "valid.devices");
 	iCount = config_setting_length(iValues);
 
-	char sValidDev[20];
+	char sValidDev[iCount];
 	for (i = 0; i < iCount; i++)
 		{
 		sValidDev[i] = char(config_setting_get_int_elem(iValues, i));
@@ -261,7 +261,7 @@ int main(int argc, char **argv)
 	if(iIn[0] == 10)
 		{
 		gpioSetup();
-//printf("Distance : %dcm\n", getCM());
+//		printf("Distance : %dcm\n", getCM());
 		printf("%d\n", getCM());
 		}
 	else
