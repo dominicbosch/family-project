@@ -55,14 +55,10 @@ int main(int argc, char **argv)
 	config_setting_t *iInVal = 0;
 	config_setting_t *iValues;
 
-	char sFChar;
-
 	int iCount, iResult, i;
-
 	int iIn[3];
 	int iRetval;
 	int iArg;
-	int iChar;
 
 	bool bRetval;
 
@@ -76,7 +72,7 @@ int main(int argc, char **argv)
 		iIn[iArg-1] = strToint((argv) [iArg]);
 		}
 
-	printf("iIn[0] = %i\n", iIn[0]);
+//printf("iIn[0] = %i\n", iIn[0]);
 
 	cf = &cfg;
     	config_init(cf);
@@ -118,8 +114,7 @@ int main(int argc, char **argv)
 		}
 
 	char sValChar[] = "x.values";
-	sFChar = char(97 + iIn[0]);
-	sValChar[0] = sFChar;
+	sValChar[0] = char(97 + iIn[0]);
 //printf("sValChar %s\n", sValChar);
 	iValues = config_lookup(cf, sValChar); 
 	iCount = config_setting_length(iValues);
