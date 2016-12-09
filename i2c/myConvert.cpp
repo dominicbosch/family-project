@@ -52,11 +52,11 @@ int main(int argc, char **argv)
 
 	config_t cfg, *cf;
 	config_setting_t *iInVal = 0;
+	config_setting_t *iValues;
 
 	char sFChar;
-//	char sSelVal[6];
 
-	int iResult, i;
+	int iCount, iResult, i;
 
 	int iOut[3];
 	int iRetval;
@@ -89,9 +89,18 @@ int main(int argc, char **argv)
         	config_destroy(cf);
         	return(EXIT_FAILURE);
     	}
+					
+	iValues = config_lookup(cf, "valid.devices");
+	iCount = config_setting_length(iValues);
+	
+	char sValidDev[iCount];
+	for (i = 0; i < iCount; i++)		
+		{
+		sValidDev[i] = config_setting_get_int_elem(iValues, i);
+		}
+		
+	sFChar = char(97 + iOut[0]);
 
-	char sMinVal[] = "9.min";
-	sMinVal[0]= char(97 + iOut[0]);
 	iInVal = config_lookup(cf, sMinVal); 
 	dLimitArray[0] = config_setting_get_int(iInVal);
 
