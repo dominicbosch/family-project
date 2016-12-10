@@ -14,6 +14,7 @@ char sConfigFileName[] = "carconfig.ini";
 
 int iPWMHatFD = -1;
 
+//			min, mid, max
 double dLimitArray[] = {0, 0, 0, 0, 0};
 
 void gpioSetup()
@@ -61,8 +62,6 @@ int getCM()
 
 bool bCalcArray(double *dArray)
 	{
-
-	double dDiff;
 
 	dArray[3] = (dArray[1] - dArray[0]) / 100;
 	dArray[4] = (dArray[2] - dArray[1]) / 100;
@@ -218,7 +217,7 @@ int main(int argc, char **argv)
 	char sValidDev[20];
 	for (i = 0; i < iCount; i++)
 		{
-		sValidDev[i] = char(config_setting_get_int_elem(iValues, i));
+		sValidDev[i] = char(config_setting_get_int_elem(iValues, i) + 97);
 		}
 
 	bRetval = false;
@@ -267,26 +266,39 @@ int main(int argc, char **argv)
 	else
 		{
 		bRetval = bCalcArray(dLimitArray);
-		if(iIn[1] <= -1)
+		if(iIn[1] = 200)
 			{
-			iResult = dLimitArray[1] + (dLimitArray[3] * iIn[1]);
+			iPWMHatFD = wiringPiI2CSetup(0x40);
+			initPWM();
+			printf("Sending command : full back (%d)\n", dLimitArray[2]);
+			setPWM(iIn[0], 0, dLimitArray[2]);
+			usleep(1000000);
+			printf("Sending command : stop (%d)\n", dLimitArray[1]);
+			setPWM(iIn[0], 0, dLimitArray[1]);
 			}
 		else
 			{
-			if(iIn[1] >= 1)
+			if(iIn[1] <= -1)
 				{
-				iResult = dLimitArray[1] + (dLimitArray[4] * iIn[1]);
+				iResult = dLimitArray[1] + (dLimitArray[3] * iIn[1]);
 				}
 			else
 				{
-				iResult = dLimitArray[1];
+				if(iIn[1] >= 1)
+					{
+					iResult = dLimitArray[1] + (dLimitArray[4] * iIn[1]);
+					}
+				else
+					{
+					iResult = dLimitArray[1];
+					}
 				}
+			printf("Init I2C to PWM HAt\n");
+			iPWMHatFD = wiringPiI2CSetup(0x40);
+			initPWM();
+			printf("Sending command %i, %i, %i \n", iIn[0], iResult, 255);
+			setPWM(iIn[0], 0, iResult);
 			}
-		printf("Init I2C to PWM HAt\n");
-		iPWMHatFD = wiringPiI2CSetup(0x40);
-		initPWM();
-		printf("Sending command %i, %i, %i \n", iIn[0], iResult, 255);
-		setPWM(iIn[0], 0, iResult);
 		}
 
 	return 0;

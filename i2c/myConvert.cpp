@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 	char sValidDev[iCount];
 	for (i = 0; i < iCount; i++)
 		{
-		sValidDev[i] = char(config_setting_get_int_elem(iValues, i));
+		sValidDev[i] = char(config_setting_get_int_elem(iValues, i) + 97);
 		}
 
 	bRetval = false;
