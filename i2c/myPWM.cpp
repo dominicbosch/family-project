@@ -20,8 +20,10 @@ int hActPos;
 void	signal_callback_handler(int signum)
 {
 	printf("Caught signal %d\n",signum);
+	printf("%d\n", hActPos);
 // Cleanup and close up stuff here
 // Terminate program
+	printf("Caught signal %d - Ending program\n", signum);
 	exit(signum);
 }
 
@@ -111,7 +113,7 @@ int main()
 
 int hOldPos;
 
-signal(SIGINT, signal_callback_handler);
+signal(SIGUSR1, signal_callback_handler);
 
 printf("Init PWM\n");
 initPWM(0x40);
@@ -147,6 +149,14 @@ while(1)
 
 //	printf("Move Servo 4 to mid\n");
 	moveSlow(iHorizontalServo, hOldPos, servoMid, 1);
+
+	moveSlow(iVerticalServo, vServoMid, servoMax, 1);
+
+	moveSlow(iVerticalServo, servoMax, servoMin, 1);
+
+	moveSlow(iVerticalServo, servoMin, vServoMid, 1); 
+
+	sleep(5);
 
 //	printf("Set Servo 5 to mid\n");
 //	setPWM(iVerticalServo, 0, hServoMid);
