@@ -3,29 +3,18 @@
 #include <unistd.h>
 #include <math.h>
 #include <stdlib.h>
-#include <signal.h>
+//#include <dos.h>
 
 int pwmHatFD = -1;
-
 int servoMin = 150;
 int servoMax = 560;
 int servoMid = 350;
-int vServoMid = 300;
+int hServoMid = 300;
 
 int iHorizontalServo = 4;
 int iVerticalServo = 5;
-
-int hActPos;
-
-void	signal_callback_handler(int signum)
-{
-	printf("Caught signal %d\n",signum);
-	printf("%d\n", hActPos);
-// Cleanup and close up stuff here
-// Terminate program
-	printf("Caught signal %d - Ending program\n", signum);
-	exit(signum);
-}
+int iSteeringServo = 0;
+int iMotorServo = 1;
 
 void initPWM(int address)
 {
@@ -91,8 +80,7 @@ void moveSlow(int sNum, int curPos, int toPos, int mSpeed)
 		{
 		setPWM(sNum, 0, loopCount);
 		loopCount = loopCount -1;
-		hActPos = loopCount;
-		usleep(mSpeed*5000);
+		usleep(5000);
 		}
 	}
     else
@@ -101,8 +89,7 @@ void moveSlow(int sNum, int curPos, int toPos, int mSpeed)
 		{
 		setPWM(sNum, 0, loopCount);
 		loopCount = loopCount+1;
-		hActPos = loopCount;
-		usleep(mSpeed*5000);
+		usleep(5000);
 		}
 	} 
 
@@ -113,55 +100,59 @@ int main()
 
 int hOldPos;
 
-signal(SIGUSR1, signal_callback_handler);
-
 printf("Init PWM\n");
 initPWM(0x40);
 
-while(1)
-	{
+printf("Set Servo 0 to mid\n");
+setPWM(iSteeringServo, 0, servoMid);
 
-// printf("Set Servo 4 to mid\n");
-	setPWM(iHorizontalServo, 0, servoMid);
-	hActPos = servoMid;
-	hOldPos = servoMid;
+printf("Set Servo 1 to mid\n");
+setPWM(iMotorServo, 0, servoMid);
 
-//	printf("Set Servo 5 to mid\n");
-	setPWM(iVerticalServo, 0, vServoMid);
+printf("Set Servo 4 to mid\n");
+setPWM(iHorizontalServo, 0, servoMid);
+hOldPos = servoMid;
 
-//	printf("Move Servo 4 to min\n");
-	moveSlow(iHorizontalServo, hOldPos, servoMin, 2);
-	hOldPos = servoMin;
-	sleep(1);
+printf("Set Servo 5 to mid\n");
+setPWM(iVerticalServo, 0, hServoMid);
 
-//	printf("Set Servo 5 to min\n");
-//	setPWM(iVerticalServo, 0, servoMin);
-//	sleep(1);
+printf("Move Servo 4 to min\n");
+moveSlow(iHorizontalServo, hOldPos, servoMin, 1);
+hOldPos = servoMin;
+sleep(1);
 
-//	printf("Move Servo 4 to max\n");
-	moveSlow(iHorizontalServo, hOldPos, servoMax, 2);
-	hOldPos = servoMax;
-	sleep(1);
+printf("Set Servo 5 to min\n");
+setPWM(iVerticalServo, 0, servoMin);
+sleep(1);
 
-//	printf("Set Servo 5 to max\n");
-//	setPWM(iVerticalServo, 0, servoMax);
-//	sleep(1);
+printf("Move Servo 4 to max\n");
+moveSlow(iHorizontalServo, hOldPos, servoMax, 1);
+hOldPos = servoMax;
+sleep(1);
 
-//	printf("Move Servo 4 to mid\n");
-	moveSlow(iHorizontalServo, hOldPos, servoMid, 2);
+printf("Set Servo 5 to max\n");
+setPWM(iVerticalServo, 0, servoMax);
+sleep(1);
 
-	moveSlow(iVerticalServo, vServoMid, servoMax, 2);
+printf("Set Servo 0 to max\n");
+setPWM(iSteeringServo, 0, servoMax);
+sleep(1);
 
-	moveSlow(iVerticalServo, servoMax, servoMin, 2);
+printf("Set Servo 1 to max\n");
+setPWM(iMotorServo, 0, servoMax);
+sleep(1);
 
-	moveSlow(iVerticalServo, servoMin, vServoMid, 2); 
+printf("Move Servo 4 to mid\n");
+moveSlow(iHorizontalServo, hOldPos, servoMid, 1);
 
-	sleep(5);
+printf("Set Servo 5 to mid\n");
+setPWM(iVerticalServo, 0, hServoMid);
 
-//	printf("Set Servo 5 to mid\n");
-//	setPWM(iVerticalServo, 0, hServoMid);
+printf("Set Servo 0 to mid\n");
+setPWM(iSteeringServo, 0, servoMid);
 
-	}
+printf("Set Servo 1 to mid\n");
+setPWM(iMotorServo, 0, servoMid);
 
 return 0;
 }

@@ -410,6 +410,7 @@ def commandArduino(device, value):
 				answer = -1
 	return answer
 
+detector = None
 def exitHandler(*args):
 	writeLog('Killed! Bye!')
 	detector.stop()
@@ -439,7 +440,7 @@ try:
 except KeyboardInterrupt:
 	writeLog('Forced Bye!')
 
-except: 
+except:
     print("Unexpected error:", sys.exc_info()[0])
 
 finally:
