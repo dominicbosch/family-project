@@ -50,7 +50,7 @@ if args.simulate:
 	timeFactor = 20 # simulation slowdown
 else:
 	from facedetect import FaceDetect
-	arduinoCommand = '../i2c/arduino4'
+	arduinoCommand = '../i2c/cardo'
 
 
 
