@@ -430,7 +430,7 @@ signal.signal(signal.SIGTERM, exitHandler)
 
 time.sleep(0.1)
 try:
-	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath, cascade=)
+	detector = FaceDetect(resolution=camRes, framerate=camRate, path=imagePath)
 	Thread(target=pollDistance, args=()).start()
 	detector.start(faceHasBeenDetected)
 	raw_input('\nPRESS [ENTER] TO QUIT!\n\n')
@@ -438,6 +438,9 @@ try:
 
 except KeyboardInterrupt:
 	writeLog('Forced Bye!')
+
+except: 
+    print("Unexpected error:", sys.exc_info()[0])
 
 finally:
 	detector.stop()

@@ -13,10 +13,12 @@ class FaceDetect:
 		self.hflip = hflip
 		self.vflip = vflip
 		self.path = path
-		if cascade:
-			cascPath = '../camera/cascades/haarcascade_frontalcatface.xml'
-		else:
-			cascPath = '../camera/cascades/'+cascade
+#		if cascade:
+#			print("choosing default")
+		cascPath = '../camera/cascades/haarcascade_frontalcatface.xml'
+#		else:
+#			print("choosing custom")
+#			cascPath = '../camera/cascades/'+cascade
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
 		self.stream = PiVideoStream(resolution=resolution, framerate=framerate)
 		self.frame = None

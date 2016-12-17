@@ -1,0 +1,1134 @@
+[2016.10.15_01:42:37]: Polling 20 times per second
+Starting camera with hflip=False, vflip=False, resolution=1920x1088, framerate=10
+
+PRESS [ENTER] TO QUIT!
+
+[2016.10.15_01:42:38]: steer | time since last face 1476538957.46s
+[2016.10.15_01:42:38]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:38]: steer | time since last face 1476538957.57s
+[2016.10.15_01:42:38]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:38]: steer | time since last face 1476538957.68s
+[2016.10.15_01:42:38]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:38]: steer | time since last face 1476538957.79s
+[2016.10.15_01:42:38]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:38]: steer | time since last face 1476538957.90s
+[2016.10.15_01:42:38]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.01s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.14s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.25s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.36s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.47s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.59s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.76s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:39]: steer | time since last face 1476538958.88s
+[2016.10.15_01:42:39]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.01s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.16s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.31s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.48s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.60s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.71s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.86s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:40]: steer | time since last face 1476538959.99s
+[2016.10.15_01:42:40]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:41]: steer | time since last face 1476538960.10s
+[2016.10.15_01:42:41]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:41]: steer | time since last face 1476538960.22s
+[2016.10.15_01:42:41]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:41]: steer | time since last face 1476538960.40s
+[2016.10.15_01:42:41]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:41]: steer | time since last face 1476538960.56s
+[2016.10.15_01:42:41]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:41]: steer | time since last face 1476538960.71s
+[2016.10.15_01:42:41]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:41]: steer | time since last face 1476538960.90s
+[2016.10.15_01:42:41]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.05s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.20s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.33s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.47s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.60s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.72s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.86s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:42]: steer | time since last face 1476538961.99s
+[2016.10.15_01:42:42]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:43]: steer | time since last face 1476538962.12s
+[2016.10.15_01:42:43]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:43]: steer | time since last face 1476538962.31s
+[2016.10.15_01:42:43]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:43]: steer | time since last face 1476538962.46s
+[2016.10.15_01:42:43]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:43]: steer | time since last face 1476538962.61s
+[2016.10.15_01:42:43]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:43]: steer | time since last face 1476538962.73s
+[2016.10.15_01:42:43]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:43]: steer | time since last face 1476538962.88s
+[2016.10.15_01:42:43]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:44]: steer | time since last face 1476538963.00s
+[2016.10.15_01:42:44]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:44]: steer | time since last face 1476538963.13s
+[2016.10.15_01:42:44]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:44]: steer | time since last face 1476538963.28s
+[2016.10.15_01:42:44]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:44]: steer | time since last face 1476538963.42s
+[2016.10.15_01:42:44]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:44]: steer | time since last face 1476538963.54s
+[2016.10.15_01:42:44]: steer | TODO should go left, right, left,... until new face detected or stop
+[2016.10.15_01:42:44]: faces | 1 new face(s) detected, nearest at -2.92%
+[2016.10.15_01:42:44]: motor | Last face detected 0.00s ago
+[2016.10.15_01:42:44]: motor | Speeding up!
+[2016.10.15_01:42:44]: MOTOR | FINAL DECISION SENT: 99.9998998642
+[2016.10.15_01:42:44]: steer | time since last face 0.05s
+[2016.10.15_01:42:44]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:44]: motor | Last face detected 0.16s ago
+[2016.10.15_01:42:44]: motor | Speeding up!
+[2016.10.15_01:42:44]: MOTOR | FINAL DECISION SENT: 98.3985996246
+[2016.10.15_01:42:44]: steer | time since last face 0.19s
+[2016.10.15_01:42:44]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:44]: steer | time since last face 0.37s
+[2016.10.15_01:42:44]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:45]: steer | time since last face 0.54s
+[2016.10.15_01:42:45]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:45]: steer | time since last face 0.71s
+[2016.10.15_01:42:45]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:45]: steer | time since last face 0.88s
+[2016.10.15_01:42:45]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:45]: motor | Last face detected 1.09s ago
+[2016.10.15_01:42:45]: motor | Staying at full speed!
+[2016.10.15_01:42:45]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:45]: steer | time since last face 1.15s
+[2016.10.15_01:42:45]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:45]: motor | Last face detected 1.39s ago
+[2016.10.15_01:42:45]: motor | Staying at full speed!
+[2016.10.15_01:42:45]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:46]: steer | time since last face 1.48s
+[2016.10.15_01:42:46]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:46]: obstc | Verified obstacle in 47.00cm
+[2016.10.15_01:42:46]: motor | Last face detected 1.67s ago
+[2016.10.15_01:42:46]: motor | Staying at full speed!
+[2016.10.15_01:42:46]: motor | obstacle in: 47cm
+[2016.10.15_01:42:46]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:46]: MOTOR | FINAL DECISION SENT: 88.4285714286
+[2016.10.15_01:42:46]: steer | time since last face 1.75s
+[2016.10.15_01:42:46]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:46]: steer | time since last face 1.97s
+[2016.10.15_01:42:46]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:46]: motor | Last face detected 2.15s ago
+[2016.10.15_01:42:46]: motor | Staying at full speed!
+[2016.10.15_01:42:46]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:46]: steer | time since last face 2.18s
+[2016.10.15_01:42:46]: STEER | TURNING: 98.3958333333
+[2016.10.15_01:42:46]: faces | 1 new face(s) detected, nearest at -9.06%
+[2016.10.15_01:42:46]: motor | Last face detected 0.00s ago
+[2016.10.15_01:42:46]: motor | Staying at full speed!
+[2016.10.15_01:42:46]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:46]: steer | time since last face 0.04s
+[2016.10.15_01:42:46]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:46]: motor | Last face detected 0.16s ago
+[2016.10.15_01:42:46]: motor | Staying at full speed!
+[2016.10.15_01:42:46]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:47]: steer | time since last face 0.18s
+[2016.10.15_01:42:47]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:47]: steer | time since last face 0.37s
+[2016.10.15_01:42:47]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:47]: motor | Last face detected 0.53s ago
+[2016.10.15_01:42:47]: motor | Staying at full speed!
+[2016.10.15_01:42:47]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:47]: steer | time since last face 0.56s
+[2016.10.15_01:42:47]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:47]: motor | Last face detected 0.74s ago
+[2016.10.15_01:42:47]: motor | Staying at full speed!
+[2016.10.15_01:42:47]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:47]: steer | time since last face 0.77s
+[2016.10.15_01:42:47]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:47]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:47]: motor | Last face detected 0.93s ago
+[2016.10.15_01:42:47]: motor | Staying at full speed!
+[2016.10.15_01:42:47]: motor | obstacle in: 46cm
+[2016.10.15_01:42:47]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:47]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:47]: steer | time since last face 0.98s
+[2016.10.15_01:42:47]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:48]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:48]: motor | Last face detected 1.18s ago
+[2016.10.15_01:42:48]: motor | Staying at full speed!
+[2016.10.15_01:42:48]: motor | obstacle in: 46cm
+[2016.10.15_01:42:48]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:48]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:48]: steer | time since last face 1.28s
+[2016.10.15_01:42:48]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:48]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:48]: motor | Last face detected 1.52s ago
+[2016.10.15_01:42:48]: motor | Staying at full speed!
+[2016.10.15_01:42:48]: motor | obstacle in: 46cm
+[2016.10.15_01:42:48]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:48]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:48]: steer | time since last face 1.57s
+[2016.10.15_01:42:48]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:48]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:48]: motor | Last face detected 1.83s ago
+[2016.10.15_01:42:48]: motor | Staying at full speed!
+[2016.10.15_01:42:48]: motor | obstacle in: 45cm
+[2016.10.15_01:42:48]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:48]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:48]: steer | time since last face 1.88s
+[2016.10.15_01:42:48]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:48]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:48]: motor | Last face detected 2.12s ago
+[2016.10.15_01:42:48]: motor | Staying at full speed!
+[2016.10.15_01:42:48]: motor | obstacle in: 46cm
+[2016.10.15_01:42:48]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:48]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:48]: steer | time since last face 2.14s
+[2016.10.15_01:42:49]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:49]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:49]: motor | Last face detected 2.29s ago
+[2016.10.15_01:42:49]: motor | Staying at full speed!
+[2016.10.15_01:42:49]: motor | obstacle in: 46cm
+[2016.10.15_01:42:49]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:49]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:49]: steer | time since last face 2.32s
+[2016.10.15_01:42:49]: faces | 1 new face(s) detected, nearest at -9.48%
+[2016.10.15_01:42:49]: motor | Last face detected 0.00s ago
+[2016.10.15_01:42:49]: motor | Staying at full speed!
+[2016.10.15_01:42:49]: motor | obstacle in: 46cm
+[2016.10.15_01:42:49]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:49]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:49]: STEER | TURNING: 95.015625
+[2016.10.15_01:42:49]: steer | time since last face 0.03s
+[2016.10.15_01:42:49]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:49]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:49]: motor | Last face detected 0.22s ago
+[2016.10.15_01:42:49]: motor | Staying at full speed!
+[2016.10.15_01:42:49]: motor | obstacle in: 45cm
+[2016.10.15_01:42:49]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:49]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:49]: steer | time since last face 0.25s
+[2016.10.15_01:42:49]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:49]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:49]: motor | Last face detected 0.43s ago
+[2016.10.15_01:42:49]: motor | Staying at full speed!
+[2016.10.15_01:42:49]: motor | obstacle in: 46cm
+[2016.10.15_01:42:49]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:49]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:49]: steer | time since last face 0.47s
+[2016.10.15_01:42:49]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:49]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:49]: motor | Last face detected 0.63s ago
+[2016.10.15_01:42:49]: motor | Staying at full speed!
+[2016.10.15_01:42:49]: motor | obstacle in: 46cm
+[2016.10.15_01:42:49]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:49]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:49]: steer | time since last face 0.66s
+[2016.10.15_01:42:49]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:50]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:50]: motor | Last face detected 0.82s ago
+[2016.10.15_01:42:50]: motor | Staying at full speed!
+[2016.10.15_01:42:50]: motor | obstacle in: 46cm
+[2016.10.15_01:42:50]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:50]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:50]: steer | time since last face 0.91s
+[2016.10.15_01:42:50]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:50]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:50]: motor | Last face detected 1.14s ago
+[2016.10.15_01:42:50]: motor | Staying at full speed!
+[2016.10.15_01:42:50]: motor | obstacle in: 46cm
+[2016.10.15_01:42:50]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:50]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:50]: steer | time since last face 1.22s
+[2016.10.15_01:42:50]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:50]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:50]: motor | Last face detected 1.47s ago
+[2016.10.15_01:42:50]: motor | Staying at full speed!
+[2016.10.15_01:42:50]: motor | obstacle in: 46cm
+[2016.10.15_01:42:50]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:50]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:50]: steer | time since last face 1.57s
+[2016.10.15_01:42:50]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:50]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:50]: motor | Last face detected 1.79s ago
+[2016.10.15_01:42:50]: motor | Staying at full speed!
+[2016.10.15_01:42:50]: motor | obstacle in: 46cm
+[2016.10.15_01:42:50]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:50]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:50]: steer | time since last face 1.82s
+[2016.10.15_01:42:51]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:51]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:51]: motor | Last face detected 1.96s ago
+[2016.10.15_01:42:51]: motor | Staying at full speed!
+[2016.10.15_01:42:51]: motor | obstacle in: 46cm
+[2016.10.15_01:42:51]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:51]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:51]: steer | time since last face 1.99s
+[2016.10.15_01:42:51]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:51]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:51]: motor | Last face detected 2.20s ago
+[2016.10.15_01:42:51]: motor | Staying at full speed!
+[2016.10.15_01:42:51]: motor | obstacle in: 46cm
+[2016.10.15_01:42:51]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:51]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:51]: steer | time since last face 2.23s
+[2016.10.15_01:42:51]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:51]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:51]: motor | Last face detected 2.39s ago
+[2016.10.15_01:42:51]: motor | Staying at full speed!
+[2016.10.15_01:42:51]: motor | obstacle in: 46cm
+[2016.10.15_01:42:51]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:51]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:51]: steer | time since last face 2.43s
+[2016.10.15_01:42:51]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:51]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:51]: motor | Last face detected 2.66s ago
+[2016.10.15_01:42:51]: motor | Staying at full speed!
+[2016.10.15_01:42:51]: motor | obstacle in: 46cm
+[2016.10.15_01:42:51]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:51]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:51]: steer | time since last face 2.72s
+[2016.10.15_01:42:51]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:52]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:52]: motor | Last face detected 2.97s ago
+[2016.10.15_01:42:52]: motor | Staying at full speed!
+[2016.10.15_01:42:52]: motor | obstacle in: 46cm
+[2016.10.15_01:42:52]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:52]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:52]: steer | time since last face 3.02s
+[2016.10.15_01:42:52]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:52]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:52]: motor | Last face detected 3.22s ago
+[2016.10.15_01:42:52]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:52]: motor | obstacle in: 46cm
+[2016.10.15_01:42:52]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:52]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:52]: steer | time since last face 3.32s
+[2016.10.15_01:42:52]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:52]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:52]: motor | Last face detected 3.57s ago
+[2016.10.15_01:42:52]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:52]: motor | obstacle in: 46cm
+[2016.10.15_01:42:52]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:52]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:52]: steer | time since last face 3.60s
+[2016.10.15_01:42:52]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:52]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:52]: motor | Last face detected 3.74s ago
+[2016.10.15_01:42:52]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:52]: motor | obstacle in: 46cm
+[2016.10.15_01:42:52]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:52]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:52]: steer | time since last face 3.78s
+[2016.10.15_01:42:53]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:53]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:53]: motor | Last face detected 3.96s ago
+[2016.10.15_01:42:53]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:53]: motor | obstacle in: 46cm
+[2016.10.15_01:42:53]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:53]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:53]: steer | time since last face 4.00s
+[2016.10.15_01:42:53]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:53]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:53]: motor | Last face detected 4.16s ago
+[2016.10.15_01:42:53]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:53]: motor | obstacle in: 46cm
+[2016.10.15_01:42:53]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:53]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:53]: steer | time since last face 4.20s
+[2016.10.15_01:42:53]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:53]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:53]: motor | Last face detected 4.38s ago
+[2016.10.15_01:42:53]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:53]: motor | obstacle in: 46cm
+[2016.10.15_01:42:53]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:53]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:53]: steer | time since last face 4.47s
+[2016.10.15_01:42:53]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:53]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:53]: motor | Last face detected 4.74s ago
+[2016.10.15_01:42:53]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:53]: motor | obstacle in: 46cm
+[2016.10.15_01:42:53]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:53]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:53]: steer | time since last face 4.81s
+[2016.10.15_01:42:54]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:54]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:54]: motor | Last face detected 4.98s ago
+[2016.10.15_01:42:54]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:54]: motor | obstacle in: 46cm
+[2016.10.15_01:42:54]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:54]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:54]: steer | time since last face 5.01s
+[2016.10.15_01:42:54]: STEER | TURNING: 94.7864583333
+[2016.10.15_01:42:54]: faces | 1 new face(s) detected, nearest at 14.58%
+[2016.10.15_01:42:54]: motor | Last face detected 0.00s ago
+[2016.10.15_01:42:54]: motor | Speeding up!
+[2016.10.15_01:42:54]: motor | obstacle in: 46cm
+[2016.10.15_01:42:54]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:54]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:54]: steer | time since last face 0.04s
+[2016.10.15_01:42:54]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:54]: obstc | Verified obstacle in 0.00cm
+[2016.10.15_01:42:54]: motor | Last face detected 0.18s ago
+[2016.10.15_01:42:54]: motor | Speeding up!
+[2016.10.15_01:42:54]: motor | obstacle in: 0cm
+[2016.10.15_01:42:54]: motor | !BREAKING! because of obstacle
+[2016.10.15_01:42:54]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:42:54]: steer | time since last face 0.20s
+[2016.10.15_01:42:54]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:54]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:54]: motor | Last face detected 0.36s ago
+[2016.10.15_01:42:54]: motor | Speeding up!
+[2016.10.15_01:42:54]: motor | obstacle in: 46cm
+[2016.10.15_01:42:54]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:54]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:54]: steer | time since last face 0.39s
+[2016.10.15_01:42:54]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:54]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:54]: motor | Last face detected 0.56s ago
+[2016.10.15_01:42:54]: motor | Speeding up!
+[2016.10.15_01:42:54]: motor | obstacle in: 45cm
+[2016.10.15_01:42:54]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:54]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:54]: steer | time since last face 0.60s
+[2016.10.15_01:42:54]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:55]: obstc | Verified obstacle in 47.00cm
+[2016.10.15_01:42:55]: motor | Last face detected 0.75s ago
+[2016.10.15_01:42:55]: motor | Speeding up!
+[2016.10.15_01:42:55]: motor | obstacle in: 47cm
+[2016.10.15_01:42:55]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:55]: MOTOR | FINAL DECISION SENT: 88.4285714286
+[2016.10.15_01:42:55]: steer | time since last face 0.79s
+[2016.10.15_01:42:55]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:55]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:55]: motor | Last face detected 0.99s ago
+[2016.10.15_01:42:55]: motor | Speeding up!
+[2016.10.15_01:42:55]: motor | obstacle in: 46cm
+[2016.10.15_01:42:55]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:55]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:55]: steer | time since last face 1.10s
+[2016.10.15_01:42:55]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:55]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:55]: motor | Last face detected 1.33s ago
+[2016.10.15_01:42:55]: motor | Staying at full speed!
+[2016.10.15_01:42:55]: motor | obstacle in: 45cm
+[2016.10.15_01:42:55]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:55]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:55]: steer | time since last face 1.40s
+[2016.10.15_01:42:55]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:55]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:55]: motor | Last face detected 1.63s ago
+[2016.10.15_01:42:55]: motor | Staying at full speed!
+[2016.10.15_01:42:55]: motor | obstacle in: 45cm
+[2016.10.15_01:42:55]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:55]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:55]: steer | time since last face 1.66s
+[2016.10.15_01:42:55]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:56]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:56]: motor | Last face detected 1.82s ago
+[2016.10.15_01:42:56]: motor | Staying at full speed!
+[2016.10.15_01:42:56]: motor | obstacle in: 45cm
+[2016.10.15_01:42:56]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:56]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:56]: steer | time since last face 1.85s
+[2016.10.15_01:42:56]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:56]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:56]: motor | Last face detected 2.03s ago
+[2016.10.15_01:42:56]: motor | Staying at full speed!
+[2016.10.15_01:42:56]: motor | obstacle in: 46cm
+[2016.10.15_01:42:56]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:56]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:56]: steer | time since last face 2.07s
+[2016.10.15_01:42:56]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:56]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:56]: motor | Last face detected 2.23s ago
+[2016.10.15_01:42:56]: motor | Staying at full speed!
+[2016.10.15_01:42:56]: motor | obstacle in: 46cm
+[2016.10.15_01:42:56]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:56]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:56]: steer | time since last face 2.27s
+[2016.10.15_01:42:56]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:56]: steer | time since last face 2.47s
+[2016.10.15_01:42:56]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:56]: motor | Last face detected 2.69s ago
+[2016.10.15_01:42:56]: motor | Staying at full speed!
+[2016.10.15_01:42:56]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:57]: steer | time since last face 2.75s
+[2016.10.15_01:42:57]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:57]: motor | Last face detected 3.00s ago
+[2016.10.15_01:42:57]: motor | Staying at full speed!
+[2016.10.15_01:42:57]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:42:57]: steer | time since last face 3.03s
+[2016.10.15_01:42:57]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:57]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:57]: motor | Last face detected 3.18s ago
+[2016.10.15_01:42:57]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:57]: motor | obstacle in: 45cm
+[2016.10.15_01:42:57]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:57]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:57]: steer | time since last face 3.21s
+[2016.10.15_01:42:57]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:57]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:57]: motor | Last face detected 3.42s ago
+[2016.10.15_01:42:57]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:57]: motor | obstacle in: 45cm
+[2016.10.15_01:42:57]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:57]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:57]: steer | time since last face 3.46s
+[2016.10.15_01:42:57]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:57]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:57]: motor | Last face detected 3.63s ago
+[2016.10.15_01:42:57]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:57]: motor | obstacle in: 46cm
+[2016.10.15_01:42:57]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:57]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:57]: steer | time since last face 3.67s
+[2016.10.15_01:42:57]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:58]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:58]: motor | Last face detected 3.85s ago
+[2016.10.15_01:42:58]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:58]: motor | obstacle in: 45cm
+[2016.10.15_01:42:58]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:58]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:58]: steer | time since last face 3.97s
+[2016.10.15_01:42:58]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:58]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:58]: motor | Last face detected 4.17s ago
+[2016.10.15_01:42:58]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:58]: motor | obstacle in: 45cm
+[2016.10.15_01:42:58]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:58]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:58]: steer | time since last face 4.28s
+[2016.10.15_01:42:58]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:58]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:58]: motor | Last face detected 4.50s ago
+[2016.10.15_01:42:58]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:58]: motor | obstacle in: 45cm
+[2016.10.15_01:42:58]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:58]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:58]: steer | time since last face 4.53s
+[2016.10.15_01:42:58]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:58]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:58]: motor | Last face detected 4.69s ago
+[2016.10.15_01:42:58]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:58]: motor | obstacle in: 46cm
+[2016.10.15_01:42:58]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:58]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:58]: steer | time since last face 4.73s
+[2016.10.15_01:42:59]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:59]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:59]: motor | Last face detected 4.92s ago
+[2016.10.15_01:42:59]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:59]: motor | obstacle in: 45cm
+[2016.10.15_01:42:59]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:59]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:59]: steer | time since last face 4.96s
+[2016.10.15_01:42:59]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:59]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:59]: motor | Last face detected 5.14s ago
+[2016.10.15_01:42:59]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:59]: motor | obstacle in: 45cm
+[2016.10.15_01:42:59]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:59]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:42:59]: steer | time since last face 5.21s
+[2016.10.15_01:42:59]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:59]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:42:59]: motor | Last face detected 5.41s ago
+[2016.10.15_01:42:59]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:59]: motor | obstacle in: 46cm
+[2016.10.15_01:42:59]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:59]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:42:59]: steer | time since last face 5.47s
+[2016.10.15_01:42:59]: STEER | TURNING: 107.291666667
+[2016.10.15_01:42:59]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:42:59]: motor | Last face detected 5.71s ago
+[2016.10.15_01:42:59]: motor | Slowing down because no more face detected
+[2016.10.15_01:42:59]: motor | obstacle in: 45cm
+[2016.10.15_01:42:59]: motor | Slowing down because of obstacle
+[2016.10.15_01:42:59]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:00]: steer | time since last face 5.79s
+[2016.10.15_01:43:00]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:00]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:00]: motor | Last face detected 5.94s ago
+[2016.10.15_01:43:00]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:00]: motor | obstacle in: 45cm
+[2016.10.15_01:43:00]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:00]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:00]: steer | time since last face 5.97s
+[2016.10.15_01:43:00]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:00]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:00]: motor | Last face detected 6.17s ago
+[2016.10.15_01:43:00]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:00]: motor | obstacle in: 45cm
+[2016.10.15_01:43:00]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:00]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:00]: steer | time since last face 6.20s
+[2016.10.15_01:43:00]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:00]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:00]: motor | Last face detected 6.37s ago
+[2016.10.15_01:43:00]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:00]: motor | obstacle in: 45cm
+[2016.10.15_01:43:00]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:00]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:00]: steer | time since last face 6.40s
+[2016.10.15_01:43:00]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:00]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:00]: motor | Last face detected 6.59s ago
+[2016.10.15_01:43:00]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:00]: motor | obstacle in: 45cm
+[2016.10.15_01:43:00]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:00]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:00]: steer | time since last face 6.70s
+[2016.10.15_01:43:01]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:01]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:01]: motor | Last face detected 6.93s ago
+[2016.10.15_01:43:01]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:01]: motor | obstacle in: 45cm
+[2016.10.15_01:43:01]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:01]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:01]: steer | time since last face 7.03s
+[2016.10.15_01:43:01]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:01]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:01]: motor | Last face detected 7.32s ago
+[2016.10.15_01:43:01]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:01]: motor | obstacle in: 45cm
+[2016.10.15_01:43:01]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:01]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:01]: steer | time since last face 7.35s
+[2016.10.15_01:43:01]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:01]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:01]: motor | Last face detected 7.51s ago
+[2016.10.15_01:43:01]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:01]: motor | obstacle in: 45cm
+[2016.10.15_01:43:01]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:01]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:01]: steer | time since last face 7.58s
+[2016.10.15_01:43:01]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:02]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:02]: motor | Last face detected 7.76s ago
+[2016.10.15_01:43:02]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:02]: motor | obstacle in: 45cm
+[2016.10.15_01:43:02]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:02]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:02]: steer | time since last face 7.80s
+[2016.10.15_01:43:02]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:02]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:02]: motor | Last face detected 7.97s ago
+[2016.10.15_01:43:02]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:02]: motor | obstacle in: 45cm
+[2016.10.15_01:43:02]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:02]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:02]: steer | time since last face 8.01s
+[2016.10.15_01:43:02]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:02]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:02]: motor | Last face detected 8.28s ago
+[2016.10.15_01:43:02]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:02]: motor | obstacle in: 45cm
+[2016.10.15_01:43:02]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:02]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:02]: steer | time since last face 8.34s
+[2016.10.15_01:43:02]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:02]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:02]: motor | Last face detected 8.62s ago
+[2016.10.15_01:43:02]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:02]: motor | obstacle in: 46cm
+[2016.10.15_01:43:02]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:02]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:02]: steer | time since last face 8.67s
+[2016.10.15_01:43:03]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:03]: obstc | Verified obstacle in 47.00cm
+[2016.10.15_01:43:03]: motor | Last face detected 8.90s ago
+[2016.10.15_01:43:03]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:03]: motor | obstacle in: 47cm
+[2016.10.15_01:43:03]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:03]: MOTOR | FINAL DECISION SENT: 88.4285714286
+[2016.10.15_01:43:03]: steer | time since last face 8.93s
+[2016.10.15_01:43:03]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:03]: obstc | Verified obstacle in 47.00cm
+[2016.10.15_01:43:03]: motor | Last face detected 9.13s ago
+[2016.10.15_01:43:03]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:03]: motor | obstacle in: 47cm
+[2016.10.15_01:43:03]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:03]: MOTOR | FINAL DECISION SENT: 88.4285714286
+[2016.10.15_01:43:03]: steer | time since last face 9.17s
+[2016.10.15_01:43:03]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:03]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:03]: motor | Last face detected 9.35s ago
+[2016.10.15_01:43:03]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:03]: motor | obstacle in: 46cm
+[2016.10.15_01:43:03]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:03]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:03]: steer | time since last face 9.40s
+[2016.10.15_01:43:03]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:03]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:03]: motor | Last face detected 9.60s ago
+[2016.10.15_01:43:03]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:03]: motor | obstacle in: 46cm
+[2016.10.15_01:43:03]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:03]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:03]: steer | time since last face 9.69s
+[2016.10.15_01:43:04]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:04]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:04]: motor | Last face detected 9.92s ago
+[2016.10.15_01:43:04]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:04]: motor | obstacle in: 46cm
+[2016.10.15_01:43:04]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:04]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:04]: steer | time since last face 10.00s
+[2016.10.15_01:43:04]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:04]: obstc | Verified obstacle in 47.00cm
+[2016.10.15_01:43:04]: motor | Last face detected 10.25s ago
+[2016.10.15_01:43:04]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:04]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:04]: steer | time since last face 10.28s
+[2016.10.15_01:43:04]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:04]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:04]: motor | Last face detected 10.43s ago
+[2016.10.15_01:43:04]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:04]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:04]: steer | time since last face 10.46s
+[2016.10.15_01:43:04]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:04]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:04]: motor | Last face detected 10.62s ago
+[2016.10.15_01:43:04]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:04]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:04]: steer | time since last face 10.66s
+[2016.10.15_01:43:04]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:05]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:05]: motor | Last face detected 10.83s ago
+[2016.10.15_01:43:05]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:05]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:05]: steer | time since last face 10.88s
+[2016.10.15_01:43:05]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:05]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:05]: motor | Last face detected 11.05s ago
+[2016.10.15_01:43:05]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:05]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:05]: steer | time since last face 11.11s
+[2016.10.15_01:43:05]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:05]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:05]: motor | Last face detected 11.35s ago
+[2016.10.15_01:43:05]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:05]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:05]: steer | time since last face 11.45s
+[2016.10.15_01:43:05]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:05]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:05]: motor | Last face detected 11.68s ago
+[2016.10.15_01:43:05]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:05]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:06]: steer | time since last face 11.75s
+[2016.10.15_01:43:06]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:06]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:06]: motor | Last face detected 12.09s ago
+[2016.10.15_01:43:06]: motor | !BREAKING! because no faces
+[2016.10.15_01:43:06]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:06]: steer | time since last face 12.12s
+[2016.10.15_01:43:06]: STEER | TURNING: 107.291666667
+[2016.10.15_01:43:06]: faces | 1 new face(s) detected, nearest at 26.67%
+[2016.10.15_01:43:06]: motor | Last face detected 0.00s ago
+[2016.10.15_01:43:06]: motor | Speeding up!
+[2016.10.15_01:43:06]: motor | obstacle in: 46cm
+[2016.10.15_01:43:06]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:06]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:06]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:06]: motor | Last face detected 0.02s ago
+[2016.10.15_01:43:06]: motor | Speeding up!
+[2016.10.15_01:43:06]: motor | obstacle in: 46cm
+[2016.10.15_01:43:06]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:06]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:06]: steer | time since last face 0.04s
+[2016.10.15_01:43:06]: steer | time since last face 0.06s
+[2016.10.15_01:43:06]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:06]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:06]: obstc | Verified obstacle in 29.00cm
+[2016.10.15_01:43:06]: motor | Last face detected 0.30s ago
+[2016.10.15_01:43:06]: motor | Speeding up!
+[2016.10.15_01:43:06]: motor | obstacle in: 29cm
+[2016.10.15_01:43:06]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:06]: MOTOR | FINAL DECISION SENT: 96.1428571429
+[2016.10.15_01:43:06]: steer | time since last face 0.35s
+[2016.10.15_01:43:06]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:07]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:07]: motor | Last face detected 0.54s ago
+[2016.10.15_01:43:07]: motor | Speeding up!
+[2016.10.15_01:43:07]: motor | obstacle in: 46cm
+[2016.10.15_01:43:07]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:07]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:07]: steer | time since last face 0.59s
+[2016.10.15_01:43:07]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:07]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:07]: motor | Last face detected 0.79s ago
+[2016.10.15_01:43:07]: motor | Speeding up!
+[2016.10.15_01:43:07]: motor | obstacle in: 46cm
+[2016.10.15_01:43:07]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:07]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:07]: steer | time since last face 0.89s
+[2016.10.15_01:43:07]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:07]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:07]: motor | Last face detected 1.12s ago
+[2016.10.15_01:43:07]: motor | Staying at full speed!
+[2016.10.15_01:43:07]: motor | obstacle in: 46cm
+[2016.10.15_01:43:07]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:07]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:07]: steer | time since last face 1.21s
+[2016.10.15_01:43:07]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:07]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:07]: motor | Last face detected 1.47s ago
+[2016.10.15_01:43:07]: motor | Staying at full speed!
+[2016.10.15_01:43:07]: motor | obstacle in: 46cm
+[2016.10.15_01:43:07]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:07]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:08]: steer | time since last face 1.56s
+[2016.10.15_01:43:08]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:08]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:08]: motor | Last face detected 1.82s ago
+[2016.10.15_01:43:08]: motor | Staying at full speed!
+[2016.10.15_01:43:08]: motor | obstacle in: 46cm
+[2016.10.15_01:43:08]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:08]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:08]: steer | time since last face 1.85s
+[2016.10.15_01:43:08]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:08]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:08]: motor | Last face detected 2.00s ago
+[2016.10.15_01:43:08]: motor | Staying at full speed!
+[2016.10.15_01:43:08]: motor | obstacle in: 46cm
+[2016.10.15_01:43:08]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:08]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:08]: steer | time since last face 2.04s
+[2016.10.15_01:43:08]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:08]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:08]: motor | Last face detected 2.22s ago
+[2016.10.15_01:43:08]: motor | Staying at full speed!
+[2016.10.15_01:43:08]: motor | obstacle in: 46cm
+[2016.10.15_01:43:08]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:08]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:08]: steer | time since last face 2.27s
+[2016.10.15_01:43:08]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:08]: obstc | Verified obstacle in 0.00cm
+[2016.10.15_01:43:08]: motor | Last face detected 2.45s ago
+[2016.10.15_01:43:08]: motor | Staying at full speed!
+[2016.10.15_01:43:08]: motor | obstacle in: 0cm
+[2016.10.15_01:43:08]: motor | !BREAKING! because of obstacle
+[2016.10.15_01:43:08]: MOTOR | FINAL DECISION SENT: 150
+[2016.10.15_01:43:09]: steer | time since last face 2.50s
+[2016.10.15_01:43:09]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:09]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:09]: motor | Last face detected 2.73s ago
+[2016.10.15_01:43:09]: motor | Staying at full speed!
+[2016.10.15_01:43:09]: motor | obstacle in: 45cm
+[2016.10.15_01:43:09]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:09]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:09]: steer | time since last face 2.85s
+[2016.10.15_01:43:09]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:09]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:09]: motor | Last face detected 3.17s ago
+[2016.10.15_01:43:09]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:09]: motor | obstacle in: 45cm
+[2016.10.15_01:43:09]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:09]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:09]: steer | time since last face 3.25s
+[2016.10.15_01:43:09]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:09]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:09]: motor | Last face detected 3.40s ago
+[2016.10.15_01:43:09]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:09]: motor | obstacle in: 46cm
+[2016.10.15_01:43:09]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:09]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:09]: steer | time since last face 3.44s
+[2016.10.15_01:43:10]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:10]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:10]: motor | Last face detected 3.63s ago
+[2016.10.15_01:43:10]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:10]: motor | obstacle in: 46cm
+[2016.10.15_01:43:10]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:10]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:10]: steer | time since last face 3.67s
+[2016.10.15_01:43:10]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:10]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:10]: motor | Last face detected 3.85s ago
+[2016.10.15_01:43:10]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:10]: motor | obstacle in: 46cm
+[2016.10.15_01:43:10]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:10]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:10]: steer | time since last face 3.91s
+[2016.10.15_01:43:10]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:10]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:10]: motor | Last face detected 4.13s ago
+[2016.10.15_01:43:10]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:10]: motor | obstacle in: 46cm
+[2016.10.15_01:43:10]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:10]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:10]: steer | time since last face 4.20s
+[2016.10.15_01:43:10]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:10]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:10]: motor | Last face detected 4.47s ago
+[2016.10.15_01:43:10]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:10]: motor | obstacle in: 45cm
+[2016.10.15_01:43:10]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:10]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:11]: steer | time since last face 4.55s
+[2016.10.15_01:43:11]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:11]: obstc | Verified obstacle in 48.00cm
+[2016.10.15_01:43:11]: motor | Last face detected 4.84s ago
+[2016.10.15_01:43:11]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:11]: motor | obstacle in: 48cm
+[2016.10.15_01:43:11]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:11]: MOTOR | FINAL DECISION SENT: 88.0
+[2016.10.15_01:43:11]: steer | time since last face 4.90s
+[2016.10.15_01:43:11]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:11]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:11]: motor | Last face detected 5.18s ago
+[2016.10.15_01:43:11]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:11]: motor | obstacle in: 46cm
+[2016.10.15_01:43:11]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:11]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:11]: steer | time since last face 5.26s
+[2016.10.15_01:43:11]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:12]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:12]: motor | Last face detected 5.53s ago
+[2016.10.15_01:43:12]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:12]: motor | obstacle in: 46cm
+[2016.10.15_01:43:12]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:12]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:12]: steer | time since last face 5.56s
+[2016.10.15_01:43:12]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:12]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:12]: motor | Last face detected 5.74s ago
+[2016.10.15_01:43:12]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:12]: motor | obstacle in: 46cm
+[2016.10.15_01:43:12]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:12]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:12]: steer | time since last face 5.77s
+[2016.10.15_01:43:12]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:12]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:12]: motor | Last face detected 5.94s ago
+[2016.10.15_01:43:12]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:12]: motor | obstacle in: 45cm
+[2016.10.15_01:43:12]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:12]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:12]: steer | time since last face 5.99s
+[2016.10.15_01:43:12]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:12]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:12]: motor | Last face detected 6.16s ago
+[2016.10.15_01:43:12]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:12]: motor | obstacle in: 46cm
+[2016.10.15_01:43:12]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:12]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:12]: steer | time since last face 6.20s
+[2016.10.15_01:43:12]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:12]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:12]: motor | Last face detected 6.38s ago
+[2016.10.15_01:43:12]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:12]: motor | obstacle in: 46cm
+[2016.10.15_01:43:12]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:12]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:12]: steer | time since last face 6.48s
+[2016.10.15_01:43:13]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:13]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:13]: motor | Last face detected 6.74s ago
+[2016.10.15_01:43:13]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:13]: motor | obstacle in: 46cm
+[2016.10.15_01:43:13]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:13]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:13]: steer | time since last face 6.84s
+[2016.10.15_01:43:13]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:13]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:13]: motor | Last face detected 7.06s ago
+[2016.10.15_01:43:13]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:13]: motor | obstacle in: 46cm
+[2016.10.15_01:43:13]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:13]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:13]: steer | time since last face 7.15s
+[2016.10.15_01:43:13]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:13]: obstc | Verified obstacle in 47.00cm
+[2016.10.15_01:43:13]: motor | Last face detected 7.47s ago
+[2016.10.15_01:43:13]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:13]: motor | obstacle in: 47cm
+[2016.10.15_01:43:13]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:13]: MOTOR | FINAL DECISION SENT: 88.4285714286
+[2016.10.15_01:43:14]: steer | time since last face 7.54s
+[2016.10.15_01:43:14]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:14]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:14]: motor | Last face detected 7.84s ago
+[2016.10.15_01:43:14]: motor | Slowing down because no more face detected
+[2016.10.15_01:43:14]: motor | obstacle in: 46cm
+[2016.10.15_01:43:14]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:14]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:14]: steer | time since last face 7.87s
+[2016.10.15_01:43:14]: STEER | TURNING: 113.333333333
+[2016.10.15_01:43:14]: faces | 1 new face(s) detected, nearest at 60.62%
+[2016.10.15_01:43:14]: motor | Last face detected 0.00s ago
+[2016.10.15_01:43:14]: motor | Speeding up!
+[2016.10.15_01:43:14]: motor | obstacle in: 46cm
+[2016.10.15_01:43:14]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:14]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:14]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:14]: motor | Last face detected 0.01s ago
+[2016.10.15_01:43:14]: motor | Speeding up!
+[2016.10.15_01:43:14]: motor | obstacle in: 46cm
+[2016.10.15_01:43:14]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:14]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:14]: steer | time since last face 0.05s
+[2016.10.15_01:43:14]: steer | time since last face 0.06s
+[2016.10.15_01:43:14]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:14]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:14]: obstc | Verified obstacle in 45.00cm
+[2016.10.15_01:43:14]: motor | Last face detected 0.30s ago
+[2016.10.15_01:43:14]: motor | Speeding up!
+[2016.10.15_01:43:14]: motor | obstacle in: 45cm
+[2016.10.15_01:43:14]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:14]: MOTOR | FINAL DECISION SENT: 89.2857142857
+[2016.10.15_01:43:14]: steer | time since last face 0.34s
+[2016.10.15_01:43:14]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:15]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:15]: motor | Last face detected 0.53s ago
+[2016.10.15_01:43:15]: motor | Speeding up!
+[2016.10.15_01:43:15]: motor | obstacle in: 46cm
+[2016.10.15_01:43:15]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:15]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:15]: steer | time since last face 0.57s
+[2016.10.15_01:43:15]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:15]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:15]: motor | Last face detected 0.76s ago
+[2016.10.15_01:43:15]: motor | Speeding up!
+[2016.10.15_01:43:15]: motor | obstacle in: 46cm
+[2016.10.15_01:43:15]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:15]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:15]: steer | time since last face 0.85s
+[2016.10.15_01:43:15]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:15]: obstc | Verified obstacle in 47.00cm
+[2016.10.15_01:43:15]: motor | Last face detected 1.04s ago
+[2016.10.15_01:43:15]: motor | Staying at full speed!
+[2016.10.15_01:43:15]: motor | obstacle in: 47cm
+[2016.10.15_01:43:15]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:15]: MOTOR | FINAL DECISION SENT: 88.4285714286
+[2016.10.15_01:43:15]: steer | time since last face 1.10s
+[2016.10.15_01:43:15]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:15]: steer | time since last face 1.28s
+[2016.10.15_01:43:15]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:15]: motor | Last face detected 1.45s ago
+[2016.10.15_01:43:15]: motor | Staying at full speed!
+[2016.10.15_01:43:15]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:43:16]: steer | time since last face 1.50s
+[2016.10.15_01:43:16]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:16]: motor | Last face detected 1.67s ago
+[2016.10.15_01:43:16]: motor | Staying at full speed!
+[2016.10.15_01:43:16]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:43:16]: steer | time since last face 1.72s
+[2016.10.15_01:43:16]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:16]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:16]: motor | Last face detected 1.91s ago
+[2016.10.15_01:43:16]: motor | Staying at full speed!
+[2016.10.15_01:43:16]: motor | obstacle in: 46cm
+[2016.10.15_01:43:16]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:16]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:16]: steer | time since last face 1.98s
+[2016.10.15_01:43:16]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:16]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:16]: motor | Last face detected 2.26s ago
+[2016.10.15_01:43:16]: motor | Staying at full speed!
+[2016.10.15_01:43:16]: motor | obstacle in: 46cm
+[2016.10.15_01:43:16]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:16]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:16]: steer | time since last face 2.37s
+[2016.10.15_01:43:17]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:17]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:17]: motor | Last face detected 2.63s ago
+[2016.10.15_01:43:17]: motor | Staying at full speed!
+[2016.10.15_01:43:17]: motor | obstacle in: 46cm
+[2016.10.15_01:43:17]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:17]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:17]: steer | time since last face 2.69s
+[2016.10.15_01:43:17]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:17]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:17]: motor | Last face detected 2.85s ago
+[2016.10.15_01:43:17]: motor | Staying at full speed!
+[2016.10.15_01:43:17]: motor | obstacle in: 46cm
+[2016.10.15_01:43:17]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:17]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:17]: steer | time since last face 2.89s
+[2016.10.15_01:43:17]: faces | 1 new face(s) detected, nearest at -44.84%
+[2016.10.15_01:43:17]: motor | Last face detected 0.00s ago
+[2016.10.15_01:43:17]: motor | Staying at full speed!
+[2016.10.15_01:43:17]: motor | obstacle in: 46cm
+[2016.10.15_01:43:17]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:17]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:17]: STEER | TURNING: 130.3125
+[2016.10.15_01:43:17]: steer | time since last face 0.03s
+[2016.10.15_01:43:17]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:17]: obstc | Verified obstacle in 46.00cm
+[2016.10.15_01:43:17]: motor | Last face detected 0.21s ago
+[2016.10.15_01:43:17]: motor | Staying at full speed!
+[2016.10.15_01:43:17]: motor | obstacle in: 46cm
+[2016.10.15_01:43:17]: motor | Slowing down because of obstacle
+[2016.10.15_01:43:17]: MOTOR | FINAL DECISION SENT: 88.8571428571
+[2016.10.15_01:43:17]: steer | time since last face 0.25s
+[2016.10.15_01:43:17]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:17]: steer | time since last face 0.42s
+[2016.10.15_01:43:17]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:18]: steer | time since last face 0.59s
+[2016.10.15_01:43:18]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:18]: steer | time since last face 0.77s
+[2016.10.15_01:43:18]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:18]: steer | time since last face 0.97s
+[2016.10.15_01:43:18]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:18]: steer | time since last face 1.19s
+[2016.10.15_01:43:18]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:18]: motor | Last face detected 1.41s ago
+[2016.10.15_01:43:18]: motor | Staying at full speed!
+[2016.10.15_01:43:18]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:43:18]: steer | time since last face 1.47s
+[2016.10.15_01:43:18]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:19]: steer | time since last face 1.74s
+[2016.10.15_01:43:19]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:19]: steer | time since last face 1.94s
+[2016.10.15_01:43:19]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:19]: steer | time since last face 2.09s
+[2016.10.15_01:43:19]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:19]: steer | time since last face 2.25s
+[2016.10.15_01:43:19]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:19]: steer | time since last face 2.41s
+[2016.10.15_01:43:19]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:20]: steer | time since last face 2.56s
+[2016.10.15_01:43:20]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:20]: steer | time since last face 2.72s
+[2016.10.15_01:43:20]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:20]: faces | 1 new face(s) detected, nearest at 22.86%
+[2016.10.15_01:43:20]: motor | Last face detected 0.00s ago
+[2016.10.15_01:43:20]: motor | Staying at full speed!
+[2016.10.15_01:43:20]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:43:20]: steer | time since last face 0.02s
+[2016.10.15_01:43:20]: steer | time since last face 0.06s
+[2016.10.15_01:43:20]: STEER | TURNING: 75.3359375
+[2016.10.15_01:43:20]: STEER | TURNING: 111.432291667
+[2016.10.15_01:43:20]: steer | time since last face 0.26s
+[2016.10.15_01:43:20]: STEER | TURNING: 111.432291667
+[2016.10.15_01:43:20]: motor | Last face detected 0.43s ago
+[2016.10.15_01:43:20]: motor | Staying at full speed!
+[2016.10.15_01:43:20]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:43:20]: steer | time since last face 0.46s
+[2016.10.15_01:43:20]: STEER | TURNING: 111.432291667
+[2016.10.15_01:43:20]: motor | Last face detected 0.63s ago
+[2016.10.15_01:43:20]: motor | Staying at full speed!
+[2016.10.15_01:43:20]: MOTOR | FINAL DECISION SENT: 70
+[2016.10.15_01:43:20]: steer | time since last face 0.67s
+[2016.10.15_01:43:21]: STEER | TURNING: 111.432291667
+[2016.10.15_01:43:21]: Bye!

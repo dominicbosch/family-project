@@ -33,7 +33,7 @@ class PiVideoStream:
 		# keep looping infinitely until the thread is stopped
 		for f in self.stream:
 			self.frameNum += 1
-			if self.frameNum == 10
+			if self.frameNum == 10:
 				now = time.time()
 				print 'Camera | FPS: {}'.format((now-wallStart)/10)
 				self.frameNum = 0
