@@ -16,21 +16,11 @@ int iHorizontalServo = 4;
 int iVerticalServo = 5;
 
 int hActPos;
-
-void	signal_callback_handler(int signum)
-{
-	printf("Caught signal %d\n",signum);
-	printf("%d\n", hActPos);
-// Cleanup and close up stuff here
-// Terminate program
-	printf("Caught signal %d - Ending program\n", signum);
-	exit(signum);
-}
+int hOldPos;
 
 void initPWM(int address)
 {
     pwmHatFD = wiringPiI2CSetup(address);
-
 
     // zero all PWM ports
     resetAllPWM(0,0);
@@ -108,10 +98,20 @@ void moveSlow(int sNum, int curPos, int toPos, int mSpeed)
 
 }
 
+void	signal_callback_handler(int signum)
+{
+//	printf("Caught signal %d\n",signum);
+	printf("%d\n", hActPos);
+// Cleanup and close up stuff here
+// Terminate program
+	setPWM(iHorizontalServo, 0, servoMid);
+	setPWM(iVerticalServo, 0, vServoMid);
+	printf("Caught signal %d - Ending program\n", signum);
+	exit(signum);
+}
+
 int main()
 {
-
-int hOldPos;
 
 signal(SIGUSR1, signal_callback_handler);
 

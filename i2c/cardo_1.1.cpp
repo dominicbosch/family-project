@@ -214,11 +214,20 @@ int main(int argc, char **argv)
 	iValues = config_lookup(cf, "valid.devices");
 	iCount = config_setting_length(iValues);
 
-	char sValidDev[20];
+	char sValidDev[] = "12345678901234567890";
+	int iValidDev[20];
 	for (i = 0; i < iCount; i++)
 		{
-		sValidDev[i] = char(config_setting_get_int_elem(iValues, i) + 97);
+		iRetval = config_setting_get_int_elem(iValues, i) + 97;
+		iValidDev[i] = iRetval;
 		}
+
+	for(i = 0; i < iCount; i++)
+		{
+		sValidDev[i] = char(iValidDev[i]);
+		}
+
+printf("sValidDev %s\n", sValidDev);
 
 	bRetval = false;
 	i = 0;
@@ -266,7 +275,7 @@ int main(int argc, char **argv)
 	else
 		{
 		bRetval = bCalcArray(dLimitArray);
-		if(iIn[1] = 200)
+		if(iIn[1] == 200)
 			{
 			iPWMHatFD = wiringPiI2CSetup(0x40);
 			initPWM();
