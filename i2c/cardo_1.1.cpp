@@ -227,7 +227,7 @@ int main(int argc, char **argv)
 		sValidDev[i] = char(iValidDev[i]);
 		}
 
-printf("sValidDev %s\n", sValidDev);
+//printf("sValidDev %s\n", sValidDev);
 
 	bRetval = false;
 	i = 0;
