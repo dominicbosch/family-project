@@ -7,8 +7,8 @@
 
 int pwmHatFD = -1;
 
-int servoMin = 150;
-int servoMax = 560;
+int servoMin = 250;
+int servoMax = 450;
 int servoMid = 350;
 int vServoMid = 300;
 
