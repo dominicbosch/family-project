@@ -38,7 +38,7 @@ Then generate random variables from these attributes:
 - Python: random.normalvariate( &mu;, &sigma; )
 - Nodejs: include [Random module](http://simjs.com/random.html) then: Random.normal( &mu;, &sigma; )
 
-3. Configuration File Structure
+3. Configuration File Structure - DONE
 ===============================
 
 Proposed structure {Min, Mid, Max, Special, Delta Plus, Delta Minus} would not match the requirement for multiple special events per device :
@@ -46,7 +46,12 @@ Proposed structure {Min, Mid, Max, Special, Delta Plus, Delta Minus} would not m
 - Min   = Minimal Value (e.g. Full left)
 - Mid  = Neutral Position
 - Max   =  Maximal Value (e.g. Full right)
-- Special  = Special move (e.g. Motor Full Stop)
+- Special  = Special move (e.g. Motor Full Stop)
+
+Example: {200, 325, 500, 200};
+
+Not part of the file but part of the array structure in CarDo :
+---------------------------------------------------------------
 - Delta Plus  = Movement for a plus value based on [-100 ... 100] Range
 - Delta Minus = Movement for a minus value based on [-100 ... 100] Range 
 
