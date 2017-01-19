@@ -121,6 +121,12 @@ requiredConfig = {
 	'Camera': ['width','height','framerate','imagepath', 'average-detect-time-ms', 'cascade-file']	
 }
 
+
+
+# TODO get hflip and vflip into config
+
+
+
 # Beautiful Python magic to find all the missing config options... :-D
 notExisting = []
 for s in requiredConfig:

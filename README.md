@@ -32,10 +32,10 @@ Available Device(s):
 
 #### Servos ####
 
-* [1] Steering Servo : `value` has to be an integer in the range [-100 .. 100], -100=full left, 100=full right
-* [2] Motor Servo : `value` has to be an integer in the range [-200 .. 100], -100=full backwards, 100=full forward, -200=full break
-* [3] Camera Servo - Horizontal : `value` has to be an integer in the range [-100 .. 100], -100=full left, 100=full right
-* [4] Camera Servo - Vertical : `value` has to be an integer in the range [-100 .. 100], -100=full up, 100=full down
+* [0] Steering Servo : `value` has to be an integer in the range [-100 .. 100], -100=full left, 100=full right
+* [1] Motor Servo : `value` has to be an integer in the range [-200 .. 100], -100=full backwards, 100=full forward, -200=full break
+* [2] Camera Servo - Horizontal : `value` has to be an integer in the range [-100 .. 100], -100=full left, 100=full right
+* [3] Camera Servo - Vertical : `value` has to be an integer in the range [-100 .. 100], -100=full up, 100=full down
 
 #### Sensors ####
 
