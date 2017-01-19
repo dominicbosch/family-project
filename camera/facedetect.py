@@ -6,13 +6,24 @@ import datetime
 from pivideostream import PiVideoStream
 
 class FaceDetect:
-	def __init__(self, resolution=(1024, 768), framerate=32, hflip=False, vflip=False, path="", cascade=None):
+	def __init__(
+		self,
+		resolution=(1024, 768),
+		framerate=32,
+		hflip=False,
+		vflip=False,
+		path="",
+		cascade=None,
+		storesImage=True
+	):
 		self.imageWidth = resolution[0]
 		self.imageHeight = resolution[1]
 		self.framerate = framerate
 		self.hflip = hflip
 		self.vflip = vflip
 		self.path = path
+		self.storesImage = storesImage
+		self.isRunning = False
 #		if cascade:
 #			print("choosing default")
 		cascPath = '../camera/cascades/haarcascade_frontalcatface.xml'
@@ -24,9 +35,50 @@ class FaceDetect:
 		self.frame = None
 		self.lastFrameAccessed = time.time()
 
-	def start(self, callback):
-		self.callback = callback
+	def run(self, callback):
+		self.isRunning = True;
 		self.stream.start(self.newFrame)
+		while self.isRunning
+			if self.frame != lastFrame
+				print 'Processing frame'
+				lastFrame = self.frame
+				faces = self.face_cascade.detectMultiScale(self.frame, 1.1, 5)
+				# Execute the callback whenever faces have been detected
+				if len(faces) > 0:
+
+					# sortedFaces = faces
+					sortedFaces = sorted(faces, self.getSortMeasure)
+					arrFaces = []
+					for af in faces:
+						if self.storesImage:
+							cv2.rectangle(frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
+						# gonna be: [x, y, w, h, relX, relY, relW, relH]
+						# set x, y, w, h
+						face = [af[0], af[1], af[2], af[3]]
+						# percentage; left -100%, right 100%: [-1,1]
+						fw = float(self.imageWidth)
+						fh = float(self.imageHeight)
+
+						# range; [-1, 1]
+						face.append((2*af[0]+af[2])/fw-1)
+						# range[-1, 1]
+						face.append((2*af[1]+af[3])/fh-1)
+						# appending relative width
+						face.append(af[2]/fw)
+						# appending relative height
+						face.append(af[3]/fh)
+						arrFaces.append(face)
+
+					if self.storesImage:
+						timestamp = datetime.datetime.now()
+						ts = timestamp.strftime("%Y.%m.%d_%I:%M:%S")
+						cv2.imwrite("{}face_{}.jpg".format(self.path, ts), frame)
+
+					# sort the faces list, first the biggest ones
+					callback(arrFaces)
+			else:
+				time.sleep(10)
+				print 'Skipping frame'
 
 	def getSortMeasure(self, (x,y,w,h), t):
 		return int(100 / (w*h)) # calculate the area of the face
@@ -38,40 +90,9 @@ class FaceDetect:
 	# two compute intensive tasks
 	def newFrame(self, frame):
 		self.frame = frame
-		faces = self.face_cascade.detectMultiScale(frame, 1.1, 5)
-		# Execute the callback whenever faces have been detected
-		if len(faces) > 0:
-
-			# sortedFaces = faces
-			sortedFaces = sorted(faces, self.getSortMeasure)
-			arrFaces = []
-			for af in faces:
-				cv2.rectangle(frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
-				# gonna be: [x, y, w, h, relX, relY, relW, relH]
-				# set x, y, w, h
-				face = [af[0], af[1], af[2], af[3]]
-				# percentage; left -100%, right 100%: [-1,1]
-				fw = float(self.imageWidth)
-				fh = float(self.imageHeight)
-
-				# range; [-1, 1]
-				face.append((2*af[0]+af[2])/fw-1)
-				# range[-1, 1]
-				face.append((2*af[1]+af[3])/fh-1)
-				# appending relative width
-				face.append(af[2]/fw)
-				# appending relative height
-				face.append(af[3]/fh)
-				arrFaces.append(face)
-
-			timestamp = datetime.datetime.now()
-			ts = timestamp.strftime("%Y.%m.%d_%I:%M:%S")
-			cv2.imwrite("{}face_{}.jpg".format(self.path, ts), frame)
-
-			# sort the faces list, first the biggest ones
-			self.callback(arrFaces)
 
 	def stop(self):
+		self.isRunning = False;
 		self.stream.stop()
 
 
