@@ -10,30 +10,30 @@ from facedetect import FaceDetect
 # Define possible command line arguments
 parser = argparse.ArgumentParser(description='Look for faces on the PI Camera')
 
-parser.add_argument('-h',
+parser.add_argument('-hf',
 	action='store_true',
 	dest='hflip',
 	help='Horizontal camera flip')
 
-parser.add_argument('-v',
+parser.add_argument('-vf',
 	action='store_true',
 	dest='vflip',
 	help='Vertical camera flip')
 
-parser.add_argument('-n',
+parser.add_argument('-v',
 	action='store_true',
 	dest='verbose',
-	help='Noisy output')
+	help='Verbose output')
 
 parser.add_argument('-w',
 	action='store_true',
 	dest='width',
 	help='Image width')
 
-parser.add_argument('-t',
+parser.add_argument('-h',
 	action='store_true',
 	dest='height',
-	help='Image height (tallness)')
+	help='Image height')
 
 # Parse command line arguments and see if something useful was provided
 args = parser.parse_args()
@@ -48,7 +48,6 @@ def faceHasBeenDetected(arrFaces):
 	xPerc = arrFaces[0][4]*100
 	if args.verbose:
 		writeLog('New face(s) detected ({}), nearest at {:.2f}%'.format(numF, xPerc))
-	# we only head for the biggest face
 	i = 0
 	for pic in arrFaces:
 		writeLog('{}|{}'.format(i, '|'.join(pic)))
