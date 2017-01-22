@@ -23,7 +23,7 @@ class FaceDetect:
 		self.saveImage = (savepath == None)
 		self.verbose = verbose
 		self.isRunning = False
-		if cascade == None:
+		if cascade iss None:
 			cascPath = 'cascades/lbpcascade_frontalface.xml'
 		else:
 			cascPath = 'cascades/{}'.format(cascade)
