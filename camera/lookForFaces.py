@@ -62,7 +62,8 @@ def faceHasBeenDetected(arrFaces):
 		writeLog('New face(s) detected ({}), nearest at {:.2f}%'.format(numF, xPerc))
 	i = 0
 	for pic in arrFaces:
-		writeLog('{}|{}'.format(i, '|'.join(list(pic))))
+		arr = list(str(v) for v in pic) # cast to strings... really?!
+		writeLog('{}|{}'.format(i, '|'.join(arr)))
 		i += 1
 
 detector = None
@@ -74,9 +75,6 @@ def exitHandler(*args):
 signal.signal(signal.SIGINT, exitHandler)
 signal.signal(signal.SIGTERM, exitHandler)
 
-
-# TODO really needed? would save an import
-time.sleep(0.1)
 try:
 	detector = FaceDetect(
 		res=(args.width, args.height),
