@@ -62,7 +62,7 @@ def faceHasBeenDetected(arrFaces):
 		writeLog('New face(s) detected ({}), nearest at {:.2f}%'.format(numF, xPerc))
 	i = 0
 	for pic in arrFaces:
-		writeLog('{}|{}'.format(i, '|'.join(pic)))
+		writeLog('{}|{}'.format(i, '|'.join(list(pic))))
 		i += 1
 
 detector = None

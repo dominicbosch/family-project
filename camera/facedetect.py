@@ -20,7 +20,7 @@ class FaceDetect:
 		self.hflip = hflip
 		self.vflip = vflip
 		self.savepath = savepath
-		self.saveImage = (savepath == None)
+		self.saveImage = False if (savepath == None) else True
 		self.verbose = verbose
 		self.isRunning = False
 		if cascade is None:
@@ -39,8 +39,6 @@ class FaceDetect:
 		self.stream.start(self.newFrame)
 		while self.isRunning:
 			if self.frame is not lastFrame:
-				if self.verbose:
-					print 'FaceDetect | Processing new image'
 				startDetect = time.time()
 				lastFrame = self.frame
 				faces = self.face_cascade.detectMultiScale(self.frame, 1.1, 5)
@@ -50,7 +48,7 @@ class FaceDetect:
 				# Execute the callback whenever faces have been detected
 				if len(faces) > 0:
 
-					# sortedFaces = faces
+					# sort the faces list, first the biggest ones
 					sortedFaces = sorted(faces, self.getSortMeasure)
 					arrFaces = []
 					for af in faces:
@@ -67,21 +65,16 @@ class FaceDetect:
 						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
 						if self.saveImage:
-							cv2.rectangle(frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
+							cv2.rectangle(self.frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
 
 					if self.saveImage:
 						timestamp = datetime.datetime.now()
 						ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
-						cv2.imwrite('{}face_{}.jpg'.format(self.savepath, ts), frame)
+						cv2.imwrite('{}face_{}.jpg'.format(self.savepath, ts), self.frame)
 
-					if self.verbose:
-						print 'FaceDetect | Postprocessing Time: {}'.format(time.time()-now)
-					# sort the faces list, first the biggest ones
 					callback(arrFaces)
 			else:
 				time.sleep(0.010)
-				# TODO REMOVE THIS:
-				print 'Skipping frame'
 
 	def getSortMeasure(self, (x,y,w,h), t):
 		return int(100 / (w*h)) # calculate the area of the face
