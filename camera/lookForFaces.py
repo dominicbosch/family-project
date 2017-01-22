@@ -4,6 +4,7 @@ import sys
 import time
 import signal
 import datetime
+import traceback
 import argparse # easy parsing of command line
 from facedetect import FaceDetect
 
@@ -26,18 +27,20 @@ parser.add_argument('-v',
 	help='Verbose output')
 
 parser.add_argument('--iw',
-	nargs='?',
-	default=1024,
-	type=int,
+	nargs='?', type=int, default=1024,
 	dest='width',
 	help='Image width')
 
 parser.add_argument('--ih',
-	nargs='?',
-	default=768,
-	type=int,
+	nargs='?', type=int, default=768,
 	dest='height',
 	help='Image height')
+
+parser.add_argument('--savepath',
+	nargs='?',
+	default='detected-faces/',
+	dest='path',
+	help='Path to folder where images are stored')
 
 # Parse command line arguments and see if something useful was provided
 args = parser.parse_args()
@@ -70,11 +73,18 @@ signal.signal(signal.SIGTERM, exitHandler)
 # TODO really needed? would save an import
 time.sleep(0.1)
 try:
-	detector = FaceDetect(res=(args.width, args.height), hflip=args.hflip, vflip=args.vflip, savepath=imagePath, verbose=args.verbose)
+	detector = FaceDetect(
+		res=(args.width, args.height),
+		hflip=(args.hflip==True),
+		vflip=(args.vflip==True),
+		savepath=args.path,
+		verbose=(args.verbose==True)
+	)
 	detector.run(faceHasBeenDetected)
 
 except:
-    print("Error: ", sys.exc_info()[0])
+	print("Error: ", sys.exc_info()[0])
+	traceback.print_exc(file=sys.stdout)
 
 finally:
 	detector.stop()
