@@ -25,12 +25,12 @@ parser.add_argument('-v',
 	dest='verbose',
 	help='Verbose output')
 
-parser.add_argument('-w',
+parser.add_argument('-iw',
 	action='store_true',
 	dest='width',
 	help='Image width')
 
-parser.add_argument('-h',
+parser.add_argument('-ih',
 	action='store_true',
 	dest='height',
 	help='Image height')
