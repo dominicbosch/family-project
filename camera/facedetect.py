@@ -27,7 +27,7 @@ class FaceDetect:
 		if cascade != None:
 			cascPath = 'cascades/lbpcascade_frontalface.xml'
 		else:
-			cascPath = 'cascades/'+cascade
+			cascPath = 'cascades/{}'.format(cascade)
 		if self.verbose:
 			print("Using casacade {}".format(cascPath))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
