@@ -8,41 +8,45 @@ from pivideostream import PiVideoStream
 class FaceDetect:
 	def __init__(
 		self,
-		resolution=(1024, 768),
-		framerate=32,
+		res=(1024, 768),
 		hflip=False,
 		vflip=False,
-		path="",
+		savepath=None,
 		cascade=None,
-		storesImage=True
+		verbose=False
 	):
-		self.imageWidth = resolution[0]
-		self.imageHeight = resolution[1]
-		self.framerate = framerate
+		self.imageWidth = float(res[0])
+		self.imageHeight = float(res[1])
 		self.hflip = hflip
 		self.vflip = vflip
-		self.path = path
-		self.storesImage = storesImage
+		self.savepath = savepath
+		self.saveImage = (savepath == None)
+		self.verbose = verbose
 		self.isRunning = False
-#		if cascade:
-#			print("choosing default")
-		cascPath = '../camera/cascades/haarcascade_frontalcatface.xml'
-#		else:
-#			print("choosing custom")
-#			cascPath = '../camera/cascades/'+cascade
+		if cascade != None:
+			cascPath = 'cascades/lbpcascade_frontalface.xml'
+		else:
+			cascPath = 'cascades/'+cascade
+		if self.verbose:
+			print("Using casacade {}".format(cascPathh))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
-		self.stream = PiVideoStream(resolution=resolution, framerate=framerate)
+		self.stream = PiVideoStream(res=res, hflip=hflip, vflip=vflip)
 		self.frame = None
-		self.lastFrameAccessed = time.time()
 
 	def run(self, callback):
-		self.isRunning = True;
+		lastFrame = None
+		self.isRunning = True
 		self.stream.start(self.newFrame)
-		while self.isRunning
-			if self.frame != lastFrame
-				print 'Processing frame'
+		while self.isRunning:
+			if self.frame != lastFrame:
+				if self.verbose:
+					print 'FaceDetect | Processing new image'
+				startDetect = time.time()
 				lastFrame = self.frame
 				faces = self.face_cascade.detectMultiScale(self.frame, 1.1, 5)
+				now = time.time()
+				if self.verbose:
+					print 'FaceDetect | Detect Time: {}'.format(now-startDetect)
 				# Execute the callback whenever faces have been detected
 				if len(faces) > 0:
 
@@ -50,49 +54,44 @@ class FaceDetect:
 					sortedFaces = sorted(faces, self.getSortMeasure)
 					arrFaces = []
 					for af in faces:
-						if self.storesImage:
-							cv2.rectangle(frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
 						# gonna be: [x, y, w, h, relX, relY, relW, relH]
 						# set x, y, w, h
 						face = [af[0], af[1], af[2], af[3]]
-						# percentage; left -100%, right 100%: [-1,1]
-						fw = float(self.imageWidth)
-						fh = float(self.imageHeight)
-
 						# range; [-1, 1]
-						face.append((2*af[0]+af[2])/fw-1)
+						face.append((2.0*af[0]+af[2])/self.imageWidth-1)
 						# range[-1, 1]
-						face.append((2*af[1]+af[3])/fh-1)
+						face.append((2.0*af[1]+af[3])/self.imageHeight-1)
 						# appending relative width
-						face.append(af[2]/fw)
+						face.append(1.0*af[2]/self.imageWidth)
 						# appending relative height
-						face.append(af[3]/fh)
+						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
+						if self.saveImage:
+							cv2.rectangle(frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
 
-					if self.storesImage:
+					if self.saveImage:
 						timestamp = datetime.datetime.now()
 						ts = timestamp.strftime("%Y.%m.%d_%I:%M:%S")
-						cv2.imwrite("{}face_{}.jpg".format(self.path, ts), frame)
+						cv2.imwrite("{}face_{}.jpg".format(self.savepath, ts), frame)
 
+					if self.verbose:
+						print 'FaceDetect | Postprocessing Time: {}'.format(time.time()-now)
 					# sort the faces list, first the biggest ones
 					callback(arrFaces)
 			else:
 				time.sleep(10)
+				# TODO REMOVE THIS:
 				print 'Skipping frame'
 
 	def getSortMeasure(self, (x,y,w,h), t):
 		return int(100 / (w*h)) # calculate the area of the face
 
-	# FIXME since this is a callback, the pivideostream gets to exectue this
-	# hence one thread needs to fetch the frame AND detect faces.
-	# though we might run into too few cpus if we also create a thread for this.
-	# on the other hand FPS will increase. we should really use two threads for those
-	# two compute intensive tasks
+	# Callback executed from the pivideostream, registers new frames
 	def newFrame(self, frame):
 		self.frame = frame
 
 	def stop(self):
-		self.isRunning = False;
+		self.isRunning = False
 		self.stream.stop()
 
 
