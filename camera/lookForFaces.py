@@ -26,6 +26,11 @@ parser.add_argument('-v',
 	dest='verbose',
 	help='Verbose output')
 
+parser.add_argument('--cf',
+	action='store_true',
+	dest='cascade',
+	help='Pattern recognition cascade filename as it is found in folder "cascades"')
+
 parser.add_argument('--iw',
 	nargs='?', type=int, default=1024,
 	dest='width',
@@ -77,6 +82,7 @@ try:
 		res=(args.width, args.height),
 		hflip=(args.hflip==True),
 		vflip=(args.vflip==True),
+		cascade=args.cascade,
 		savepath=args.path,
 		verbose=(args.verbose==True)
 	)

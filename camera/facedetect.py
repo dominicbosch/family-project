@@ -23,13 +23,12 @@ class FaceDetect:
 		self.saveImage = (savepath == None)
 		self.verbose = verbose
 		self.isRunning = False
-		print savepath
 		if cascade == None:
 			cascPath = 'cascades/lbpcascade_frontalface.xml'
 		else:
 			cascPath = 'cascades/{}'.format(cascade)
 		if self.verbose:
-			print("Using casacade {}".format(cascPath))
+			print('Using casacade {}'.format(cascPath))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
 		self.stream = PiVideoStream(res=res, hflip=hflip, vflip=vflip)
 		self.frame = None
@@ -72,15 +71,15 @@ class FaceDetect:
 
 					if self.saveImage:
 						timestamp = datetime.datetime.now()
-						ts = timestamp.strftime("%Y.%m.%d_%I:%M:%S")
-						cv2.imwrite("{}face_{}.jpg".format(self.savepath, ts), frame)
+						ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
+						cv2.imwrite('{}face_{}.jpg'.format(self.savepath, ts), frame)
 
 					if self.verbose:
 						print 'FaceDetect | Postprocessing Time: {}'.format(time.time()-now)
 					# sort the faces list, first the biggest ones
 					callback(arrFaces)
 			else:
-				time.sleep(10)
+				time.sleep(0.010)
 				# TODO REMOVE THIS:
 				print 'Skipping frame'
 

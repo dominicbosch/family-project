@@ -7,8 +7,9 @@ from threading import Thread
 class PiVideoStream:
 	def __init__(self, res=(1024, 768), hflip=False, vflip=False):
 		# initialize the camera and stream
-		print 'Starting camera with hflip={}, vflip={}, res={}x{}'.format(hflip, vflip, res[0], res[1])
+		print 'Starting camera with res={}x{}, hflip={}, vflip={}'.format(res[0], res[1], hflip, vflip)
 		self.camera = PiCamera()
+		self.camera.resolution = res
 		self.camera.hflip = hflip
 		self.camera.vflip = vflip
 		self.rawCapture = PiRGBArray(self.camera, size=res)
