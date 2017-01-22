@@ -23,12 +23,13 @@ class FaceDetect:
 		self.saveImage = (savepath == None)
 		self.verbose = verbose
 		self.isRunning = False
+		print cascade
 		if cascade != None:
 			cascPath = 'cascades/lbpcascade_frontalface.xml'
 		else:
 			cascPath = 'cascades/'+cascade
 		if self.verbose:
-			print("Using casacade {}".format(cascPathh))
+			print("Using casacade {}".format(cascPath))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
 		self.stream = PiVideoStream(res=res, hflip=hflip, vflip=vflip)
 		self.frame = None
