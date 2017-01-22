@@ -34,7 +34,7 @@ class PiVideoStream:
 			self.frameNum += 1
 			if self.frameNum == 10:
 				now = time.time()
-				print 'Camera | FPS: {}'.format((now-wallStart)/10)
+				print 'Camera | FPS: {0:.2f}'.format(10.0/(now-wallStart))
 				self.frameNum = 0
 				wallStart = now
 			# grab the frame from the stream and clear the stream in

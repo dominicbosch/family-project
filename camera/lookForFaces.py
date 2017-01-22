@@ -27,7 +27,7 @@ parser.add_argument('-v',
 	help='Verbose output')
 
 parser.add_argument('--cf',
-	action='store_true',
+	nargs='?',
 	dest='cascade',
 	help='Pattern recognition cascade filename as it is found in folder "cascades"')
 

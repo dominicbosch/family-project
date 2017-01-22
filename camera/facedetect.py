@@ -23,7 +23,7 @@ class FaceDetect:
 		self.saveImage = (savepath == None)
 		self.verbose = verbose
 		self.isRunning = False
-		if cascade iss None:
+		if cascade is None:
 			cascPath = 'cascades/lbpcascade_frontalface.xml'
 		else:
 			cascPath = 'cascades/{}'.format(cascade)
@@ -38,7 +38,7 @@ class FaceDetect:
 		self.isRunning = True
 		self.stream.start(self.newFrame)
 		while self.isRunning:
-			if self.frame != lastFrame:
+			if self.frame is not lastFrame:
 				if self.verbose:
 					print 'FaceDetect | Processing new image'
 				startDetect = time.time()
