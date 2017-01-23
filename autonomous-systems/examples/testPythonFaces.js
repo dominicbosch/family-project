@@ -11,3 +11,8 @@ pyFaces.init({
 	v: true,
 	vf: true
 });
+
+pyFaces.start();
+setTimeout(function() {
+	pyFaces.stop();
+}, 30000)
