@@ -60,7 +60,7 @@ function processLine(line) {
 			// broadcast('steer', parseFloat(extractValue(line, strng, 1)));
 		} else if(line.indexOf('#') > -1) {
 			cbData(extractValue(line, '#', 1).split('|'));
-		}	
+		} else console.log('unknown line', line);
 	}
 }
 
