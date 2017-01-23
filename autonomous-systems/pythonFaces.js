@@ -1,5 +1,6 @@
 
 let exports = module.exports = {};
+
 let pythonProcess = null;
 let cbData;
 let cbError;
@@ -7,7 +8,7 @@ let cbError;
 function reportError(data) {
 	if(typeof cbError === 'function') {
 		cbError(data);
-	}
+	} else console.warn('No Error handler attached to pythonFaces!')
 }
 
 exports.init = function(opts) {
@@ -17,7 +18,12 @@ exports.init = function(opts) {
 };
 exports.start = function() {
 	if(!pythonProcess) {
-		pythonProcess = cp.spawn('python', ['-u', '../camera/lookForFaces.py', '-s']);
+		// -u flag prevents python process from buffering outputs, thus causing late notifications
+		pythonProcess = cp.spawn('python', [
+			'-u',
+			'../camera/lookForFaces.py',
+			
+		]);
 		pythonProcess.stdout.on('data', (data) => {
 			let arr = data.toString().split('\n');
 			for(let i = 0; i < arr.length; i++) {
@@ -43,7 +49,7 @@ exports.isRunning = function(opts) {
 
 function processLine(line) {
 	if(typeof cbData === 'function') {
-		if(line.indexOf('faces | new face(s) detected ') > -1) {
+		if(line.indexOf('New face(s) detected ') > -1) {
 			let strng = ', nearest at ';
 			broadcast('steer', parseFloat(extractValue(line, strng, 1)));
 		}	

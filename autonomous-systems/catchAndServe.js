@@ -41,9 +41,7 @@ io.on('connection', (socket) => {
 	});
 
 });
-car.init({
-	cb
-})
+car.init();
 
 function startEngine() {
 	console.log('Received start command!');
@@ -53,7 +51,7 @@ function startEngine() {
 
 function stopEngine() {
 	console.log('Received stop command!');
-	if(!car.isRunning()) car.stop();
+	car.stop();
 	io.emit('engine-stopped');
 }
 
@@ -62,7 +60,7 @@ function broadcast(cmd, val) {
 	console.log('Broadcasting command='+cmd+', value='+val);
 }
 
-chokidar.watch('detected-faces/*.jpg').on('add', path => {
+chokidar.watch('../camera/detected-faces/*.jpg').on('add', path => {
 	// Give the raspberry 100ms time to store the image properly before reading it
 	// Only needed for huge images...
 	if(hasStarted) setTimeout(() => broadcastImage(path), 100);

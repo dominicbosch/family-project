@@ -87,8 +87,7 @@ try:
 	detector.run(faceHasBeenDetected)
 
 except:
-	print("Error: ", sys.exc_info()[0])
-	traceback.print_exc(file=sys.stdout)
+	traceback.print_stack()
 
 finally:
 	detector.stop()
