@@ -10,4 +10,4 @@ pyFaces.init({
 	},
 	v: true,
 	vf: true
-};
+});
