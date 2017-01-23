@@ -1,6 +1,7 @@
 from __future__ import division
 import time
 import cv2
+import os
 import numpy as np
 import datetime
 from pivideostream import PiVideoStream
@@ -23,10 +24,12 @@ class FaceDetect:
 		self.saveImage = False if (savepath == None) else True
 		self.verbose = verbose
 		self.isRunning = False
+		# Get current file path in order to make an absolute reference to the cascade folder
+		cascPath = '/'.join(os.path.realpath(__file__).split('/')[:-1])
 		if cascade is None:
-			cascPath = 'cascades/lbpcascade_frontalface.xml'
+			cascPath += '/cascades/lbpcascade_frontalface.xml'
 		else:
-			cascPath = 'cascades/{}'.format(cascade)
+			cascPath += '/cascades/{}'.format(cascade)
 		if self.verbose:
 			print('Using casacade {}'.format(cascPath))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
