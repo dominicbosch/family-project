@@ -21,7 +21,7 @@ exports.init = function(opts) {
 exports.start = function() {
 	if(!pythonProcess) {
 		// -u flag prevents python process from buffering outputs, thus causing late notifications
-		let args = ['-u', '../camera/lookForFaces.py'];
+		let args = ['-u', './lookForFaces.py'];
 		if(options.hf) args.push('-hf');
 		if(options.vf) args.push('-vf');
 		if(options.v) args.push('-v');

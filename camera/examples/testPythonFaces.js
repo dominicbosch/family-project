@@ -6,7 +6,7 @@ pyFaces.init({
 		console.log(data);
 	},
 	cbError: function(err) {
-		console.error(err);
+		console.error(err+'');
 	},
 	v: true,
 	vf: true
