@@ -5,13 +5,15 @@ from picamera.array import PiRGBArray
 from threading import Thread
 
 class PiVideoStream:
-	def __init__(self, res=(1024, 768), hflip=False, vflip=False):
+	def __init__(self, res=(1024, 768), hflip=False, vflip=False, verbose=False):
 		# initialize the camera and stream
-		print 'Starting camera with res={}x{}, hflip={}, vflip={}'.format(res[0], res[1], hflip, vflip)
+		if verbose:
+			print 'Starting camera with res={}x{}, hflip={}, vflip={}'.format(res[0], res[1], hflip, vflip)
 		self.camera = PiCamera()
 		self.camera.resolution = res
 		self.camera.hflip = hflip
 		self.camera.vflip = vflip
+		self.verbose = verbose
 		self.rawCapture = PiRGBArray(self.camera, size=res)
 		self.stream = self.camera.capture_continuous(self.rawCapture,
 			format="bgr", use_video_port=True)
@@ -34,7 +36,8 @@ class PiVideoStream:
 			self.frameNum += 1
 			if self.frameNum == 10:
 				now = time.time()
-				print 'Camera | FPS: {0:.2f}'.format(10.0/(now-wallStart))
+				if self.verbose:
+					print 'Camera | FPS: {0:.2f}'.format(10.0/(now-wallStart))
 				self.frameNum = 0
 				wallStart = now
 			# grab the frame from the stream and clear the stream in
