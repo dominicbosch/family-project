@@ -5,11 +5,6 @@
 const makePwmDriver = require('adafruit-i2c-pwm-driver');
 const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
 
-// Setting the PWM frequency
-pwmDriver.setPWMFreq(60);
-// Send a value:
-// pwmDriver.setPWM(channel, on, off);
-
 // Preparing the object orientation (everything attached to exports is visible from outside)
 var exports = module.exports = {};
 
@@ -26,15 +21,22 @@ let requiredConfig = [
 let config;
 
 exports.init = function(args) {
-	let miss = [];
-	// Test whether some configuration variables are missing
-	for(let i = 0; i < requiredConfig.length; i++) {
-		let el = requiredConfig[i];
-		if(args[el] === undefined || isNaN(parseInt(args[el]))) miss.push(el);
-	}
-	let msg = 'Cardo is missing or finding invalid integers in conf variable(s): '+miss.join(', ');
-	if(miss.length > 0) throw new Error(msg);
-	else config = args;
+	// Setting the PWM frequency and returning this "Promise chain"
+	return pwmDriver.setPWMFreq(60)
+		// then initializing the config
+		.then(function() {
+			let miss = [];
+			// Test whether some configuration variables are missing
+			for(let i = 0; i < requiredConfig.length; i++) {
+				let el = requiredConfig[i];
+				if(args[el] === undefined || isNaN(parseInt(args[el]))) miss.push(el);
+			}
+			let msg = 'Cardo is missing or finding invalid integers in conf variable(s): '+miss.join(', ');
+			if(miss.length > 0) throw new Error(msg);
+			else config = args;
+		});
+	// Send a value:
+	// pwmDriver.setPWM(channel, on, off);
 };
 
 function getRampValue(direction, min, base, max) {
