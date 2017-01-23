@@ -63,7 +63,7 @@ def faceHasBeenDetected(arrFaces):
 	i = 0
 	for pic in arrFaces:
 		arr = list(str(v) for v in pic) # cast to strings... really?!
-		writeLog('{}|{}'.format(i, '|'.join(arr)))
+		writeLog('#{}|{}'.format(i, '|'.join(arr)))
 		i += 1
 
 detector = None

@@ -1,9 +1,10 @@
 
-let exports = module.exports = {};
+var exports = module.exports = {};
 
 let pythonProcess = null;
 let cbData;
 let cbError;
+let options;
 
 function reportError(data) {
 	if(typeof cbError === 'function') {
@@ -12,18 +13,22 @@ function reportError(data) {
 }
 
 exports.init = function(opts) {
-	opts = opts || {};
+	options = opts || {};
 	cbData = opts.cbData;
 	cbError = opts.cbError;
 };
 exports.start = function() {
 	if(!pythonProcess) {
 		// -u flag prevents python process from buffering outputs, thus causing late notifications
-		pythonProcess = cp.spawn('python', [
-			'-u',
-			'../camera/lookForFaces.py',
-			
-		]);
+		let args = ['-u', '../camera/lookForFaces.py'];
+		if(options.hf) args.push('-hf');
+		if(options.vf) args.push('-vf');
+		if(options.v) args.push('-v');
+		if(options.cf) args.push('--cf', options.cf);
+		if(options.iw) args.push('--iw', options.iw);
+		if(options.ih) args.push('--ih', options.ih);
+		if(options.path) args.push('-savepath', options.path);
+		pythonProcess = cp.spawn('python', args);
 		pythonProcess.stdout.on('data', (data) => {
 			let arr = data.toString().split('\n');
 			for(let i = 0; i < arr.length; i++) {
@@ -50,8 +55,10 @@ exports.isRunning = function(opts) {
 function processLine(line) {
 	if(typeof cbData === 'function') {
 		if(line.indexOf('New face(s) detected ') > -1) {
-			let strng = ', nearest at ';
-			broadcast('steer', parseFloat(extractValue(line, strng, 1)));
+			// let strng = ', nearest at ';
+			// broadcast('steer', parseFloat(extractValue(line, strng, 1)));
+		} else if(line.indexOf('#') > -1) {
+			cbData(extractValue(line, '#', 1).split('|'));
 		}	
 	}
 }
