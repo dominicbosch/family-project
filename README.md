@@ -48,23 +48,23 @@ Available Device(s):
 
 #### Virtual Device ####
 
-* [0] Initiate : Initializes the hardware
-* [20] Calibrate : tbd.
+* `[0]` Initiate : Initializes the hardware
+* `[20]` Calibrate : tbd.
 
 #### Servos ####
 
-* [0] Steering Servo : `value` has to be an integer in the range [-100 .. 100], -100=full left, 100=full right
-* [1] Motor Servo : `value` has to be an integer in the range [-200 .. 100], -100=full backwards, 100=full forward, -200=full break
-* [2] Camera Servo - Horizontal : `value` has to be an integer in the range [-100 .. 100], -100=full left, 100=full right
-* [3] Camera Servo - Vertical : `value` has to be an integer in the range [-100 .. 100], -100=full up, 100=full down
+* `[0]` Steering Servo : `value` has to be an integer in the range `[-100 .. 100]`, -100=full left, 100=full right
+* `[1]` Motor Servo : `value` has to be an integer in the range `[-200 .. 100]`, -100=full backwards, 100=full forward, -200=full break
+* `[2]` Camera Servo - Horizontal : `value` has to be an integer in the range `[-100 .. 100]`, -100=full left, 100=full right
+* `[3]` Camera Servo - Vertical : `value` has to be an integer in the range `[-100 .. 100]`, -100=full up, 100=full down
 
 #### Sensors ####
 
-* [10] Distance : Returns the distance to the next obstacle. `value` can be any integer.
-* [11] Temperature : Returns the current temperature. `value` can be any integer.
-* [12] Gyro : Returns the acceleration along the x, y or z axis. `value` defines the axis to be returned:
-    * [0] x-Axis
-    * [1] y-Axis
-    * [2] z-Axis
+* `[10]` Distance : Returns the distance to the next obstacle. `value` can be any integer.
+* `[11]` Temperature : Returns the current temperature. `value` can be any integer.
+* `[12]` Gyro : Returns the acceleration along the x, y or z axis. `value` defines the axis to be returned:
+    * `[0]` x-Axis
+    * `[1]` y-Axis
+    * `[2]` z-Axis
 
     
