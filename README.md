@@ -34,8 +34,8 @@ Architecture
 	- Actuators: Steering, Motor, Camera (horizontal & vertical)
 2. A PWM board on top of a RaspberryPi wires all servos and sensors together
 3. Python code using OpenCV (in folder `camera`) deals with the RaspiCam and pattern recognition
-4. C / NodeJS code deals with sensor polling and actuators
-5. NodeJS wrapper for everything glues the whole application together and provides the autonomous aspect, such as controlling the car depending on sensor input.
+4. C / NodeJS code (in folder `i2c`) deals with sensor polling and actuators
+5. NodeJS wrapper  (in folder `autonomous-systems`) glues the whole application together and provides the autonomous aspect, such as controlling the car depending on sensor input.
 
 Hardware
 --------
