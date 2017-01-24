@@ -2,6 +2,7 @@ const pyFaces = require('../pythonFaces');
 
 
 pyFaces.init({
+	s: true,
 	v: true,
 	vf: true,
 	iw: 2048,

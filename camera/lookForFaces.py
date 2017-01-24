@@ -41,11 +41,10 @@ parser.add_argument('--ih',
 	dest='height',
 	help='Image height')
 
-parser.add_argument('--savepath',
-	nargs='?',
-	default='detected-faces/',
-	dest='path',
-	help='Path to folder where images are stored')
+parser.add_argument('-s',
+	action='store_true',
+	dest='store',
+	help='Store images with detected faces in folder "detected-faces"')
 
 # Parse command line arguments and see if something useful was provided
 args = parser.parse_args()
@@ -81,7 +80,7 @@ try:
 		hflip=(args.hflip==True),
 		vflip=(args.vflip==True),
 		cascade=args.cascade,
-		savepath=args.path,
+		storeImages=args.store,
 		verbose=(args.verbose==True)
 	)
 	detector.run(faceHasBeenDetected)

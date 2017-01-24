@@ -12,7 +12,7 @@ class FaceDetect:
 		res=(1024, 768),
 		hflip=False,
 		vflip=False,
-		storeImage=False,
+		storeImages=False,
 		cascade=None,
 		verbose=False
 	):
@@ -20,7 +20,7 @@ class FaceDetect:
 		self.imageHeight = float(res[1])
 		self.hflip = hflip
 		self.vflip = vflip
-		self.storeImage = storeImage
+		self.storeImages = storeImages
 		self.verbose = verbose
 		self.isRunning = False
 		# Get current file path in order to make an absolute reference to the cascade folder
@@ -67,10 +67,10 @@ class FaceDetect:
 						# appending relative height
 						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
-						if self.storeImage:
+						if self.storeImages:
 							cv2.rectangle(self.frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
 
-					if self.storeImage:
+					if self.storeImages:
 						timestamp = datetime.datetime.now()
 						ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
 						cv2.imwrite('{}face_{}.jpg'.format(self.savepath, ts), self.frame)
