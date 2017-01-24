@@ -25,12 +25,12 @@ exports.start = function() {
 		// -u flag prevents python process from buffering outputs, thus causing late notifications
 		// we need the -v flag in order to fet the detect time and FPS info
 		let args = ['-u', __dirname+'/lookForFaces.py', '-v'];
+		if(options.s) args.push('-s');
 		if(options.hf) args.push('-hf');
 		if(options.vf) args.push('-vf');
 		if(options.cf) args.push('--cf', options.cf);
 		if(options.iw) args.push('--iw', options.iw);
 		if(options.ih) args.push('--ih', options.ih);
-		if(options.path) args.push('-savepath', options.path);
 		pythonProcess = cp.spawn('python', args);
 		pythonProcess.stdout.on('data', (data) => {
 			let arr = data.toString().split('\n');
