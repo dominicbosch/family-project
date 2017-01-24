@@ -46,7 +46,7 @@ exports.start = function() {
 	} else emitEvent('warn', 'Face detection is already running!');
 };
 
-function reportError(data) { emitEvent('error', data) }
+function reportError(data) { emitEvent('error', data+'') }
 
 exports.stop = function(opts) {
 	if(pythonProcess) {
@@ -59,14 +59,12 @@ exports.isRunning = function(opts) {
 };
 
 function processLine(line) {
-	if(typeof cbData === 'function') {
-		if(line.indexOf(strng='Camera | FPS: ') > -1) {
-			emitEvent('fps', parseFloat(extractValue(line, strng)));
-		} else if(line.indexOf(strng='FaceDetect | Detect Time: ') > -1) {
-			emitEvent('detecttime', parseFloat(extractValue(line, strng)));
-		} else if(line.indexOf('#') > -1) {
-			emitEvent('face', extractValue(line, '#').split('|'));
-		}
+	if(line.indexOf(strng='Camera | FPS: ') > -1) {
+		emitEvent('fps', parseFloat(extractValue(line, strng)));
+	} else if(line.indexOf(strng='FaceDetect | Detect Time: ') > -1) {
+		emitEvent('detecttime', parseFloat(extractValue(line, strng)));
+	} else if(line.indexOf('#') > -1) {
+		emitEvent('face', extractValue(line, '#').split('|'));
 	}
 }
 
