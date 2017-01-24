@@ -2,15 +2,15 @@
 Important GitHub commands:
 --------------------------
 
-Before starting to work locall:
+Before starting to work locally:
 
     git pull
 
-Adding changes to git:
+Locally add ALL changes to next commit:
 
     git add -A
 
-Commiting:
+Committing locally:
 
     git commit -m "Your description"
 
