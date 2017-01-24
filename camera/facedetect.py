@@ -33,7 +33,7 @@ class FaceDetect:
 			print('Using casacade {}'.format(cascPath))
 		self.savepath = rootPath+'/detected-faces/'
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
-		self.stream = PiVideoStream(res=res, hflip=hflip, vflip=vflip, verbose)
+		self.stream = PiVideoStream(res=res, hflip=hflip, vflip=vflip, verbose=verbose)
 		self.frame = None
 
 	def run(self, callback):
