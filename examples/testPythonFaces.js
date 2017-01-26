@@ -1,4 +1,4 @@
-const pyFaces = require('../pythonFaces');
+const pyFaces = require('../camera/pythonFaces');
 
 
 pyFaces.init({

@@ -64,7 +64,7 @@ function processLine(line) {
 	} else if(line.indexOf(strng='FaceDetect | Detect Time: ') > -1) {
 		emitEvent('detecttime', parseFloat(extractValue(line, strng)));
 	} else if(line.indexOf('#') > -1) {
-		emitEvent('face', extractValue(line, '#').split('|'));
+		emitEvent('face', extractValue(line, '#').split('|').map(parseFloat));
 	}
 }
 

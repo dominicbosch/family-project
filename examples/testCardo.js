@@ -1,6 +1,6 @@
 'use strict';
 
-const car = require('../cardo');
+const car = require('../i2c/cardo');
 
 car.init({
 	steerDevice: 0,

@@ -81,3 +81,12 @@ exports.speed = function(direction) {
 	pwmDriver.setPWM(config.motorDevice, 0, val);
 }
 
+/*
+ * TODO IMPLEMENT
+ * Discuss: Do we use a blocking function call or non-blocking with event handlers?
+ */
+console.warn('TODO: cardo.getFrontObstacle needs to be implemented!');
+exports.getFrontObstacle = function() {
+	return 100;
+}
+
