@@ -1,6 +1,6 @@
 'use strict';
 
-const car = require('../autonomous_systems/carController');
+const car = require('../autonomous-systems/carController');
 
 car.init({
 	s: true,
@@ -16,4 +16,6 @@ car.init({
 	motorBack: 200,
 	motorNeutral: 400,
 	motorForward: 500
+}).catch((err) => {
+	console.error('Couldn\'t start car!', err)
 })

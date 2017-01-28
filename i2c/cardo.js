@@ -2,7 +2,7 @@
 
 // https://github.com/kaosat-dev/adafruit-i2c-pwm-driver
 
-const makePwmDriver = require('adafruit-i2c-pwm-driver');
+const makePwmDriver = require('./pwmDriver');
 const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
 
 // Preparing the object orientation (everything attached to exports is visible from outside)
@@ -22,7 +22,8 @@ let config;
 
 exports.init = function(args) {
 	// Setting the PWM frequency and returning this "Promise chain"
-	return pwmDriver.setPWMFreq(60)
+	return pwmDriver.init()
+		.then(() => pwmDriver.setPWMFreq(60))
 		// then initializing the config
 		.then(function() {
 			let miss = [];
@@ -85,7 +86,7 @@ exports.speed = function(direction) {
  * TODO IMPLEMENT
  * Discuss: Do we use a blocking function call or non-blocking with event handlers?
  */
-console.warn('TODO: cardo.getFrontObstacle needs to be implemented!');
+console.warn('TODO: Implement cardo.getFrontObstacle!');
 exports.getFrontObstacle = function() {
 	return 100;
 }
