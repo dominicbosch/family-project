@@ -54,7 +54,7 @@ function getRampValue(direction, min, base, max) {
 /*
  * Steer in direction: left [-1 ... 1] right
  */
-exports.steer = function(direction) {
+exports.setSteering = function(direction) {
 	if(!config) throw new Error('Not yet initialized! Please invoke init method first!');
 	let val = getRampValue(direction, config.steerLeft, config.steerCenter, config.steerRight);
 	pwmDriver.setPWM(config.steerDevice, 0, val);
@@ -77,7 +77,7 @@ exports.break = function() {
 /*
  * Speed in direction: backward [-1 ... 1] forward
  */
-exports.speed = function(direction) {
+exports.setSpeed = function(direction) {
 	let val = getRampValue(direction, config.motorBack, config.motorNeutral, config.motorForward);
 	pwmDriver.setPWM(config.motorDevice, 0, val);
 }

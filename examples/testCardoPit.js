@@ -21,7 +21,7 @@ car.init({
 			console.log('Changing steering direction');
 		}
 		steer += addSteer*0.005;
-		car.steer(steer);
+		car.setSteering(steer);
 	}
 
 	let speed = 0;
@@ -35,7 +35,7 @@ car.init({
 				console.log('Going forward...');
 			}
 			speed += addSpeed*0.004;
-			car.speed(speed);
+			car.setSpeed(speed);
 
 		} else {
 		// if we reached fullspeed:
@@ -65,6 +65,8 @@ car.init({
 	setTimeout(function() {
 		clearInterval(intSteer);
 		clearInterval(intSpeed);
+		car.break();
+		car.setSteering(0);
 	}, 30000);
 })
 .catch(function(err) {

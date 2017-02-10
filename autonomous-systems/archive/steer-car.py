@@ -205,7 +205,6 @@ lastFaceDetected = 1
 # If we are ramping up, new lastFaceDetected can't influence the ramp,
 # thus we need to register the ramp up face
 rampUpFace = 1
-rampUpTime = 3 # we ramp up the speed for one second
 
 # we initialize at the center
 lastRelativeFacePosition = 0
@@ -267,7 +266,6 @@ def pollDistance():
 
 # We need to know whether we are already ramping up, so that new pictures 
 # are not causing an immediate slow down
-isRampingUp = True
 def adjustSpeed():
 	global rampUpFace
 	now = time.time()
@@ -277,7 +275,7 @@ def adjustSpeed():
 	writeLog('faces | Last face detected {:.2f}s ago'.format(timePassed))
 	# the last face was only 1 second ago detected, we speed up
 	# if we are already in a speedup ramp we do not adjust to latest picture!
-	if timePassed < 1*timeFactor and now-rampUpFace < rampUpTime:
+	if timePassed < 1*timeFactor and now-rampUpFace < 1:
 		# speedup with linear ramp over one second!
 		arduinoValue = motorNeutral-(motorNeutral-motorFull)*timePassed/3
 		writeLog('motor | Speeding up!')
