@@ -63,21 +63,29 @@ exports.setSteering = function(direction) {
 /*
  * Full break!
  */
+let isBreaking = true; // Initially the car is hopefully braking...
 exports.break = function() {
 	if(!config) throw new Error('Not yet initialized! Please invoke init method first!');
-	// Send full back to stop
-	pwmDriver.setPWM(config.motorDevice, 0, config.motorBack);
+			
+	// We only need to break if it was not the last action, otherwise we risk
+	// moving the car back because it is already standing still
+	if(!isBreaking) {
+		isBreaking = true;
+		// Send full back to stop
+		pwmDriver.setPWM(config.motorDevice, 0, config.motorBack);
 
-	// After 100ms send neutral position
-	setTimeout(function() {
-		pwmDriver.setPWM(config.motorDevice, 0, config.motorNeutral);
-	}, 100);
+		// After 100ms send neutral position
+		setTimeout(function() {
+			pwmDriver.setPWM(config.motorDevice, 0, config.motorNeutral);
+		}, 100);
+	}
 }
 
 /*
  * Speed in direction: backward [-1 ... 1] forward
  */
 exports.setSpeed = function(direction) {
+	isBreaking = false;
 	let val = getRampValue(direction, config.motorBack, config.motorNeutral, config.motorForward);
 	pwmDriver.setPWM(config.motorDevice, 0, val);
 }
