@@ -15,7 +15,9 @@ car.init({
 	motorDevice: 1,
 	motorBack: 200,
 	motorNeutral: 400,
-	motorForward: 500
+	motorForward: 500,
+	slowDownDistance: 80,
+	stopDistance: 20
 }).catch((err) => {
 	console.error('Couldn\'t start car!', err)
 })

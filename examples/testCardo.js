@@ -65,6 +65,8 @@ car.init({
 	setTimeout(function() {
 		clearInterval(intSteer);
 		clearInterval(intSpeed);
+		car.break();
+		car.steer(0);
 	}, 30000);
 })
 .catch(function(err) {
