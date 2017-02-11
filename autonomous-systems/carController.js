@@ -38,7 +38,7 @@ exports.init = function(config) {
 		reject('Some confuration is missing: '+miss.join(', '));
 	});
 
-	if(conf.v) console.log('Initializing with comfig:\n'+JSON.strinigfy(conf, null, 2));
+	if(conf.v) console.log('Initializing with comfig:\n'+JSON.stringify(conf, null, 2));
 	let ret = car.init(conf);
 	pyFaces.init(conf);
 
