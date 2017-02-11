@@ -1,10 +1,9 @@
-
 const pyFaces = require('../camera/pythonFaces');
 const car = require('../i2c/cardo');
 
 var exports = module.exports = {};
-var conf;
-var reqConfig = [
+let conf;
+let reqConfig = [
 	'slowDownDistance', // distance to obstacle when we start to slow down
 	'stopDistance',		// distance to obstacle when to stop
 	'obstacleCount',	// num of consecutive obstacle detections for a verified obstacle
@@ -13,24 +12,24 @@ var reqConfig = [
 	'stayTime',			// we stay at full speed for 5000ms
 	'stopTime',			// we slow down and stop until 10000ms passed
 ];
-var isRunning = false;
-var steerInterval;
-var facePosition = 0;
-var lastFaceDetect = 0;
-var rampUpFace = 0;
-var lastState;
-var stateMessages = {
+let isRunning = false;
+let steerInterval;
+let facePosition = 0;
+let lastFaceDetect = 0;
+let rampUpFace = 0;
+let lastState;
+let stateMessages = {
 	accelerating: 'Accelerating because face detected!',
 	fullspeed: 'Staying at full speed!',
 	slowdown: 'Slowing down because no more faces!',
 	nofacebreak: 'Breaking because no more faces!',
-	obstacle: 'Slowing down because of obstacle!',
+	obstacle: 'Slowing down because of obstacle!'
 	obstaclebreak: 'Breaking because of obstacle!'
 };
 
 exports.init = function(config) {
 	conf = config || {};
-	var miss = [];
+	let miss = [];
 	for (var i = 0; i < reqConfig.length; i++) {
 		if(conf[reqConfig[i]]===undefined) miss.push(reqConfig[i]);
 	}
@@ -40,8 +39,10 @@ exports.init = function(config) {
 	});
 
 	if(conf.v) console.log('Initializing with comfig:\n'+JSON.strinigfy(conf, null, 2));
-	var ret = car.init(conf);
+	let ret = car.init(conf);
 	pyFaces.init(conf);
+
+	numMeasurements = conf.obstacleCount;
 
 	pyFaces.on('warn', function(d) { console.log('pythonFaces Warning: ', d) });
 	pyFaces.on('error', function(d) { console.log('pythonFaces Error: ', d) });
@@ -68,9 +69,9 @@ exports.isRunning = () => (isRunning === true);
 
 // we assume three consecutive obstacle measurements at initialization,
 // which means we got a verified obstacle, which we define at a distance of zero.
-var numMeasurements = conf.obstacleCount;
-var frontObstacle = 0;
-var currentSpeed = 0;
+let numMeasurements = 0;;
+let frontObstacle = 0;
+let currentSpeed = 0;
 
 function handleNewFace(oFace) {
 	// the retrieved object of one face is: { id, x, y, w, h, relX, relY, relW, relH }
@@ -105,10 +106,10 @@ function adjustCarControls() {
 }
 
 function adjustSpeed() {
-	var now = (new Date()).getTime();
-	var timePassed = now - lastFaceDetected;
-	var speed = null;
-	var state;
+	let now = (new Date()).getTime();
+	let timePassed = now - lastFaceDetected;
+	let speed = null;
+	let state;
 
 	// we are accelerating towards full speed with a linear ramp
 	if(now-rampUpFace < conf.speedUpTime) {
@@ -147,7 +148,7 @@ function adjustSpeed() {
 		}
 	}
 
-	// Finally var's do something with all the calculations above
+	// Finally let's do something with all the calculations above
 	if(speed === null) car.break();
 	else car.setSpeed(speed);
 
@@ -155,11 +156,11 @@ function adjustSpeed() {
 	lastState = state;
 }
 
-var timerStraight;
+let timerStraight;
 function adjustSteering() {
-	var now = (new Date()).getTime();
-	var timePassed = now - lastFaceDetected;
-	var steerPrct = 0;
+	let now = (new Date()).getTime();
+	let timePassed = now - lastFaceDetected;
+	let steerPrct = 0;
 
 	// we smoothly turn into the correct direction
 	if(timePassed < conf.turnTime) {
