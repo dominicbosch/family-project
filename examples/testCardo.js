@@ -61,11 +61,22 @@ car.init({
 	// Start Speeding up, breaking and so on:
 	let intSpeed = setInterval(setSpeed, 15); // every 15ms
 
-	// Poll distance
-	let intPoll = setInterval(function() {
-		console.log('Obstacle at '+car.getFrontObstacle());
-	}, 1000);
-	
+	// // Poll distance
+	// let intPoll = setInterval(function() {
+	// 	console.log('Obstacle at '+car.getFrontObstacle());
+	// }, 1000);
+
+
+	pollProcess = cp.spawn('node', ['testDist.js']);
+	pollProcess.stdout.on('data', (data) => {
+		
+	});
+
+	pollProcess.stderr.on('data', reportError);
+	pollProcess.on('close', (code) => {
+		reportError('Child process exited with code '+code);
+	});
+
 	// Stop everything after 30 seconds
 	setTimeout(function() {
 		clearInterval(intSteer);

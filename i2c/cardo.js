@@ -2,6 +2,7 @@
 
 // https://github.com/kaosat-dev/adafruit-i2c-pwm-driver
 
+const cp = require('child_process');
 const makePwmDriver = require('./pwmDriver');
 const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
 const rpio = require('rpio');
@@ -98,9 +99,8 @@ exports.setSpeed = function(direction) {
  */
 console.warn('TODO: Implement cardo.getFrontObstacle!');
 exports.getFrontObstacle = function() {
-	rpio.open(gpioPin, rpio.OUTPUT, rpio.LOW);
-	rpio.write(gpioPin, rpio.HIGH);
-	rpio.msleep(500);
-	rpio.write(gpioPin, rpio.LOW);
+	// rpio.open(gpioPin, rpio.OUTPUT, rpio.LOW);
+	// rpio.write(gpioPin, rpio.HIGH);
+	// rpio.msleep(500);
+	// rpio.write(gpioPin, rpio.LOW);
 }
-
