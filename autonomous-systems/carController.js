@@ -2,8 +2,16 @@ const pyFaces = require('../camera/pythonFaces');
 const car = require('../i2c/cardo');
 
 var exports = module.exports = {};
-let config;
-let reqConfig = ['slowDownDistance', 'stopDistance'];
+let conf;
+let reqConfig = [
+	'slowDownDistance', // distance to obstacle when we start to slow down
+	'stopDistance',		// distance to obstacle when to stop
+	'obstacleCount',	// num of consecutive obstacle detections for a verified obstacle
+	'turnTime',			// time to smoothly turn into the right direction
+	'speedUpTime',		// we speed up over 3000ms
+	'stayTime',			// we stay at full speed for 5000ms
+	'stopTime',			// we slow down and stop until 10000ms passed
+];
 let isRunning = false;
 let steerInterval;
 let facePosition = 0;
@@ -19,20 +27,20 @@ let stateMessages = {
 	obstaclebreak: 'Breaking because of obstacle!'
 };
 
-exports.init = function(conf) {
-	config = conf || {};
+exports.init = function(config) {
+	conf = config || {};
 	let miss = [];
 	for (var i = 0; i < reqConfig.length; i++) {
-		if(config[reqConfig[i]]===undefined) miss.push(reqConfig[i]);
+		if(conf[reqConfig[i]]===undefined) miss.push(reqConfig[i]);
 	}
 	// This is an interesting way to return a rejected promise :-P
 	if(miss.length > 0) return new Promise((r, reject) => {
-		reject('Some configuration is missing: '+miss.join(', '));
+		reject('Some confuration is missing: '+miss.join(', '));
 	});
 
-	if(config.v) console.log('Initializing with comfig:\n'+JSON.strinigfy(config, null, 2));
-	let ret = car.init(config);
-	pyFaces.init(config);
+	if(conf.v) console.log('Initializing with comfig:\n'+JSON.strinigfy(conf, null, 2));
+	let ret = car.init(conf);
+	pyFaces.init(conf);
 
 	pyFaces.on('warn', function(d) { console.log('pythonFaces Warning: ', d) });
 	pyFaces.on('error', function(d) { console.log('pythonFaces Error: ', d) });
@@ -43,13 +51,13 @@ exports.init = function(conf) {
 	return ret;
 };
 exports.start = function() {
-	if(config.v) console.log('CarController started!');
+	if(conf.v) console.log('CarController started!');
 	steerInterval = setInterval(adjustCarControls, 50);
 	pyFaces.start();
 	isRunning = true;
 };
 exports.stop = function() {
-	if(config.v) console.log('CarController stopped!');
+	if(conf.v) console.log('CarController stopped!');
 	clearInterval(steerInterval);
 	pyFaces.stop();
 	isRunning = false;
@@ -59,41 +67,63 @@ exports.isRunning = () => (isRunning === true);
 
 // we assume three consecutive obstacle measurements at initialization,
 // which means we got a verified obstacle, which we define at a distance of zero.
-let numMeasurements = 3;
+let numMeasurements = conf.obstacleCount;
 let frontObstacle = 0;
 let currentSpeed = 0;
 
-// these are the nomore face detected rules:
-let speedUpTime = 3000; // we speed up over 3000ms
-let speedStayTime = 5000; // we stay at full speed for 5000ms
-let speedStopTime = 10000; // we slow down and stop until 10000ms passed
+function handleNewFace(oFace) {
+	// the retrieved object of one face is: { id, x, y, w, h, relX, relY, relW, relH }
+	// we only look for the first (biggest) face on an image: oFace.id === 0
+	// IDs are sorted from biggest to smallest
+	if(oFace.id === 0) {
+		if(conf.v) console.log('Face detected at relX: ', oFace.relX);
+		facePosition = oFace.relX;
+		lastFaceDetect = (new Date()).getTime();
+		if(currentSpeed > 0) {
+			// if we do have a current speed and the rampUpFace has been reset, this
+			// means we are already running and didn't detect any face for
+			// conf.speedUpTime milliseconds. Therefore we need to adjust the new rampUpFace
+			// to the current speed in order for a smooth transition
+			
+			// TODO TEST if this works
+			rampUpFace = lastFaceDetect-currentSpeed*conf.speedUpTime;
+		}
+		else if(rampUpFace === 0) rampUpFace = lastFaceDetect;
+	}
+}
+
 function adjustCarControls() {
 	
 	// Test for obstacles
 	frontObstacle = car.getFrontObstacle();
-	if(frontObstacle < config.slowDownDistance) numMeasurements++;
+	if(frontObstacle < conf.slowDownDistance) numMeasurements++;
 	else numMeasurements = 0;
 
+	adjustSpeed();
+	adjustSteering();
+}
+
+function adjustSpeed() {
 	let now = (new Date()).getTime();
 	let timePassed = now - lastFaceDetected;
 	let speed = null;
 	let state;
 
 	// we are accelerating towards full speed with a linear ramp
-	if(now-rampUpFace < speedUpTime) {
+	if(now-rampUpFace < conf.speedUpTime) {
 		state = 'accelerating';
-		currentSpeed = speed = (now-rampUpFace) / speedUpTime;
+		currentSpeed = speed = (now-rampUpFace) / conf.speedUpTime;
 
 	// we stay at full speed while no faces are detected 
-	} else if(timePassed < speedStayTime) {
+	} else if(timePassed < conf.stayTime) {
 		state = 'fullspeed';
 		rampUpFace = 0; // We reset the ramp up face
 		currentSpeed = speed = 1;
 
 	// we slow down with a negative linear ramp since no more faces were detected 
-	} else if(timePassed < speedStopTime) {
+	} else if(timePassed < conf.stopTime) {
 		state = 'slowdown';
-		currentSpeed = speed = 1-(timePassed-speedStayTime)/(speedStopTime-speedStayTime);
+		currentSpeed = speed = 1-(timePassed-conf.stayTime)/(conf.stopTime-conf.stayTime);
 
 	} else {
 		state = 'nofacebreak';
@@ -101,12 +131,12 @@ function adjustCarControls() {
 	}
 
 	// if we are going to set a speed > 0, we have to check for obstacles
-	if(speed !== null && numMeasurements > 2) {
+	if(speed !== null && numMeasurements >= conf.obstacleCount) {
 
 		// if the obstacle is not yet closer than the stop distance, we slow down
-		if(config.stopDistance < frontObstacle) {
+		if(conf.stopDistance < frontObstacle) {
 			state = 'obstacle';
-			currentSpeed = speed = (frontObstacle-config.stopDistance)/(config.slowDownDistance-config.stopDistance);
+			currentSpeed = speed = (frontObstacle-conf.stopDistance)/(conf.slowDownDistance-conf.stopDistance);
 
 		// if the obstacle is closer than the stop distance, we stop ;)
 		} else {
@@ -120,34 +150,33 @@ function adjustCarControls() {
 	if(speed === null) car.break();
 	else car.setSpeed(speed);
 
-	if(config.v && state !== lastState) console.log(messages[state]);
+	if(conf.v && state !== lastState) console.log(messages[state]);
 	lastState = state;
 }
 
-function handleNewFace(oFace) {
-	// the retrieved object of one face is: { id, x, y, w, h, relX, relY, relW, relH }
-	// we only look for the first (biggest) face on an image: oFace.id === 0
-	// IDs are sorted from biggest to smallest
-	if(oFace.id === 0) {
-		if(config.v) console.log('Face detected at relX: ', oFace.relX);
-		facePosition = oFace.relX;
-		lastFaceDetect = (new Date()).getTime();
-		if(currentSpeed > 0) {
-			// if we do have a current speed and the rampUpFace has been reset, this
-			// means we are already running and didn't detect any face for
-			// speedUpTime milliseconds. Therefore we need to adjust the new rampUpFace
-			// to the current speed in order for a smooth transition
-			
-			// TODO TEST if this works
-			rampUpFace = lastFaceDetect-currentSpeed*speedUpTime;
-		}
-		else if(rampUpFace === 0) rampUpFace = lastFaceDetect;
+let timerStraight;
+function adjustSteering() {
+	let now = (new Date()).getTime();
+	let timePassed = now - lastFaceDetected;
+	let steerPrct = 0;
+
+	// we smoothly turn into the correct direction
+	if(timePassed < conf.turnTime) {
+		steerPrct = timePassed / conf.turnTime;
 	}
+	car.setSteering(lastRelativeFacePosition);
+
+	if(timerStraight) clearTimeout(timerStraight);
+	timerStraight = setTimeout(() => {
+		timerStraight = null;
+		car.setSteering(0);
+	}, 300);
+	// TODO how long do we have to steer in the direction of the face?
+	// TODO this depends on the current speed as well as on how far the
+	// TODO face is off the center
 }
 
 /*
-
-def adjustSteering():
 	now = time.time()
 	
 	# how much time since the last face detection passed 
