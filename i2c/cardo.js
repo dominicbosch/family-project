@@ -4,6 +4,8 @@
 
 const makePwmDriver = require('./pwmDriver');
 const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
+const rpio = require('rpio');
+const gpioPin = 16;    // header pin 16 = GPIO port 23
 
 // Preparing the object orientation (everything attached to exports is visible from outside)
 var exports = module.exports = {};
@@ -96,6 +98,9 @@ exports.setSpeed = function(direction) {
  */
 console.warn('TODO: Implement cardo.getFrontObstacle!');
 exports.getFrontObstacle = function() {
-	return 100;
+	rpio.open(gpioPin, rpio.OUTPUT, rpio.LOW);
+	rpio.write(gpioPin, rpio.HIGH);
+	rpio.msleep(500);
+	rpio.write(gpioPin, rpio.LOW);
 }
 
