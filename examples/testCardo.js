@@ -68,9 +68,9 @@ car.init({
 	// }, 1000);
 
 
-	pollProcess = cp.spawn('node', ['testDist.js']);
+	let pollProcess = cp.spawn('node', ['testDist.js']);
 	pollProcess.stdout.on('data', (data) => {
-		
+
 	});
 
 	pollProcess.stderr.on('data', reportError);
