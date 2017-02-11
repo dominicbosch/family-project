@@ -23,7 +23,7 @@ let stateMessages = {
 	fullspeed: 'Staying at full speed!',
 	slowdown: 'Slowing down because no more faces!',
 	nofacebreak: 'Breaking because no more faces!',
-	obstacle: 'Slowing down because of obstacle!'
+	obstacle: 'Slowing down because of obstacle!',
 	obstaclebreak: 'Breaking because of obstacle!'
 };
 
