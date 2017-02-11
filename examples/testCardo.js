@@ -69,11 +69,11 @@ car.init({
 
 
 	let pollProcess = cp.spawn('node', ['testDist.js']);
-	pollProcess.stdout.on('data', (data) => {
+	// pollProcess.stdout.on('data', (data) => {
 
-	});
+	// });
 
-	pollProcess.stderr.on('data', reportError);
+	// pollProcess.stderr.on('data', reportError);
 	pollProcess.on('close', (code) => {
 		reportError('Child process exited with code '+code);
 	});
