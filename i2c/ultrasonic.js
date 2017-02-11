@@ -11,9 +11,13 @@ rpio.open(trigPin, rpio.INPUT);
 
 function pollDistance() {
 	
+
+	console.log('Initiating GPIO')
 	rpio.write(trigPin, rpio.HIGH);
 	rpio.usleep(10); // sleep milliseconds
 	rpio.write(trigPin, rpio.LOW);
+
+	console.log('Waiting for echoPin')
 
 	// rpio.sleep(1); // sleep seconds
 	let start = process.hrtime()[1]; // nanoseconds
