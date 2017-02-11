@@ -44,8 +44,10 @@ function makePwmDriver (options) {
     device: '/dev/i2c-1',
     debug: false
   }
-  const {address, device, debug} = Object.assign({}, defaults, options)
-  const i2c = I2C(address, {device, debug})
+  const address = options.address || defaults.address;
+  const device = options.device || defaults.device;
+  const debug = options.debug || defaults.debug;
+  const i2c = I2C(address, {device:device, debug:debug})
   let prescale
 
   const init = () => {
