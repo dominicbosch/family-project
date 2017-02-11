@@ -152,7 +152,7 @@ function adjustSpeed() {
 	if(speed === null) car.break();
 	else car.setSpeed(speed);
 
-	if(conf.v && state !== lastState) console.log(messages[state]);
+	if(conf.v && state !== lastState) console.log(stateMessages[state]);
 	lastState = state;
 }
 
