@@ -2,9 +2,9 @@ const cp = require('child_process');
 
 var exports = module.exports = {};
 
-let pythonProcess = null;
-let eventListeners = {};
-let options;
+var pythonProcess = null;
+var eventListeners = {};
+var options;
 
 
 exports.init = function(opts) {
@@ -24,7 +24,7 @@ exports.start = function() {
 	if(!pythonProcess) {
 		// -u flag prevents python process from buffering outputs, thus causing late notifications
 		// we need the -v flag in order to fet the detect time and FPS info
-		let args = ['-u', __dirname+'/lookForFaces.py', '-v'];
+		var args = ['-u', __dirname+'/lookForFaces.py', '-v'];
 		if(options.s) args.push('-s');
 		if(options.hf) args.push('-hf');
 		if(options.vf) args.push('-vf');
@@ -33,8 +33,8 @@ exports.start = function() {
 		if(options.ih) args.push('--ih', options.ih);
 		pythonProcess = cp.spawn('python', args);
 		pythonProcess.stdout.on('data', (data) => {
-			let arr = data.toString().split('\n');
-			for(let i = 0; i < arr.length; i++) {
+			var arr = data.toString().split('\n');
+			for(var i = 0; i < arr.length; i++) {
 				processLine(arr[i]);
 			}
 		});
@@ -58,17 +58,17 @@ exports.isRunning = function(opts) {
 	return (pythonProcess !== null);
 };
 
-let arrFaceKeys = ['id', 'x', 'y', 'w', 'h', 'relX', 'relY', 'relW', 'relH'];
+var arrFaceKeys = ['id', 'x', 'y', 'w', 'h', 'relX', 'relY', 'relW', 'relH'];
 function processLine(line) {
 	if(line.indexOf(strng='Camera | FPS: ') > -1) {
 		emitEvent('fps', parseFloat(extractValue(line, strng)));
 	} else if(line.indexOf(strng='FaceDetect | Detect Time: ') > -1) {
 		emitEvent('detecttime', parseFloat(extractValue(line, strng)));
 	} else if(line.indexOf('#') > -1) {
-		let oFace = {};
-		let arrVals = extractValue(line, '#').split('|').map(parseFloat);
+		var oFace = {};
+		var arrVals = extractValue(line, '#').split('|').map(parseFloat);
 		// Map the values array into a face object with keys as defined in arrFaceKeys
-		for(let i = 0; i < arrFaceKeys.length; i++) {
+		for(var i = 0; i < arrFaceKeys.length; i++) {
 			oFace[arrFaceKeys[i]] = arrVals[i];
 		}
 		emitEvent('face', oFace);
@@ -76,14 +76,14 @@ function processLine(line) {
 }
 
 function extractValue(line, str, cutoff) {
-	let ret = line  // From the whole line
+	var ret = line  // From the whole line
 		.substr(line.indexOf(str)+str.length); // start at the end of the searched string
 	if(cutoff) ret = ret.slice(0, -cutoff); // cut away this many characters at the end
 	return ret;
 }
 
 function emitEvent(evt, data) {
-	for (let i = 0; i < eventListeners[evt].length; i++) {
+	for (var i = 0; i < eventListeners[evt].length; i++) {
 		eventListeners[evt][i](data);
 	}
 }
