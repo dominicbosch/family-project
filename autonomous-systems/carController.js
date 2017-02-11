@@ -93,14 +93,14 @@ function handleNewFace(oFace) {
 		else if(rampUpFace === 0) rampUpFace = lastFaceDetect;
 	}
 }
-
-function adjustCarControls() {
-	
-	// Test for obstacles
-	frontObstacle = car.getFrontObstacle();
+// register the obstacle handler function in car
+car.onFrontObstacle((obst) => {
+	frontObstacle = obst;
 	if(frontObstacle < conf.slowDownDistance) numMeasurements++;
 	else numMeasurements = 0;
+});
 
+function adjustCarControls() {
 	adjustSpeed();
 	adjustSteering();
 }

@@ -5,8 +5,6 @@
 const cp = require('child_process');
 const makePwmDriver = require('./pwmDriver');
 const pwmDriver = makePwmDriver({address: 0x40, device: '/dev/i2c-1', debug: false});
-const rpio = require('rpio');
-const gpioPin = 16;    // header pin 16 = GPIO port 23
 
 // Preparing the object orientation (everything attached to exports is visible from outside)
 var exports = module.exports = {};
@@ -94,19 +92,30 @@ exports.setSpeed = function(direction) {
 }
 
 /*
- * TODO IMPLEMENT
- * Discuss: Do we use a blocking function call or non-blocking with event handlers?
+ * This is a good example of an event-driven information handling because
+ * the child_process ultrasonic.js will send events about a new obstacle whenever
+ * they are detected. Through this we do not need to poll and lock the CPU.
+ * This is essential in this example because the ultrasonic device requires
+ * quite some time to execute one poll (depends on the distance)
+ * 
+ * TODO how about putting logic about how often an obstacle needs to be
+ * detected consecutively in order to be classified as real obstacle instead of
+ * noise. also the distance threshold could be added in order to lower
+ * communication overhead, i.e. only notify about really relevant obstacles.
  */
-// p.send({
-// count: 10
-// });
-// p.on('message', function(data) {
-// process.exit(0);
-// });
-console.warn('TODO: Implement cardo.getFrontObstacle!');
-exports.getFrontObstacle = function() {
-	// rpio.open(gpioPin, rpio.OUTPUT, rpio.LOW);
-	// rpio.write(gpioPin, rpio.HIGH);
-	// rpio.msleep(500);
-	// rpio.write(gpioPin, rpio.LOW);
+
+let arrObstacleListeners = [];
+let distPoller = cp.fork('ultrasonic.js');
+distPoller.on('close', (code) => {
+	console.warn('Child process exited with code '+code);
+});
+distPoller.on('message', (msg) => {
+	console.log('got message from child process', msg);
+	for (var i = 0; i < arrObstacleListeners.length; i++) {
+		arrObstacleListeners[i](msg);
+	}
+});
+
+exports.onFrontObstacle = function(cb) {
+	if((typeof cb) === 'function') arrObstacleListeners.push(cb);
 }
