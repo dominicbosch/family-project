@@ -29,9 +29,10 @@ function pollDistance() {
 	let i = 0;
 	while(!(val = rpio.read(echoPin))) {
 		txt += val;
-		if(i++ === 100) {
+		if(i++ === 500) {
 			console.log(txt);
 			txt = '';
+			i = 0;
 		}
 	}
 
