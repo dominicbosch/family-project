@@ -107,7 +107,7 @@ function adjustCarControls() {
 
 function adjustSpeed() {
 	let now = (new Date()).getTime();
-	let timePassed = now - lastFaceDetected;
+	let timePassed = now - lastFaceDetect;
 	let speed = null;
 	let state;
 
@@ -159,7 +159,7 @@ function adjustSpeed() {
 let timerStraight;
 function adjustSteering() {
 	let now = (new Date()).getTime();
-	let timePassed = now - lastFaceDetected;
+	let timePassed = now - lastFaceDetect;
 	let steerPrct = 0;
 
 	// we smoothly turn into the correct direction
