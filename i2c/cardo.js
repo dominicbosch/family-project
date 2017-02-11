@@ -97,6 +97,12 @@ exports.setSpeed = function(direction) {
  * TODO IMPLEMENT
  * Discuss: Do we use a blocking function call or non-blocking with event handlers?
  */
+// p.send({
+// count: 10
+// });
+// p.on('message', function(data) {
+// process.exit(0);
+// });
 console.warn('TODO: Implement cardo.getFrontObstacle!');
 exports.getFrontObstacle = function() {
 	// rpio.open(gpioPin, rpio.OUTPUT, rpio.LOW);
