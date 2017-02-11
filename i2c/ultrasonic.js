@@ -3,22 +3,35 @@
  */
 
 const rpio = require('rpio');
-const gpioPin = 16;    // header pin 16 = GPIO port 23
+const trigPin = 16;    // Trigger pin 16 = GPIO port 23
+const echoPin = 18; 	// Echo Pin 18 = GPIO port 24
+
+rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
+rpio.open(trigPin, rpio.INPUT);
 
 function pollDistance() {
-	// rpio.sleep(1); // sleep seconds
-	rpio.open(gpioPin, rpio.OUTPUT, rpio.LOW);
-	let start = process.hrtime(); // nanoseconds
-// console.log(hrTime[0] * 1000000 + hrTime[1] / 1000)
+	
 
-	rpio.write(gpioPin, rpio.HIGH);
-	rpio.msleep(1); // sleep milliseconds
-	rpio.write(gpioPin, rpio.LOW);
-	while(true) {
-		
+	console.log('Initiating GPIO')
+	rpio.write(trigPin, rpio.HIGH);
+	rpio.usleep(10); // sleep milliseconds
+	rpio.write(trigPin, rpio.LOW);
+
+	console.log('Waiting for echoPin')
+
+	// rpio.sleep(1); // sleep seconds
+	let start = process.hrtime()[1]; // nanoseconds
+    // console.log(hrTime[0] * 1000000 + hrTime[1] / 1000)
+    let old = start;
+    let nu;
+	while(!rpio.read(echoPin)) {
+		nu = process.hrtime()[1];
+		console.log((nu-old)+'ns');
+    	old = nu;
 	}
-	let end = process.hrtime(); // nanoseconds
-	console.log(end-start); // passed nanoseconds
+
+	let end = process.hrtime()[1]; // nanoseconds
+	console.log((end-start)/58000); // passed nanoseconds
 	setTimeout(pollDistance, 5); // release the CPU for 5ms after polling
 }
 
