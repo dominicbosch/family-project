@@ -48,7 +48,7 @@ function makePwmDriver (options) {
   const device = options.device || defaults.device;
   const debug = options.debug || defaults.debug;
   const i2c = I2C(address, {device:device, debug:debug})
-  let prescale
+  var prescale
 
   const init = () => {
     if (debug) {
@@ -70,7 +70,7 @@ function makePwmDriver (options) {
 
   const setPWMFreq = freq => {
     // "Sets the PWM frequency"
-    let prescaleval = 25000000.0 // 25MHz
+    var prescaleval = 25000000.0 // 25MHz
     prescaleval /= 4096.0 // 12-bit
     prescaleval /= freq
     prescaleval -= 1.0
@@ -83,8 +83,8 @@ function makePwmDriver (options) {
     if (debug) {
       console.log(`Final pre-scale: ${prescale}`)
     }
-    let oldmode;
-    let newmode;
+    var oldmode;
+    var newmode;
     return i2c.readBytes(MODE1, 1)
       .then(function (data) {
         oldmode = data[0]
