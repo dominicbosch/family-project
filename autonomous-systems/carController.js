@@ -1,3 +1,5 @@
+'use strict';
+
 const pyFaces = require('../camera/pythonFaces');
 const car = require('../i2c/cardo');
 
