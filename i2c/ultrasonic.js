@@ -22,9 +22,12 @@ function pollDistance() {
 	// rpio.sleep(1); // sleep seconds
 	let start = process.hrtime()[1]; // nanoseconds
     // console.log(hrTime[0] * 1000000 + hrTime[1] / 1000)
-
+    let old = start;
+    let nu;
 	while(!rpio.read(echoPin)) {
-		console.log((process.hrtime()[1]-start)+'ns');
+		nu = process.hrtime()[1];
+		console.log((nu-old)+'ns');
+    	old = nu;
 	}
 
 	let end = process.hrtime()[1]; // nanoseconds
