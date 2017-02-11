@@ -23,6 +23,8 @@ car.init({
 	speedUpTime: 3000,
 	stayTime: 5000,
 	stopTime: 10000
-}).catch((err) => {
-	console.error('Couldn\'t start car!', err)
 })
+.then(car.start)
+.catch((err) => {
+	console.error('Couldn\'t start car!', err)
+});
