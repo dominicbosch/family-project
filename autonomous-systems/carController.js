@@ -166,7 +166,7 @@ function adjustSteering() {
 	if(timePassed < conf.turnTime) {
 		steerPrct = timePassed / conf.turnTime;
 	}
-	car.setSteering(lastRelativeFacePosition);
+	car.setSteering(facePosition);
 
 	if(timerStraight) clearTimeout(timerStraight);
 	timerStraight = setTimeout(() => {
