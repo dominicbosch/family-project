@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
 	iDist = getCM();
 
-	printf("%p\n", iDist);
+	printf("%d\n", iDist);
 
 	return 0;
 
