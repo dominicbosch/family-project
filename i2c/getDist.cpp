@@ -89,6 +89,8 @@ int main(int argc, char **argv)
 	int iDist;
 	int iWaitMilli;
 
+	bool bForever;
+
 	if (argc <= 1)
 		{
 		printf("Supply 1 command to set the wait timing in milliseconds\n");
@@ -99,7 +101,9 @@ int main(int argc, char **argv)
 
 	gpioSetup();
 
-	while(){
+	bForever=true;
+
+	while(bForever){
 		iDist = getCM();
 		printf("%d\n", iDist);
 		delayMicroseconds(iWaitMilli*1000);	
