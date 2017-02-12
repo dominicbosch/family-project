@@ -10,7 +10,7 @@
 #define TRIG 4
 #define ECHO 5
 
-char sConfigFileName[] = "carconfig.ini";
+char sConfigFileName[] = "/home/pi/projects/family-project/i2c/carconfig.ini";
 
 int iPWMHatFD = -1;
 
@@ -29,7 +29,7 @@ void gpioSetup()
 	delay(30);
 }
 
-int getCM()
+int getCM()	
 	{
 	//Send trig pulse
 
@@ -182,6 +182,9 @@ int main(int argc, char **argv)
 	config_setting_t *iInVal = 0;
 	config_setting_t *iValues;
 
+	char cwd[1024];
+	char *nFileName;
+
 	int iCount, iResult, i, iRetval, iArg;
 	int iIn[3];
 
@@ -193,6 +196,20 @@ int main(int argc, char **argv)
 		exit(1);
 		}
 
+/*	memset(cwd, 0, sizeof(cwd));
+	if (readlink("/proc/self/exe", cwd, sizeof(cwd)-1) < 0)
+		{
+		printf("Current wordir %s\n", cwd);
+		}
+	else
+		{
+		printf("Cannot get currdir %s\n", cwd);
+		exit(2);
+		}
+*/
+//	asprintf(&nFileName, "%s%s", cwd, sConfigFileName);
+//	printf("%s\n", nFileName); 
+
 	for(iArg=1; iArg < argc; iArg++)
 		{
 		iIn[iArg-1] = strToint((argv) [iArg]);
@@ -200,6 +217,7 @@ int main(int argc, char **argv)
 
 	cf = &cfg;
     	config_init(cf);
+	
 
 	if (!config_read_file(cf, sConfigFileName))
 	{
@@ -305,7 +323,7 @@ int main(int argc, char **argv)
 			printf("Init I2C to PWM HAt\n");
 			iPWMHatFD = wiringPiI2CSetup(0x40);
 			initPWM();
-			printf("Sending command %i, %i, %i \n", iIn[0], iResult, 255);
+			printf("Sending command %i, %i to PWM HAT\n", iIn[0], iResult);
 			setPWM(iIn[0], 0, iResult);
 			}
 		}

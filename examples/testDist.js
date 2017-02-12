@@ -7,12 +7,12 @@ const trigPin = 16;    // Trigger pin 16 = GPIO port 23
 const echoPin = 18; 	// Echo Pin 18 = GPIO port 24
 
 rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
-rpio.open(echoPin, rpio.INPUT);
+rpio.open(echoPin, rpio.INPUT,rpio.PULL_DOWN);
 
 console.log('Initiating GPIO')
 
 rpio.write(trigPin, rpio.HIGH);
-rpio.usleep(2); // sleep milliseconds
+//rpio.usleep(0); // sleep milliseconds
 rpio.write(trigPin, rpio.LOW);
 
 console.log('Waiting for echoPin')
