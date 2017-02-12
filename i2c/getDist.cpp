@@ -56,16 +56,55 @@ int getCM()
 	return distance;
 	}
 
+int strToint(char *inString)
+	{
+	int i, iLen;
+	int iResult = 0;
+
+	iLen = strlen(inString);
+
+	if (inString[0] == '-')
+		{
+		for(i = 1; i < iLen; i++)
+			{
+			iResult = iResult * 10 + (inString[i] - '0');
+			}
+		iResult = 0 - iResult;
+		}
+	else
+		{
+		for(i = 0; i < iLen; i++)
+			{
+			iResult = iResult * 10 + (inString[i] - '0');
+			}
+		}
+
+	return(iResult);
+	}
+
+
 int main(int argc, char **argv)
 {
 
 	int iDist;
+	int iWaitMilli;
+
+	if (argc <= 1)
+		{
+		printf("Supply 1 command to set the wait timing in milliseconds\n");
+		exit(1);
+		}
+
+
+	iWaitMilli = strToint((argv) [1]);
 
 	gpioSetup();
 
-	iDist = getCM();
-
-	printf("%p\n", iDist);
+	while(){
+		iDist = getCM();
+		printf("%d\n", iDist);
+		delayMicroseconds(iWaitMilli*1000);	
+	}
 
 	return 0;
 
