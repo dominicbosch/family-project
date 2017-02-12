@@ -1,41 +1,38 @@
-var rpio = require("rpio");
+/*
+ * This is meant to be loaded through child_process.fork('ultrasonic.js')
+ */
 
-//var intervalId;
-//var durationId;
-var gpioPin = 16;    // header pin 16 = GPIO port 23
+const rpio = require('rpio');
+const trigPin = 16;    // Trigger pin 16 = GPIO port 23
+const echoPin = 18; 	// Echo Pin 18 = GPIO port 24
 
-// gpio.close(gpioPin);
+rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
+rpio.open(echoPin, rpio.INPUT);
 
-// open pin 16 for output
-//
+console.log('Initiating GPIO')
 
-rpio.open(gpioPin, rpio.OUTPUT, rpio.LOW);
+rpio.write(trigPin, rpio.HIGH);
+rpio.usleep(10); // sleep milliseconds
+rpio.write(trigPin, rpio.LOW);
 
-for (var i = 0; i < 5; i++) {
-        rpio.write(gpioPin, rpio.HIGH);
-        rpio.sleep(1);
+console.log('Waiting for echoPin')
 
-        rpio.write(gpioPin, rpio.LOW);
-        rpio.msleep(500);
-}
-
-/*var on = 1;
-console.log('GPIO pin '+gpioPin+' is open. toggling LED every 100 mS for 10s');
-
-intervalId = setInterval( function(){
-  gpio.write(gpioPin, on, function() { // toggle pin between high (1) and low (0)
-    on = (on + 1) % 2;
-    });
-  }, 100);
-});
-
-durationId= setTimeout( function(){
-  clearInterval(intervalId);
-  clearTimeout(durationId);
-  console.log('10 seconds blinking completed');
-  gpio.write(gpioPin, 0, function() { // turn off pin 16
-    gpio.close(gpioPin); // then Close pin 16
-    process.exit(0); // and terminate the program
-  });
-}, 10000); // duration in mS
-*/
+// rpio.sleep(1); // sleep seconds
+let start = process.hrtime()[1]; // nanoseconds
+// console.log(hrTime[0] * 1000000 + hrTime[1] / 1000)
+let exitLoop = !rpio.read(echoPin);
+let timePassed = false;
+	
+while(exitLoop && !timePassed) {
+	if((process.hrtime()[1]-start)>60000){
+		timePassed = true;
+	}
+	exitLoop = !rpio.read(echoPin);
+	let end = process.hrtime()[1]; // nanoseconds
+	if(timePassed===true){
+		console.log('Time passed');
+	}
+	else{
+		console.log((end-start)/58000); // passed nanoseconds
+	}
+}	
