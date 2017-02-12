@@ -26,7 +26,7 @@ function pollDistance() {
 	
 	while(exitLoop && !timePassed) {
 
-		if((process.hrTime()[1]-start)>60000){
+		if((process.hrtime()[1]-start)>60000){
 			timePassed = true;
 		}
 		exitLoop = !rpio.read(echoPin);
