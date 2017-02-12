@@ -7,10 +7,9 @@ const trigPin = 16;    // Trigger pin 16 = GPIO port 23
 const echoPin = 18; 	// Echo Pin 18 = GPIO port 24
 
 rpio.open(trigPin, rpio.OUTPUT, rpio.LOW);
-rpio.open(trigPin, rpio.INPUT);
+rpio.open(echoPin, rpio.INPUT);
 
 function pollDistance() {
-	
 
 	console.log('Initiating GPIO')
 	rpio.write(trigPin, rpio.HIGH);
@@ -25,9 +24,9 @@ function pollDistance() {
     let old = start;
     let nu;
 	while(!rpio.read(echoPin)) {
-		nu = process.hrtime()[1];
-		console.log((nu-old)+'ns');
-    	old = nu;
+//		nu = process.hrtime()[1];
+//		console.log((nu-old)+'ns');
+//    	old = nu;
 	}
 
 	let end = process.hrtime()[1]; // nanoseconds
