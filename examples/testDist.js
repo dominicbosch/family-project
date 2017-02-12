@@ -28,11 +28,11 @@ while(exitLoop && !timePassed) {
 		timePassed = true;
 	}
 	exitLoop = !rpio.read(echoPin);
-	let end = process.hrtime()[1]; // nanoseconds
-	if(timePassed===true){
-		console.log('Time passed');
-	}
-	else{
-		console.log((end-start)/58000); // passed nanoseconds
-	}
 }	
+let end = process.hrtime()[1]; // nanoseconds
+if(timePassed===true){
+	console.log('Time passed');
+}
+else{
+	console.log((end-start)/58000); // passed nanoseconds
+}
