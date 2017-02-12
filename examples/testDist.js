@@ -12,7 +12,7 @@ rpio.open(echoPin, rpio.INPUT);
 console.log('Initiating GPIO')
 
 rpio.write(trigPin, rpio.HIGH);
-rpio.usleep(10); // sleep milliseconds
+rpio.usleep(2); // sleep milliseconds
 rpio.write(trigPin, rpio.LOW);
 
 console.log('Waiting for echoPin')
