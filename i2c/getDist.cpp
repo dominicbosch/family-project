@@ -95,7 +95,6 @@ int main(int argc, char **argv)
 		exit(1);
 		}
 
-
 	iWaitMilli = strToint((argv) [1]);
 
 	gpioSetup();
@@ -105,6 +104,7 @@ int main(int argc, char **argv)
 		printf("%d\n", iDist);
 		delayMicroseconds(iWaitMilli*1000);	
 	}
+	printf("%d\n", iDist);
 
 	return 0;
 
