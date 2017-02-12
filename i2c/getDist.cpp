@@ -6,8 +6,8 @@
 #include <string.h>
 //#include <libconfig.h>
 
-#define TRIG 23  
-#define ECHO 24  
+#define TRIG 8
+#define ECHO 10  
 
 int iPWMHatFD = -1;
 
