@@ -31,15 +31,13 @@ function pollDistance() {
 		}
 		exitLoop = !rpio.read(echoPin);
 
-	}
-
-	let end = process.hrtime()[1]; // nanoseconds
-	if(timePassed===true){
-		console.log('Time passed')
-	else{
+		let end = process.hrtime()[1]; // nanoseconds
+		if(timePassed===true){
+			console.log('Time passed');
+		}
+		else{
 		console.log((end-start)/58000); // passed nanoseconds
 		}
-	}
 	}
 	
 	setTimeout(pollDistance, 5); // release the CPU for 5ms after polling
