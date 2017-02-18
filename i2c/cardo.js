@@ -129,8 +129,9 @@ distPoller.stdout.on('data', (data) => {
 	// heavy CPU or I/O load
 	let dist = parseInt(arr[arr.length-1]);
 	for (var i = 0; i < arrDistListeners.length; i++) {
+		let callback = arrDistListeners[i];
 		setTimeout(() => {
-			arrDistListeners[i](dist)
+			callback(dist);
 		}, 0);
 	}
 });

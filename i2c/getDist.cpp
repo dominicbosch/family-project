@@ -85,7 +85,8 @@ int strToint(char *inString)
 
 int main(int argc, char **argv)
 {
-
+	setbuf(stdout, NULL);
+	
 	int iDist;
 	int iWaitMilli;
 
@@ -108,7 +109,7 @@ int main(int argc, char **argv)
 		printf("%d\n", iDist);
 		delayMicroseconds(iWaitMilli*1000);	
 	}
-	printf("%d\n", iDist);
+	// printf("%d\n", iDist);
 
 	return 0;
 
