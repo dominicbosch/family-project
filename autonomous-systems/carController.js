@@ -156,7 +156,6 @@ function adjustSpeed() {
 	lastState = state;
 }
 
-let timerStraight;
 function adjustSteering() {
 	let now = (new Date()).getTime();
 	let timePassed = now - lastFaceDetect;
@@ -166,13 +165,8 @@ function adjustSteering() {
 	if(timePassed < conf.turnTime) {
 		steerPrct = timePassed / conf.turnTime;
 	}
-	car.setSteering(facePosition);
+	car.setSteering(facePosition*steerPrct);
 
-	if(timerStraight) clearTimeout(timerStraight);
-	timerStraight = setTimeout(() => {
-		timerStraight = null;
-		car.setSteering(0);
-	}, 300);
 	// TODO how long do we have to steer in the direction of the face?
 	// TODO this depends on the current speed as well as on how far the
 	// TODO face is off the center
