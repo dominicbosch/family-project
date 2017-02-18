@@ -111,7 +111,7 @@ exports.onFrontDistance = function(cb) {
 }
 
 // we start the child process
-let distPoller = cp.spawn(__dirname+'/getDist', ['5']); // 5ms pause between measurements
+let distPoller = cp.spawn(__dirname+'/getDist', ['50']); // 5ms pause between measurements
 distPoller.stdout.on('data', (data) => {
 	let arr = data.toString().split('\n');
 
