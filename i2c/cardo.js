@@ -112,6 +112,7 @@ exports.onFrontDistance = function(cb) {
 
 // we start the child process
 let distPoller = cp.spawn('./getDist', ['5']); // 5ms pause between measurements
+// let distPoller = cp.spawn(__dirname+'/getDist', ['5']); // 5ms pause between measurements
 distPoller.stdout.on('data', (data) => {
 	let arr = data.toString().split('\n');
 
@@ -139,3 +140,5 @@ distPoller.stderr.on('data', console.log);
 distPoller.on('close', (code) => {
 	console.log('Distance Poller exited with code '+code);
 });
+
+distPoller.on('error', console.error);
