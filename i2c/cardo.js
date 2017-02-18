@@ -135,7 +135,7 @@ distPoller.stdout.on('data', (data) => {
 	}
 });
 
-distPoller.stderr.on('data', console.log);
+distPoller.stderr.on('data', (data) => console.log(data+''));
 distPoller.on('close', (code) => {
 	console.log('Distance Poller exited with code '+code);
 });
