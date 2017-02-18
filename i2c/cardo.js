@@ -127,7 +127,7 @@ distPoller.stdout.on('data', (data) => {
 	// execute them as soon as there are available resources (JS best practice).
 	// This will not block the current scope even if one of the callbacks causes
 	// heavy CPU or I/O load
-	let dist = parseInt(arr[arr.length-1]);
+	let dist = parseInt(arr[arr.length-2]);
 	for (var i = 0; i < arrDistListeners.length; i++) {
 		let callback = arrDistListeners[i];
 		setTimeout(() => {
