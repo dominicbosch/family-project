@@ -69,7 +69,6 @@ car.init({
 	setTimeout(function() {
 		clearInterval(intSteer);
 		clearInterval(intSpeed);
-		clearInterval(intPoll);
 		car.break();
 		car.setSteering(0);
 	}, 30000);
