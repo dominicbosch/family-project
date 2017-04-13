@@ -1,18 +1,11 @@
 #include <wiringPi.h>
 #include <stdio.h>
 #include <unistd.h>
-//#include <math.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <libconfig.h>
 
 #define TRIG 4
 #define ECHO 5  
-
-int iPWMHatFD = -1;
-
-//			min, mid, max
-double dLimitArray[] = {0, 0, 0, 0, 0};
 
 void gpioSetup()
 {
@@ -93,7 +86,7 @@ int main(int argc, char **argv)
 
 	if (argc <= 1)
 		{
-		printf("Supply 1 command to set the wait timing in milliseconds\n");
+		printf("Supply 1 command to set the wait time in milliseconds\n");
 		exit(1);
 		}
 
