@@ -32,6 +32,7 @@ class PiVideoStream:
 	def update(self):
 		wallStart = time.time()
 		# keep looping infinitely until the thread is stopped
+		# TODO we should throttle this down by adding some sleep
 		for f in self.stream:
 			self.frameNum += 1
 			if self.frameNum == 10:

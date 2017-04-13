@@ -93,8 +93,8 @@ exports.setSpeed = function(direction) {
 
 /*
  * This is a good example of an event-driven information handling because
- * the child_process ultrasonic.js will send events about a new obstacle whenever
- * they are detected. Through this we do not need to poll and lock the CPU.
+ * the child_process getDist will send distance events whenever a new measurement
+ * took place. Through this we do not need to poll and lock the CPU in the meantime.
  * This is essential in this example because the ultrasonic device requires
  * quite some time to execute one poll (depends on the distance)
  * 
@@ -104,18 +104,41 @@ exports.setSpeed = function(direction) {
  * communication overhead, i.e. only notify about really relevant obstacles.
  */
 
-let arrObstacleListeners = [];
-let distPoller = cp.fork('ultrasonic.js');
-distPoller.on('close', (code) => {
-	console.warn('Child process exited with code '+code);
-});
-distPoller.on('message', (msg) => {
-	console.log('got message from child process', msg);
-	for (var i = 0; i < arrObstacleListeners.length; i++) {
-		arrObstacleListeners[i](msg);
+
+let arrDistListeners = [];
+exports.onFrontDistance = function(cb) {
+	if((typeof cb) === 'function') arrDistListeners.push(cb);
+}
+
+// we start the child process
+let distPoller = cp.spawn(__dirname+'/getDist', ['50']); // 5ms pause between measurements
+distPoller.stdout.on('data', (data) => {
+	let arr = data.toString().split('\n');
+
+	if(arr.length > 4) {
+		// if this value is high, this might indicate that there is too much buffering
+		// between the two processes and we need to pull this straight
+		console.log('WARNING! Received '+arr.length
+			+' lines at once. We need to fix the inter-process buffering!');
+	}
+
+	// We only take the latest measurement and put the the distance listener
+	// callbacks on top of the event stack with setTimeout(cb, 0) which will
+	// execute them as soon as there are available resources (JS best practice).
+	// This will not block the current scope even if one of the callbacks causes
+	// heavy CPU or I/O load
+	let dist = parseInt(arr[arr.length-2]);
+	for (var i = 0; i < arrDistListeners.length; i++) {
+		let callback = arrDistListeners[i];
+		setTimeout(() => {
+			callback(dist);
+		}, 0);
 	}
 });
 
-exports.onFrontObstacle = function(cb) {
-	if((typeof cb) === 'function') arrObstacleListeners.push(cb);
-}
+distPoller.stderr.on('data', (data) => console.log(data+''));
+distPoller.on('close', (code) => {
+	console.log('Distance Poller exited with code '+code);
+});
+
+distPoller.on('error', console.error);

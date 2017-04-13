@@ -61,15 +61,14 @@ car.init({
 	// Start Speeding up, breaking and so on:
 	let intSpeed = setInterval(setSpeed, 15); // every 15ms
 
-	car.onFrontObstacle((dist) => {
-		console.log('Obstacle at '+dist);
+	car.onFrontDistance((dist) => {
+		console.log('Distance ahead '+dist);
 	})
 
 	// Stop everything after 30 seconds
 	setTimeout(function() {
 		clearInterval(intSteer);
 		clearInterval(intSpeed);
-		clearInterval(intPoll);
 		car.break();
 		car.setSteering(0);
 	}, 30000);
