@@ -13,6 +13,14 @@ Requirements
 Prerequisites
 -------------
 
+* Raspberry Pi 3
+
+![raspberry pi 3](devdocs/raspi3y.jpg)
+
+* Adafruit PWM Servo Hat
+
+![pwm servo hat](devdocs/pwmhat.jpg)
+
 * Latest NodeJS (for this project we used 7.9.0):
 
       curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
@@ -46,7 +54,7 @@ Architecture
 1. The car consists of several sensors and actuators: 
 	- Sensors: RaspiCam (for face/pattern detection), Distance (front and back), Temperature (if distance sensor is temperature prone, i.e. ultrasonic), x-y-z axis Gyro (blackbox), Compass
 	- Actuators: Steering, Motor, Camera (horizontal & vertical)
-2. A PWM board on top of a RaspberryPi wires all servos and sensors together ![pwm servo hat](devdocs/pwmhat.jpg)
+2. A PWM board on top of a RaspberryPi wires all servos and sensors together
 3. Python code using OpenCV (in folder `camera`) deals with the RaspiCam and pattern recognition
 4. C / NodeJS code (in folder `i2c`) deals with sensor polling and actuators
 5. NodeJS wrapper  (in folder `autonomous-systems`) glues the whole application together and provides the autonomous aspect, such as controlling the car depending on sensor input.
