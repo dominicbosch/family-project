@@ -91,6 +91,10 @@ exports.setSpeed = function(direction) {
 	pwmDriver.setPWM(config.motorDevice, 0, val);
 }
 
+exports.shutdown = function() {
+	distPoller.kill();
+}
+
 /*
  * This is a good example of an event-driven information handling because
  * the child_process getDist will send distance events whenever a new measurement
@@ -142,3 +146,4 @@ distPoller.on('close', (code) => {
 });
 
 distPoller.on('error', console.error);
+

@@ -71,6 +71,7 @@ car.init({
 		clearInterval(intSpeed);
 		car.break();
 		car.setSteering(0);
+		car.shutdown();
 	}, 30000);
 
 })
