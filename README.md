@@ -15,26 +15,26 @@ Prerequisites
 
 * Latest NodeJS (for this project we used 7.9.0):
 
-	curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-	sudo apt install nodejs
+      curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+      sudo apt install nodejs
 
 * OpenCV and Python bindings:
 
-	sudo apt-get install libopencv-dev python-opencv
+      sudo apt-get install libopencv-dev python-opencv
 
 
 Installation
 ------------
 
-	git clone https://github.com/dominicbosch/family-project.git
-	cd family-project
-	npm install
+    git clone https://github.com/dominicbosch/family-project.git
+    cd family-project
+    npm install
 
 
 Usage
 -----
 
-	nodejs catchAndServe
+    nodejs catchAndServe
 
 This command will start a webserver on the raspberry which acts as an interface to any interested client. This is basically just for monitoring but can be used for interaction as well.
 
