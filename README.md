@@ -3,23 +3,27 @@ CATcher
 
 Using the Raspberry / Arduino / PWM Board / C / Python / Nodejs to create an autonmously driving car that chases faces or other recognized things in your garden or wherever they are not supposed to be :wink:
 
+
 Requirements
 ------------
 
-* Raspberry
+* Raspberry Pi 3
+
+  ![raspberry pi 3](devdocs/raspi3.jpg)
+
+* Raspicam / Raspicam NoIR
+
+  ![raspi cam](devdocs/raspicam.jpg)  ![raspi cam NoIR](devdocs/raspicam-noir.jpg)
+
+* Adafruit PWM Servo HAT
+
+  ![pwm servo hat](devdocs/pwmhat.jpg)
+
 * A lot of car hardware (see Architecture)
-* OpenCV
+
 
 Prerequisites
 -------------
-
-* Raspberry Pi 3
-
-![raspberry pi 3](devdocs/raspi3y.jpg)
-
-* Adafruit PWM Servo Hat
-
-![pwm servo hat](devdocs/pwmhat.jpg)
 
 * Latest NodeJS (for this project we used 7.9.0):
 
@@ -48,6 +52,7 @@ This command will start a webserver on the raspberry which acts as an interface 
 
 The main purpose of the program is a sentry car that checks the perimeter for patterns (faces/cats) and, upon recognition, starts driving towards the pattern (face/cat), trying to catch it.
 
+
 Architecture
 ------------
 
@@ -58,6 +63,7 @@ Architecture
 3. Python code using OpenCV (in folder `camera`) deals with the RaspiCam and pattern recognition
 4. C / NodeJS code (in folder `i2c`) deals with sensor polling and actuators
 5. NodeJS wrapper  (in folder `autonomous-systems`) glues the whole application together and provides the autonomous aspect, such as controlling the car depending on sensor input.
+
 
 Hardware
 --------
