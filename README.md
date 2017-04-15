@@ -10,10 +10,24 @@ Requirements
 * A lot of car hardware (see Architecture)
 * OpenCV
 
+Prerequisites
+-------------
+
+* Latest NodeJS (for this project we used 7.9.0):
+
+	curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+	sudo apt install nodejs
+
+* OpenCV and Python bindings:
+
+	sudo apt-get install libopencv-dev python-opencv
+
+
 Installation
 ------------
 
 	git clone https://github.com/dominicbosch/family-project.git
+	cd family-project
 	npm install
 
 
