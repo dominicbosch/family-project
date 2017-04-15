@@ -3,6 +3,7 @@
 const car = require('../i2c/cardo');
 
 car.init({
+	v: true,
 	steerDevice: 0,
 	steerLeft: 200,
 	steerCenter: 400,
