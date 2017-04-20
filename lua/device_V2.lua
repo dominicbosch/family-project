@@ -19,5 +19,10 @@ for i in pairs(device["id"]) do
 	print(device["probability_of_use"][i]);
 	print(device["min_duration"][i]);
 	print(device["max_duration"][i]);
+	print("----------")
 end
 
+testVar = "id";
+
+print("TestVar");
+print(device[testVar][1]);
