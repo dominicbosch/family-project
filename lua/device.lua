@@ -6,8 +6,8 @@ device.name = {};
 device.use = {};
 device.duration = {};
 
-device.id = {15,5,11,19,54,35,66};
-device.name = {"TV Raum","Büro","Badzimmer","Treppe","Gang","Fitness","Keller"};
+device.id = {5,10,15,20,25,30,35};
+device.name = {"Entrance","Office","First floor","Bathroom","Hobby","Fitness","Kitchen};
 device.use = {100,50,100,100,100,5,80};
 device.duration = {240, 120, 30, 10, 10, 120, 10};
 
