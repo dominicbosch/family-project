@@ -108,7 +108,7 @@ while forever == true do
 		dispMinute = "00" .. tostring(dispTime.min);
 		dispMinute = string.sub(dispMinute, -2, -1);
 		dispInfo = dispHour .. ":" .. dispMinute;
-		dispStr = "Device Id : " .. tostring(action["id"][i]) .. " do : " .. action["do"][i] .. " doTime : " .. dispInfo .. " executed : ";
+		dispStr = "Device : " .. action["name"][i] .. " do : " .. action["do"][i] .. " doTime : " .. dispInfo .. " executed : ";
 		if action["executed"][i] == false then
 			dispStr = dispStr .. "False";
 		else
