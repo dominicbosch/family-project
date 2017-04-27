@@ -37,12 +37,12 @@ function convert_lastminute()				-- Converting the last minute of the day to os.
 	return os.time(convDate);
 end
 
-device["id"] = {1,5,10,15,20,25,30};												-- Device Id
-device["name"] = {"Entrance","Office","First floor","Bathroom","Hobby","Fitness","Kitchen"};	-- Device Name
-device["probability_of_use"] = {100,50,100,100,100,5,80};							-- Probability of being used that day
+device["id"] = {5,10,15,20,25,30,35};												-- Device Id
+device["name"] = {"Entrance","Livingroom","Bathroom","Hobbyroom","Fitness","Kitchen","Cellar"};	-- Device Name
+device["probability_of_use"] = {100,50,100,100,100,5,20};							-- Probability of being used that day
 device["min_duration"] = {120, 60, 15, 5, 5, 60, 5};								-- If used, how long will it minimaly stay on
-device["max_duration"] = {240, 120, 30, 10, 10, 120, 10};							-- If used, how long will can it stay on
-device["start_add"] = {10, 60, 90, 60, 60, 30, 10};								-- How long after sunset could it wait until getting started
+device["max_duration"] = {180, 120, 30, 10, 10, 120, 10};							-- If used, how long will can it stay on
+device["start_add"] = {1, 60, 90, 60, 60, 30, 10};								-- How long after sunset could it wait until getting started
 
 forever = true;
 
@@ -87,31 +87,35 @@ while forever == true do
 		end	
 	end
 
-	executedAll = false;
+  	fibaro:debug("New Queue generated");
+  	for i in pairs(action["id"]) do
+		dispTime = os.date("*t", action["doTime"][i])
+		dispHour = "00" .. tostring(dispTime.hour);
+		dispHour = string.sub(dispHour, -2, -1);
+		dispMinute = "00" .. tostring(dispTime.min);
+		dispMinute = string.sub(dispMinute, -2, -1);
+		dispInfo = dispHour .. ":" .. dispMinute;
+		dispStr = "Device Id : " .. tostring(action["id"][i]) .. " do : " .. action["do"][i] .. " doTime : " .. dispInfo .. " executed : ";
+		if action["executed"][i] == false then
+			dispStr = dispStr .. "False";
+		else
+			dispStr = dispStr .. "True";
+		end
+		fibaro:debug(dispStr);
+  	end
+	
+  	executedAll = false;
 
 	while executedAll == false do
 		for i in pairs(action["id"]) do
 			if (os.time() >= action["doTime"][i]) and (action["executed"][i] == false) then
 				action["executed"][i] = true;
 				fibaro:call(action["id"][i], action["do"][i]);				
-				dispStr = "Switch : " .. getDeviceName(action["id"][i], device) .. " set to " .. action["do"][i];
+				dispStr = "Switch : " .. action["name"][i] .. " set to " .. action["do"][i];
 				fibaro:debug(dispStr); 
 			end
-			dispTime = os.date("*t", action["doTime"][i])
-			dispHour = "00" .. tostring(dispTime.hour);
-			dispHour = string.sub(dispHour, -2, -1);
-			dispMinute = "00" .. tostring(dispTime.min);
-			dispMinute = string.sub(dispMinute, -2, -1);
-			dispInfo = dispHour .. ":" .. dispMinute;
-			dispStr = "Device Id : " .. tostring(action["id"][i]) .. " do : " .. action["do"][i] .. " doTime : " .. dispInfo .. " executed : ";
-			if action["executed"][i] == false then
-				dispStr = dispStr .. "False";
-			else
-				dispStr = dispStr .. "True";
-			end
-			fibaro:debug(dispStr);
 		end
-	    	fibaro:sleep(60*1000);
+	    fibaro:sleep(60*1000);
 		executedAll = true;
 		for i in pairs(action["id"]) do
 			if action["executed"][i] == false then
@@ -119,11 +123,11 @@ while forever == true do
 			end
 		end
 		if executedAll == false then
-			fibaro:debug("Not all commands executed. Rerun !");
+--			fibaro:debug("Not all commands executed. Rerun !");
 		else
 			fibaro:debug("All comands executed. Wait for a new day !");
 		end
-		fibaro:debug("****************************************");
+--		fibaro:debug("****************************************");
 	end
 
 	newDay = false
