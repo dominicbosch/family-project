@@ -16,3 +16,5 @@ while i < 20:
 	print("busy parent %.0f" % i)
 	i += 1
 	sleep(1)
+
+detector.exit()
