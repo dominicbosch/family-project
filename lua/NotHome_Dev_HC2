@@ -1,0 +1,154 @@
+--[[
+%% properties
+%% events
+%% globals
+--]]
+
+--[[
+local sunset=fibaro:getValue(1, "sunsetHour");
+fibaro:debug("Sunset: "..sunset);
+fibaro:debug(type(sunset));
+--]]
+
+local device = {};
+device["id"] = {};
+device["name"] = {};
+device["probability_of_use"] = {};
+device["min_duration"] = {};
+device["max_duration"] = {};
+
+function sleep(n)
+  os.execute("sleep " .. tonumber(n))
+end
+
+function convert_sunset(setTime)			-- On Fibaro Sunset is in the format "hh:mm"
+	local convDate = os.date("*t", os.time());	-- Get a time array
+	local convHour = string.sub(setTime,1,2);	-- Get the hour from the setTime string
+	local convMinute = string.sub(setTime, -2, -1);	-- Get the minute from the setTime string 
+	convDate.hour = tonumber(convHour);		-- Copy the hour into the time array
+	convDate.min = tonumber(convMinute);		-- Copy the minute into the time array
+	return os.time(convDate);
+end
+
+function convert_lastminute()				-- Converting the last minute of the day to os.time format
+	local convDate = os.date("*t", os.time());	-- Get a time array
+	convDate.hour = 23;				-- add hour and 
+	convDate.min = 59;				-- minute for 23:59 into the time array
+	return os.time(convDate);
+end
+
+device["id"] = {10,15,20,25,30,35,40};				-- Device Id
+device["name"] = {"A","B","C","D","E","F","G"};			-- Device Name
+device["probability_of_use"] = {100,50,100,100,100,5,20};	-- Probability of being used that day
+device["min_duration"] = {120, 60, 15, 5, 5, 60, 5};		-- If used, how long will it minimaly stay on
+device["max_duration"] = {180, 120, 30, 10, 10, 120, 10};	-- If used, how long will can it stay on
+device["start_add"] = {1, 60, 90, 60, 60, 30, 10};		-- How long after sunset could it wait until getting started
+
+forever = true;
+
+while forever == true do
+
+	math.randomseed(os.time());
+
+	local action = {};
+	action["id"] = {};
+	action["name"] = {};
+	action["do"] = {};
+	action["doTime"] = {};
+	action["executed"] = {};
+
+	sunSetTime = fibaro:getValue(1, "sunsetHour");
+	converted_sunset = convert_sunset(sunSetTime);
+	
+	local arrptr = 0;
+	for i in pairs(device["id"]) do
+    		alldone = false;
+    		probability = device["probability_of_use"][i];
+    		addMinute = math.random(device["start_add"][i]) * 60;
+    		start_time = converted_sunset + addMinute;
+		addMinute = math.random(device["min_duration"][i], device["max_duration"][i]) * 60;
+		end_time = start_time + addMinute;
+		while alldone = false do
+  			if math.random(100) <  probability then
+	  			arrptr = arrptr + 1;
+			  	action["id"][arrptr] = device["id"][i];
+				action["name"][arrptr] = device["name"][i];
+  				action["do"][arrptr] = "turnOn";
+		  		action["doTime"][arrptr] = start_time;
+			 	if action["doTime"][arrptr] > convert_lastminute() then
+					action["doTime"][arrptr] = convert_lastminute - 120;
+  				end
+	  			action["executed"][arrptr] = false;
+		  		arrptr = arrptr + 1;
+			  	action["id"][arrptr] = device["id"][i];
+  				action["name"][arrptr] = device["name"][i];
+	  			action["do"][arrptr] = "turnOff";
+			  	action["doTime"][arrptr] = end_time;
+  				if action["doTime"][arrptr] > convert_lastminute() then
+	  				action["doTime"][arrptr] = convert_lastminute();
+		  		end
+			  	action["executed"][arrptr] = false;
+      			end
+      			probability = (probability / 100) * probability
+      			addMinute = math.random(device["start_add"][i]) * 60;
+			start_time = end_time + addMinute;
+			addMinute = math.random(device["min_duration"][i], device["max_duration"][i]) * 60;
+			end_time = start_time + addMinute;
+      			if end_time > convert_lastminute() then
+	       			alldone = true;
+      			end
+		end	
+	end
+
+  	fibaro:debug("New Queue generated");
+  	for i in pairs(action["id"]) do
+		dispTime = os.date("*t", action["doTime"][i])
+		dispHour = "00" .. tostring(dispTime.hour);
+		dispHour = string.sub(dispHour, -2, -1);
+		dispMinute = "00" .. tostring(dispTime.min);
+		dispMinute = string.sub(dispMinute, -2, -1);
+		dispInfo = dispHour .. ":" .. dispMinute;
+		dispStr = "Device : " .. action["name"][i] .. " do : " .. action["do"][i] .. " doTime : " .. dispInfo .. " executed : ";
+		if action["executed"][i] == false then
+			dispStr = dispStr .. "False";
+		else
+			dispStr = dispStr .. "True";
+		end
+		fibaro:debug(dispStr);
+  	end
+	
+  	executedAll = false;
+
+	while executedAll == false do
+		for i in pairs(action["id"]) do
+			if (os.time() >= action["doTime"][i]) and (action["executed"][i] == false) then
+				action["executed"][i] = true;
+				fibaro:call(action["id"][i], action["do"][i]);				
+				dispStr = "Switch : " .. action["name"][i] .. " set to " .. action["do"][i];
+				fibaro:debug(dispStr); 
+			end
+		end
+	    	fibaro:sleep(60*1000);
+		executedAll = true;
+		for i in pairs(action["id"]) do
+			if action["executed"][i] == false then
+				executedAll = false;
+			end
+		end
+		if executedAll == false then
+--			fibaro:debug("Not all commands executed. Rerun !");
+		else
+			fibaro:debug("All comands executed. Wait for a new day !");
+		end
+--		fibaro:debug("****************************************");
+	end
+
+	newDay = false
+	while newDay == false do
+		fibaro:sleep(60*1000);
+    		local checkDate = os.date("*t", os.time());
+		if tonumber(checkDate.hour) == 0 then
+			newDay = true;
+		end
+	end
+end
