@@ -2,10 +2,10 @@ from time import sleep
 from gpiozero import DistanceSensor
 
 class DetectObstacle:
-	def __init__(self, pinTrigger=4, pinEcho=17, maxDist=2, detectThresh=1.0, wait=0.1, callback):
-		if callback==None:
-			print('No callback')
-			
+	def __init__(self, callback, pinTrigger=4, pinEcho=17, maxDist=2, detectThresh=1.0, wait=0.1):
+		if callable(callback) == False:
+			return print('No callback')
+
 		self.wait = wait
 
 		self.ultrasonic = DistanceSensor(
@@ -18,13 +18,13 @@ class DetectObstacle:
 		self.ultrasonic.when_in_range = self.__detectedObstacle
 		self.ultrasonic.when_out_of_range = self.__noMoreObstacle
 
-	def __detectedObstacle():
+	def __detectedObstacle(self):
 		print("Obstacle at %.1f " % self.ultrasonic.distance)
 		while self.isRunning:
 			print("... Updated to: %.1f " % self.ultrasonic.distance)
 			time.sleep(self.wait)
 
-	def __noMoreObstacle():
+	def __noMoreObstacle(self):
 		self.isRunning = False
 		print("Out of range at %.1f " % self.ultrasonic.distance)
 

@@ -3,13 +3,8 @@ sys.path.insert(0, '../ultrasonic')
 
 from detectobstacle import DetectObstacle
 
+def callback(dist):
+	print("Callback distance: %.1f" % dist)
 
-
-detector = DetectObstacle(
-	res=(args.width, args.height),
-	hflip=(args.hflip==True),
-	vflip=(args.vflip==True),
-	cascade=args.cascade,
-	storeImages=args.store,
-	verbose=(args.verbose==True)
-)
+detector = DetectObstacle(1)
+# detector = DetectObstacle(callback)
