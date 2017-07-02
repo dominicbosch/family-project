@@ -4,11 +4,12 @@ from gpiozero import DistanceSensor
 
 
 class DetectObstacle:
-	def __init__(self, callback, pinTrigger=4, pinEcho=17, maxDist=2, detectThresh=1.0, wait=0.5):
+	def __init__(self, callback, pinTrigger=4, pinEcho=17, maxDist=2, detectThresh=1.0, wait=0.1):
 		if callable(callback) == False:
 			print('No callback provided! That does not make much sense...')
 			return
 
+		self.isRunning = True
 		self.wait = wait
 		self.callback = callback
 		self.ultrasonic = DistanceSensor(
@@ -24,10 +25,8 @@ class DetectObstacle:
 		print('Ultrasonic device started...')
 
 	def __update(self):
-		self.isRunning = True
 		while self.isRunning:
 			dist = self.ultrasonic.distance
-			print("... Updated to: %.1f " % dist)
 			self.callback(dist)
 			sleep(self.wait)
 
