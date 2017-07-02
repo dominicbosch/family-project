@@ -11,5 +11,8 @@ def callback(dist):
 detector = DetectObstacle(callback)
 
 # we pretend to be a very busy process:
+i = 0
 while True:
-	sleep(0.01)
+	print("busy parent %.1f" % i)
+	i += 1
+	sleep(1)
