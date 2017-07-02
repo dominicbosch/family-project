@@ -4,7 +4,9 @@ from gpiozero import DistanceSensor
 
 
 class DetectObstacle:
-	def __init__(self, callback, pinTrigger=4, pinEcho=17, maxDist=2, detectThresh=1.0, wait=0.1):
+	# wait time of 0.01s after each measurement causes roughly 6% CPU usage
+	# 0.01s sleep leads to roughly a distance polling of 100 hertz
+	def __init__(self, callback, pinTrigger=4, pinEcho=17, maxDist=2, detectThresh=1.0, wait=0.01):
 		if callable(callback) == False:
 			print('No callback provided! That does not make much sense...')
 			return
@@ -19,8 +21,6 @@ class DetectObstacle:
 			threshold_distance=detectThresh
 		)
 
-		# self.ultrasonic.when_in_range = self.__detectedObstacle
-		# self.ultrasonic.when_out_of_range = self.__noMoreObstacle
 		Thread(target=self.__update, args=()).start()
 		print('Ultrasonic device started...')
 
@@ -29,19 +29,6 @@ class DetectObstacle:
 			dist = self.ultrasonic.distance
 			self.callback(dist)
 			sleep(self.wait)
-
-	# def __detectedObstacle(self):
-	# 	print("Obstacle at %.1f " % self.ultrasonic.distance)
-	# 	self.isRunning = True
-	# 	while self.isRunning:
-	# 		dist = self.ultrasonic.distance
-	# 		print("... Updated to: %.1f " % dist)
-	# 		self.callback(dist)
-	# 		sleep(self.wait)
-
-	# def __noMoreObstacle(self):
-	# 	self.isRunning = False
-	# 	print("Out of range at %.1f " % self.ultrasonic.distance)
 
 	def exit(self):
 		self.isRunning = False
