@@ -8,7 +8,6 @@ class DetectObstacle:
 			return
 
 		self.wait = wait
-
 		self.ultrasonic = DistanceSensor(
 			trigger=pinTrigger,
 			echo=pinEcho,
@@ -18,13 +17,14 @@ class DetectObstacle:
 
 		self.ultrasonic.when_in_range = self.__detectedObstacle
 		self.ultrasonic.when_out_of_range = self.__noMoreObstacle
+		print('Ultrasonic device started...')
 
 	def __detectedObstacle(self):
 		print("Obstacle at %.1f " % self.ultrasonic.distance)
 		self.isRunning = True
 		while self.isRunning:
 			print("... Updated to: %.1f " % self.ultrasonic.distance)
-			time.sleep(self.wait)
+			sleep(self.wait)
 
 	def __noMoreObstacle(self):
 		self.isRunning = False
