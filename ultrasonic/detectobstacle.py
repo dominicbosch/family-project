@@ -4,7 +4,8 @@ from gpiozero import DistanceSensor
 class DetectObstacle:
 	def __init__(self, callback, pinTrigger=4, pinEcho=17, maxDist=2, detectThresh=1.0, wait=0.1):
 		if callable(callback) == False:
-			return print('No callback')
+			print('No callback provided! That does not make much sense...')
+			return
 
 		self.wait = wait
 
