@@ -20,6 +20,7 @@ class DetectObstacle:
 
 	def __detectedObstacle(self):
 		print("Obstacle at %.1f " % self.ultrasonic.distance)
+		self.isRunning = True
 		while self.isRunning:
 			print("... Updated to: %.1f " % self.ultrasonic.distance)
 			time.sleep(self.wait)
