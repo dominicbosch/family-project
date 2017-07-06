@@ -9,12 +9,12 @@ def callback(dist):
 	print("Callback distance: %.2fcm" % (dist*100))
 
 detector = DetectObstacle(callback)
-
-# we pretend to be a very busy process:
-i = 0
-while i < 20:
-	print("smulating slightly busy parent %.0f" % i)
-	i += 1
-	sleep(1)
-
-detector.exit()
+try:
+	# we pretend to be a very busy process:
+	i = 0
+	while i < 20:
+		print("smulating slightly busy parent %.0f" % i)
+		i += 1
+		sleep(1)
+finally:
+	detector.exit()
