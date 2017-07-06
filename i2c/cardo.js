@@ -94,11 +94,12 @@ exports.setSpeed = function(direction) {
 
 let isOn = false;
 exports.onFrontDistance = function(cb) {
-	ultrasonic.onObstacle(cb);
-	if((typeof cb) === 'function') arrDistListeners.push(cb);
-	if(!isOn) {
-		isOn = true;
-		ultrasonic.start();
+	if((typeof cb) === 'function') {
+		ultrasonic.onObstacle(cb);
+		if(!isOn) {
+			isOn = true;
+			ultrasonic.start();
+		}
 	}
 }
 
