@@ -31,11 +31,8 @@ class DetectObstacle:
 			sleep(self.wait)
 
 	def exit(self):
-		print('exiting')
 		self.isRunning = False
-		print('closing')
 		self.ultrasonic.close()
-		print('unsetting')
 		self.ultrasonic = None
 
 

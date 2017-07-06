@@ -13,10 +13,9 @@ try:
 	# we pretend to be a very busy process:
 	i = 0
 	while i < 20:
-		print("smulating slightly busy parent %.0f" % i)
+		print("simulating slightly busy parent %i" % i)
 		i += 1
 		sleep(1)
-	print('loop done')
+
 finally:
-	print('finally')
 	detector.exit()
