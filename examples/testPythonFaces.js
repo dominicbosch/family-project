@@ -5,8 +5,8 @@ pyFaces.init({
 	s: true,
 	v: true,
 	vf: true,
-	iw: 1536,
-	ih: 1152
+	iw: 1024,
+	ih: 768
 });
 pyFaces.on('warn', function(d) { console.log('pythonFaces Warning: ', d) });
 pyFaces.on('error', function(d) { console.log('pythonFaces Error: ', d) });
