@@ -22,7 +22,7 @@ class DetectObstacle:
 		)
 
 		Thread(target=self.__update, args=()).start()
-		print('Ultrasonic device started (trig=%i, echo=%i)...' % (pinTrigger, pinEcho))
+		print('Ultrasonic device started (trig=pin%i, echo=pin%i)...' % (pinTrigger, pinEcho))
 
 	def __update(self):
 		while self.isRunning:
