@@ -25,6 +25,7 @@ class DetectObstacle:
 		print('Ultrasonic device started (trig=pin%i, echo=pin%i)...' % (pinTrigger, pinEcho))
 
 	def __update(self):
+		print('starting update')
 		while self.isRunning:
 			dist = self.ultrasonic.distance
 			self.callback(dist)

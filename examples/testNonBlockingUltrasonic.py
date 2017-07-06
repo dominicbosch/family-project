@@ -6,7 +6,7 @@ from detectobstacle import DetectObstacle
 
 
 def callback(dist):
-	print("Callback distance: %.3fcm" % (dist*100))
+	print("Callback distance: %.2fcm" % (dist*100))
 
 detector = DetectObstacle(callback)
 
