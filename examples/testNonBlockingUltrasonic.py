@@ -13,7 +13,7 @@ detector = DetectObstacle(callback)
 # we pretend to be a very busy process:
 i = 0
 while i < 20:
-	print("busy parent %.0f" % i)
+	print("smulating slightly busy parent %.0f" % i)
 	i += 1
 	sleep(1)
 
