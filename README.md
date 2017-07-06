@@ -19,6 +19,10 @@ Hardware Requirements
 
   ![pwm servo hat](devdocs/pwmhat.jpg)
 
+* An ultrasonic sensor HC-SR04 (wired as shown below)
+
+  ![HC-SR04](devdocs/ultrasonic.jpg)
+
 * A lot of car hardware (see Architecture)
 
 
