@@ -16,5 +16,7 @@ try:
 		print("smulating slightly busy parent %.0f" % i)
 		i += 1
 		sleep(1)
+	print('loop done')
 finally:
+	print('finally')
 	detector.exit()
