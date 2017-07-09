@@ -46,6 +46,11 @@ parser.add_argument('-s',
 	dest='store',
 	help='Store images with detected faces in folder "detected-faces"')
 
+parser.add_argument('-sa',
+	action='store_true',
+	dest='storeall',
+	help='Store all images in folder "snapshots"')
+
 # Parse command line arguments and see if something useful was provided
 args = parser.parse_args()
 
@@ -81,6 +86,7 @@ try:
 		vflip=(args.vflip==True),
 		cascade=args.cascade,
 		storeImages=args.store,
+		storeAllImages=args.storeall,
 		verbose=(args.verbose==True)
 	)
 	detector.run(faceHasBeenDetected)

@@ -8,6 +8,7 @@ car.onEvent((evt) => {
 
 car.init({
 	s: true,
+	sa: true,
 	v: true,
 	vf: true,
 	iw: 1024,

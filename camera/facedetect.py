@@ -13,6 +13,7 @@ class FaceDetect:
 		hflip=False,
 		vflip=False,
 		storeImages=False,
+		storeAllImages=False,
 		cascade=None,
 		verbose=False
 	):
@@ -29,11 +30,14 @@ class FaceDetect:
 			cascPath = rootPath+'/cascades/lbpcascade_frontalface.xml'
 		else:
 			cascPath = rootPath+'/cascades/{}'.format(cascade)
-		self.savepath = rootPath+'/detected-faces/'
+		self.savePath = rootPath+'/detected-faces/'
+		self.savePathAll = rootPath+'/snapshots/'
 		if self.verbose:
 			print('Using casacade {}'.format(cascPath))
 			if self.storeImages:
-				print('Storing images to {}'.format(self.savepath))
+				print('Storing detected faces to {}'.format(self.savePath))
+			if self.storeAllImages:
+				print('Storing ALL images to {}'.format(self.savePathAll))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
 		self.stream = PiVideoStream(res=res, hflip=hflip, vflip=vflip, verbose=verbose)
 		self.frame = None
@@ -43,7 +47,12 @@ class FaceDetect:
 		self.isRunning = True
 		self.stream.start(self.newFrame)
 		while self.isRunning:
-			if self.frame is not lastFrame:
+			if self.frame is not lastFrame:			
+				if self.storeAllImages:
+					timestamp = datetime.datetime.now()
+					ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
+					cv2.imwrite('{}snap_{}.jpg'.format(self.savePathAll, ts), self.frame)
+
 				startDetect = time.time()
 				lastFrame = self.frame
 				faces = self.face_cascade.detectMultiScale(self.frame, 1.1, 5)
@@ -75,7 +84,7 @@ class FaceDetect:
 					if self.storeImages:
 						timestamp = datetime.datetime.now()
 						ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
-						cv2.imwrite('{}face_{}.jpg'.format(self.savepath, ts), self.frame)
+						cv2.imwrite('{}face_{}.jpg'.format(self.savePath, ts), self.frame)
 
 					callback(arrFaces)
 			else:
