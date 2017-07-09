@@ -81,16 +81,20 @@ function handleNewFace(oFace) {
 		if(conf.v) console.log('Face detected at relX: ', oFace.relX);
 		facePosition = oFace.relX;
 		lastFaceDetect = (new Date()).getTime();
+		//FIXME here it seems currentSpeed is zero when we are slowing down...
+		console.log('in handleNewFace currentSpeed = '+currentSpeed+', lastFaceDetect = '+lastFaceDetect);
 		if(currentSpeed > 0) {
 			// if we do have a current speed and the rampUpFace has been reset, this
 			// means we are already running and didn't detect any face for
 			// conf.speedUpTime milliseconds. Therefore we need to adjust the new rampUpFace
 			// to the current speed in order for a smooth transition
 			
+			console.log('adjusting ramp');
 			// TODO TEST if this works
 			rampUpFace = lastFaceDetect-currentSpeed*conf.speedUpTime;
 		}
 		else if(rampUpFace === 0) rampUpFace = lastFaceDetect;
+		console.log('adjusting ramp: '+rampUpFace);
 	}
 }
 // register the obstacle handler function in car
@@ -108,51 +112,48 @@ function adjustCarControls() {
 function adjustSpeed() {
 	let now = (new Date()).getTime();
 	let timePassed = now - lastFaceDetect;
-	let speed = null;
 	let state;
 
-	// we are accelerating towards full speed with a linear ramp
-	if(now-rampUpFace < conf.speedUpTime) {
-		state = 'accelerating';
-		currentSpeed = speed = (now-rampUpFace) / conf.speedUpTime;
-
-	// we stay at full speed while no faces are detected 
-	} else if(timePassed < conf.stayTime) {
-		state = 'fullspeed';
-		rampUpFace = 0; // We reset the ramp up face
-		currentSpeed = speed = 1;
-
-	// we slow down with a negative linear ramp since no more faces were detected 
-	} else if(timePassed < conf.stopTime) {
-		state = 'slowdown';
-		currentSpeed = speed = 1-(timePassed-conf.stayTime)/(conf.stopTime-conf.stayTime);
-
-	} else {
-		state = 'nofacebreak';
-		currentSpeed = 0;
-	}
-
-	// if we are going to set a speed > 0, we have to check for obstacles
-	if(speed !== null && numMeasurements >= conf.obstacleCount) {
+	// we first check for obbstacles before we do anything else
+	if(numMeasurements >= conf.obstacleCount) {
 
 		// if the obstacle is not yet closer than the stop distance, we slow down
 		if(conf.stopDistance < frontObstacle) {
 			state = 'obstacle';
-			currentSpeed = speed = (frontObstacle-conf.stopDistance)/(conf.slowDownDistance-conf.stopDistance);
+			currentSpeed = (frontObstacle-conf.stopDistance)/(conf.slowDownDistance-conf.stopDistance);
+			car.setSpeed(speed);
 
 		// if the obstacle is closer than the stop distance, we stop ;)
 		} else {
 			state = 'obstaclebreak';
 			currentSpeed = 0;
-			speed = null;
+			car.break();
 		}
+	
+	// we are accelerating towards full speed with a linear ramp
+	} else {
+		if(now-rampUpFace < conf.speedUpTime) {
+			state = 'accelerating';
+			currentSpeed = (now-rampUpFace) / conf.speedUpTime;
+
+		// we stay at full speed while no faces are detected 
+		} else if(timePassed < conf.stayTime) {
+			state = 'fullspeed';
+			rampUpFace = 0; // We reset the ramp up face
+			currentSpeed = 1;
+
+		// we slow down with a negative linear ramp since no more faces were detected 
+		} else if(timePassed < conf.stopTime) {
+			state = 'slowdown';
+			currentSpeed = 1-(timePassed-conf.stayTime)/(conf.stopTime-conf.stayTime);
+
+		} else {
+			state = 'nofacebreak';
+			currentSpeed = 0;
+		}
+		car.setSpeed(currentSpeed);
 	}
-
-	// Finally let's do something with all the calculations above
-	if(speed === null) car.break();
-	else car.setSpeed(speed);
-
-	if(conf.v && state !== lastState) console.log(stateMessages[state]);
+	if(conf.v && state !== lastState) console.log(stateMessages[state]+', speed: '+currentSpeed);
 	lastState = state;
 }
 
