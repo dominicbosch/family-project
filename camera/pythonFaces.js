@@ -73,10 +73,10 @@ function processLine(line) {
 		}
 		emitEvent('face', oFace);
 	} else if(line.indexOf(strng='Stored Image to: ') > -1) {
-		emitEvent('storedimage', line.substr(str.length));
+		emitEvent('storedimage', line.substr(strng.length));
 
 	} else if(line.indexOf(strng='Stored Face to: ') > -1) {
-		emitEvent('storedface', line.substr(str.length));
+		emitEvent('storedface', line.substr(strng.length));
 
 	}
 }
