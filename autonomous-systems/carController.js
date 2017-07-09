@@ -122,7 +122,7 @@ function adjustSpeed() {
 		if(conf.stopDistance < frontObstacle) {
 			state = 'obstacle';
 			currentSpeed = (frontObstacle-conf.stopDistance)/(conf.slowDownDistance-conf.stopDistance);
-			car.setSpeed(speed);
+			car.setSpeed(currentSpeed);
 
 		// if the obstacle is closer than the stop distance, we stop ;)
 		} else {
