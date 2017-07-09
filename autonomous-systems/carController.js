@@ -153,7 +153,10 @@ function adjustSpeed() {
 		}
 		car.setSpeed(currentSpeed);
 	}
-	if(conf.v && state !== lastState) console.log(stateMessages[state]+', speed: '+currentSpeed);
+	if(conf.v) {
+		if(state !== lastState) console.log(stateMessages[state]);
+		console.log('speed: '+currentSpeed);
+	}
 	lastState = state;
 }
 
