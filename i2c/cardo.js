@@ -38,8 +38,6 @@ exports.init = function(args) {
 			if(miss.length > 0) throw new Error(msg);
 			else config = args;
 		});
-	// Send a value:
-	// pwmDriver.setPWM(channel, on, off);
 };
 
 function getRampValue(direction, min, base, max) {
@@ -92,6 +90,7 @@ exports.setSpeed = function(direction) {
 	pwmDriver.setPWM(config.motorDevice, 0, val);
 }
 
+// We only start polling the front distance if somebody is interested in the measurements
 let isOn = false;
 exports.onFrontDistance = function(cb) {
 	if((typeof cb) === 'function') {

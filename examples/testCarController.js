@@ -2,6 +2,18 @@
 
 const car = require('../autonomous-systems/carController');
 
+car.onEvent((evt) => {
+	console.log('['+evt.timestamp+'] '+evt.type+': '+evt.message);
+	camerafps
+detectfps
+ype
+facedetected
+ultrasonic
+speed
+motorstate
+steering
+});
+
 car.init({
 	s: true,
 	v: true,

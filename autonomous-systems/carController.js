@@ -38,7 +38,7 @@ exports.init = function(config) {
 		reject('Some confuration is missing: '+miss.join(', '));
 	});
 
-	if(conf.v) console.log('Initializing with comfig:\n'+JSON.stringify(conf, null, 2));
+	if(conf.v) console.log('Initializing with config:\n'+JSON.stringify(conf, null, 2));
 	let ret = car.init(conf);
 	pyFaces.init(conf);
 
@@ -46,9 +46,15 @@ exports.init = function(config) {
 
 	pyFaces.on('warn', function(d) { console.log('pythonFaces Warning: ', d) });
 	pyFaces.on('error', function(d) { console.log('pythonFaces Error: ', d) });
-	pyFaces.on('fps', function(d) { console.log('Camera FPS: ', d) });
+	pyFaces.on('fps', function(d) {
+		console.log('Camera FPS: '+d);
+		emitEvent('camerafps', d);
+	});
 	pyFaces.on('face', handleNewFace);
-	pyFaces.on('detecttime', function(d) { console.log('Face detection time '+d+'s = '+(1/d)+' FPS') });
+	pyFaces.on('detecttime', function(d) {
+		console.log('Face detection time '+d+'s = '+(1/d)+' FPS');
+		emitEvent('detectfps', 1/d);
+	});
 
 	return ret;
 };
@@ -67,6 +73,33 @@ exports.stop = function() {
 
 exports.isRunning = () => (isRunning === true);
 
+let arrEventListeners = [];
+function emitEvent(type, msg) {
+	if(arrEventListeners.length > 0) {
+		let evt = {
+			type: type,
+			message: msg,
+			timestamp: (new Date()).getTime()
+		}
+		for (var i = 0; i < arrEventListeners.length; i++) {
+			putSendOnStack(arrEventListeners[i], evt);
+		}
+	}
+}
+/*
+ * Emits events of type: camerafps, detectfps, facedetected, ultrasonic, speed, motorstate, steering
+ */
+exports.onEvent = (func) => {
+	if(typeof func === 'function') {
+		arrEventListeners.push(func);
+	} else {
+		console.warn('Please provide a valid function to carController.onEvent!');
+	}
+};
+function putSendOnStack(func, evt) {
+	setTimeout(() => func(evt), 0);
+}
+
 // we assume three consecutive obstacle measurements at initialization,
 // which means we got a verified obstacle, which we define at a distance of zero.
 let numMeasurements = 0;;
@@ -79,6 +112,7 @@ function handleNewFace(oFace) {
 	// IDs are sorted from biggest to smallest
 	if(oFace.id === 0) {
 		if(conf.v) console.log('Face detected at relX: ', oFace.relX);
+		emitEvent('facedetected', oFace.relX)
 		facePosition = oFace.relX;
 		lastFaceDetect = (new Date()).getTime();
 		//FIXME here it seems currentSpeed is zero when we are slowing down...
@@ -99,7 +133,7 @@ function handleNewFace(oFace) {
 }
 // register the obstacle handler function in car
 car.onFrontDistance((obst) => {
-	console.log('Ultrasonic: '+obst);
+	emitEvent('ultrasonic', obst);
 	frontObstacle = obst;
 	if(frontObstacle < conf.slowDownDistance) numMeasurements++;
 	else numMeasurements = 0;
@@ -154,10 +188,10 @@ function adjustSpeed() {
 		}
 		car.setSpeed(currentSpeed);
 	}
-	if(conf.v) {
-		if(state !== lastState) console.log(stateMessages[state]);
-		console.log('speed: '+currentSpeed);
-	}
+	emitEvent('speed', currentSpeed);
+	emitEvent('motorstate', state);
+
+	if(conf.v && state !== lastState) console.log(stateMessages[state] +', speed: '+currentSpeed);
 	lastState = state;
 }
 
@@ -171,6 +205,8 @@ function adjustSteering() {
 		steerPrct = timePassed / conf.turnTime;
 	}
 	car.setSteering(facePosition*steerPrct);
+	emitEvent('steering', facePosition*steerPrct);
+
 
 	// TODO how long do we have to steer in the direction of the face?
 	// TODO this depends on the current speed as well as on how far the
