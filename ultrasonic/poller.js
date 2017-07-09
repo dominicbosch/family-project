@@ -20,7 +20,8 @@ exports.start = function() {
 		pythonProcess.stdout.on('data', (data) => {
 			let arr = data.toString().split('\n');
 			for(let i = 0; i < arr.length; i++) {
-				emitEvent(parseFloat(arr[i]) || -1);
+				let val = parseFloat(arr[i]);
+				if(!isNaN(val)) emitEvent(val);
 			}
 		});
 

@@ -99,6 +99,7 @@ function handleNewFace(oFace) {
 }
 // register the obstacle handler function in car
 car.onFrontDistance((obst) => {
+	console.log('Ultrasonic: '+obst);
 	frontObstacle = obst;
 	if(frontObstacle < conf.slowDownDistance) numMeasurements++;
 	else numMeasurements = 0;
