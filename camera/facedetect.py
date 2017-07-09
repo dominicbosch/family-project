@@ -22,6 +22,7 @@ class FaceDetect:
 		self.hflip = hflip
 		self.vflip = vflip
 		self.storeImages = storeImages
+		self.storeAllImages = storeAllImages
 		self.verbose = verbose
 		self.isRunning = False
 		# Get current file path in order to make an absolute reference to the cascade folder
