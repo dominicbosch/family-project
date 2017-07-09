@@ -49,15 +49,18 @@ class FaceDetect:
 		self.stream.start(self.newFrame)
 		while self.isRunning:
 			if self.frame is not lastFrame:			
-				if self.storeAllImages:
-					timestamp = datetime.datetime.now()
-					ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
-					cv2.imwrite('{}snap_{}.jpg'.format(self.savePathAll, ts), self.frame)
 
 				startDetect = time.time()
 				lastFrame = self.frame
 				faces = self.face_cascade.detectMultiScale(self.frame, 1.1, 5)
 				now = time.time()
+				timestamp = datetime.datetime.now()
+				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
+				if self.storeAllImages:
+					path = '{}snap_{}.jpg'.format(self.savePathAll, ts)
+					cv2.imwrite(path, self.frame)
+					if self.verbose:
+						print('Stored Image to: '+path)
 				if self.verbose:
 					print 'FaceDetect | Detect Time: {}'.format(now-startDetect)
 				# Execute the callback whenever faces have been detected
@@ -83,9 +86,10 @@ class FaceDetect:
 							cv2.rectangle(self.frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (255,0,0), 2)
 
 					if self.storeImages:
-						timestamp = datetime.datetime.now()
-						ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
-						cv2.imwrite('{}face_{}.jpg'.format(self.savePath, ts), self.frame)
+						path = '{}face_{}.jpg'.format(self.savePath, ts)
+						cv2.imwrite(path, self.frame)
+						if self.verbose:
+							print('Stored Face to: '+path)
 
 					callback(arrFaces)
 			else:

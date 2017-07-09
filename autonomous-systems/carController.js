@@ -55,6 +55,8 @@ exports.init = function(config) {
 		console.log('Face detection time '+d+'s = '+(1/d)+' FPS');
 		emitEvent('detectfps', 1/d);
 	});
+	pyFaces.on('storedimage', function(d) { emitEvent('storedimage', d) });
+	pyFaces.on('storedface', function(d) { emitEvent('storedface', d) });
 
 	return ret;
 };

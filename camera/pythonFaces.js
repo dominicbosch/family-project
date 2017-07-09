@@ -13,7 +13,7 @@ exports.init = function(opts) {
 
 // Allow registration of event listeners
 exports.on = function(evt, func) {
-	if(['warn', 'error', 'face', 'fps', 'detecttime'].indexOf(evt) === -1) {
+	if(['warn', 'error', 'face', 'fps', 'detecttime', 'storedimage', 'storedface'].indexOf(evt) === -1) {
 		console.error('Unknown event: '+evt);
 	} else if(typeof func === 'function') {
 		if(!eventListeners[evt]) eventListeners[evt] = [];
@@ -72,6 +72,12 @@ function processLine(line) {
 			oFace[arrFaceKeys[i]] = arrVals[i];
 		}
 		emitEvent('face', oFace);
+	} else if(line.indexOf(strng='Stored Image to: ') > -1) {
+		emitEvent('storedimage', line.substr(str.length));
+
+	} else if(line.indexOf(strng='Stored Face to: ') > -1) {
+		emitEvent('storedface', line.substr(str.length));
+
 	}
 }
 
