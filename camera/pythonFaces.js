@@ -26,6 +26,7 @@ exports.start = function() {
 		// we need the -v flag in order to fet the detect time and FPS info
 		let args = ['-u', __dirname+'/lookForFaces.py', '-v'];
 		if(options.s) args.push('-s');
+		if(options.sa) args.push('-sa');
 		if(options.hf) args.push('-hf');
 		if(options.vf) args.push('-vf');
 		if(options.cf) args.push('--cf', options.cf);
