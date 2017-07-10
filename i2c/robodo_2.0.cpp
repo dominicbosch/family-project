@@ -182,12 +182,12 @@ int main(int argc, char **argv)
 	iPWMHatFD = wiringPiI2CSetup(0x40);
 	initPWM();
 	printf("Sending command %i, %i to PWM HAT\n", 10, 100);
-	setPWM(0, 100, iResult);
-	setPWM(2, 100, iResult);
-	setPWM(4, 100, iResult);
-	setPWM(6, 100, iResult);
-	setPWM(8, 100, iResult);
-	setPWM(10, 100, iResult);
+	setPWM(0, 0, 100);
+	setPWM(2, 0, 100);
+	setPWM(4, 0, 100);
+	setPWM(6, 0, 100);
+	setPWM(8, 0, 100);
+	setPWM(10, 0, 100);
 
 	return 0;
 
