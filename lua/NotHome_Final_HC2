@@ -27,7 +27,8 @@ function convert_sunset(setTime)			-- On Fibaro Sunset is in the format "hh:mm"
 	local convMinute = string.sub(setTime, -2, -1);
 	convDate.hour = tonumber(convHour);
 	convDate.min = tonumber(convMinute);
-	return os.time(convDate);
+--	local conv_ostime = os.time(convDat) - (30*60);
+	return os.time(convDate) - (30*60);
 end
 
 function convert_lastminute()				-- Converting the last minute of the day to os.time format
