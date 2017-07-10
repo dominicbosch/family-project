@@ -29,37 +29,6 @@ void gpioSetup()
 	delay(30);
 }
 
-int getCM()	
-	{
-	//Send trig pulse
-
-//printf("Send trig pulse\n");
-
-	digitalWrite(TRIG, HIGH);
-
-	delayMicroseconds(20);
-
-	digitalWrite(TRIG, LOW);
-
-//printf("Echo start\n");
-
-	// Wait for echo start
-	while(digitalRead(ECHO) == LOW);
-
-//printf("Echo end\n");
-
-	// Wait for Echo end
-	long startTime = micros();
-	while(digitalRead(ECHO) == HIGH);
-	long travelTime = micros() - startTime;
-
-	// get distance in cm
-	int distance = travelTime / 58;
-
-	return distance;
-	}
-
-
 bool bCalcArray(double *dArray)
 	{
 
@@ -160,7 +129,7 @@ void moveSlow(int sNum, int curPos, int toPos, int mSpeed)
 		{
 		setPWM(sNum, 0, loopCount);
 		loopCount = loopCount -1;
-		usleep(5000);
+		usleep(mSpeed);
 		}
 	}
     else
@@ -169,11 +138,12 @@ void moveSlow(int sNum, int curPos, int toPos, int mSpeed)
 		{
 		setPWM(sNum, 0, loopCount);
 		loopCount = loopCount+1;
-		usleep(5000);
+		usleep(mSpeed);
 		}
 	}
 
 }
+
 
 int main(int argc, char **argv)
 {
@@ -181,7 +151,7 @@ int main(int argc, char **argv)
 	printf("Init I2C to PWM HAt\n");
 	iPWMHatFD = wiringPiI2CSetup(0x40);
 	initPWM();
-	printf("Sending command 0 to all Servos\n");
+	printf("Sending command 320 to all PWM HAT devices\n", iIn[0], iResult);
 	setPWM(0, 0, 320);
 	setPWM(2, 0, 320);
 	setPWM(4, 0, 320);
@@ -189,7 +159,7 @@ int main(int argc, char **argv)
 	setPWM(8, 0, 320);
 	setPWM(10, 0, 320);
 
-	moveSlow(0, 0, 100, 10);
+	moveSlow(0, 320, 400, 5000);
 
 	return 0;
 
