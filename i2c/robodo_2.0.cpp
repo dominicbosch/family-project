@@ -189,7 +189,7 @@ int main(int argc, char **argv)
 	setPWM(8, 0, 0);
 	setPWM(10, 0, 0);
 
-	moveSlow(0, 0, 100, 10)
+	moveSlow(0, 0, 100, 10);
 
 	return 0;
 
