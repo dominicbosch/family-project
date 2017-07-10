@@ -182,12 +182,12 @@ int main(int argc, char **argv)
 	iPWMHatFD = wiringPiI2CSetup(0x40);
 	initPWM();
 	printf("Sending command 0 to all Servos\n");
-	setPWM(0, 0, 0);
-	setPWM(2, 0, 0);
-	setPWM(4, 0, 0);
-	setPWM(6, 0, 0);
-	setPWM(8, 0, 0);
-	setPWM(10, 0, 0);
+	setPWM(0, 0, 320);
+	setPWM(2, 0, 320);
+	setPWM(4, 0, 320);
+	setPWM(6, 0, 320);
+	setPWM(8, 0, 320);
+	setPWM(10, 0, 320);
 
 	moveSlow(0, 0, 100, 10);
 
