@@ -153,17 +153,24 @@ int main(int argc, char **argv)
 	initPWM();
 	printf("Sending command 320 to all PWM HAT devices\n");
 	setPWM(0, 0, 390);
-	setPWM(2, 0, 460);
+	setPWM(2, 0, 488);
 	setPWM(4, 0, 320);
-	setPWM(6, 0, 320);
+	setPWM(6, 0, 460);
 	setPWM(8, 0, 320);
-	setPWM(10, 0, 404);
+	setPWM(10, 0, 516);
 
 	printf("Sending moveSlow to Servo 0\n");
 	moveSlow(0, 320, 460, 5000);
 
 	printf("Sending moveSlow to Servo 0\n");
 	moveSlow(0, 460, 190, 5000);
+
+	printf("Sending moveSlow to Servo 0\n");
+	moveSlow(0, 190, 460, 10000);
+
+	printf("Sending moveSlow to Servo 0\n");
+	moveSlow(0, 460, 190, 10000);
+
 
 	return 0;
 
