@@ -151,7 +151,7 @@ int main(int argc, char **argv)
 	printf("Init I2C to PWM HAt\n");
 	iPWMHatFD = wiringPiI2CSetup(0x40);
 	initPWM();
-	printf("Sending command 320 to all PWM HAT devices\n", iIn[0], iResult);
+	printf("Sending command 320 to all PWM HAT devices\n");
 	setPWM(0, 0, 320);
 	setPWM(2, 0, 320);
 	setPWM(4, 0, 320);
@@ -159,6 +159,7 @@ int main(int argc, char **argv)
 	setPWM(8, 0, 320);
 	setPWM(10, 0, 320);
 
+	printf("Sending moveSlow to Servo 0\n");
 	moveSlow(0, 320, 400, 5000);
 
 	return 0;
