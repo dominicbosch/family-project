@@ -90,7 +90,11 @@ function extractValue(line, str, cutoff) {
 }
 
 function emitEvent(evt, data) {
-	for (let i = 0; i < eventListeners[evt].length; i++) {
-		eventListeners[evt][i](data);
+	if(eventListeners[evt] === undefined) {
+		console.warn('No event listener attached for "'+evt+'"')
+	} else {
+		for (let i = 0; i < eventListeners[evt].length; i++) {
+			eventListeners[evt][i](data);
+		}
 	}
 }
