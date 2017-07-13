@@ -36,6 +36,9 @@ let obj = {
 lineReader.on('line', function (line) {
 	if(line[0] === '[') {
 		let ts = parseInt(line.substr(1, 13));
+		if(obj.tsmin === undefined) obj.tsmin = obj.tsmax = ts;
+		if(obj.tsmin > ts) obj.tsmin = ts;
+		if(obj.tsmax < ts) obj.tsmax = ts;
 		let txt = line.substr(16);
 		if(txt.indexOf('storedimage') > -1) {
 			let img = txt.substr(13);
