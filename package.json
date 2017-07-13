@@ -25,6 +25,7 @@
     "needle": "^1.4.5",
     "request": "~2.79.0",
     "rpio": "^0.9.15",
+    "sharp": "^0.18.2",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2"
   },

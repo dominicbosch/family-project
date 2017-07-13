@@ -46,15 +46,9 @@ exports.init = function(config) {
 
 	pyFaces.on('warn', function(d) { console.log('pythonFaces Warning: ', d) });
 	pyFaces.on('error', function(d) { console.log('pythonFaces Error: ', d) });
-	pyFaces.on('fps', function(d) {
-		console.log('Camera FPS: '+d);
-		emitEvent('camerafps', d);
-	});
+	pyFaces.on('fps', function(d) { emitEvent('camerafps', d) });
 	pyFaces.on('face', handleNewFace);
-	pyFaces.on('detecttime', function(d) {
-		console.log('Face detection time '+d+'s = '+(1/d)+' FPS');
-		emitEvent('detectfps', 1/d);
-	});
+	pyFaces.on('detecttime', function(d) { emitEvent('detectfps', 1/d) });
 	pyFaces.on('storedimage', function(d) { emitEvent('storedimage', d) });
 	pyFaces.on('storedface', function(d) { emitEvent('storedface', d) });
 
