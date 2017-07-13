@@ -1,0 +1,40 @@
+
+html, body {
+	font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+circle {
+	fill: black;
+}
+.axis {
+	fill: none;
+	stroke: black;
+}
+
+#arrow {
+	 stroke-width: 5;
+}
+.arrow {
+	fill: darkblue;
+	stroke: darkblue;
+}
+#triangle {
+	stroke: none;
+}
+
+.linetitle {
+	font-weight: bold;
+}
+#zrect {
+	fill: darkgreen;
+}
+text {
+	text-anchor: middle;
+}
+text.val {
+	font-size: 0.6em;
+}
+#xypath {
+	fill: none;
+	stroke: lightblue;
+}

@@ -20,28 +20,76 @@ try {
 } catch(err) {
 	return console.error(err);
 }
+let obj = {
+	faces: [],
+	snapshots: [],
+	facedetect: [],
+	motorstate: [],
+	steering: [],
+	speed: [],
+	ultrasonic: [],
+	camerafps: [],
+	detectfps: []
+};
 
+// Parse the log file and put the data in the correct objectS
 lineReader.on('line', function (line) {
 	if(line[0] === '[') {
-		let ts = line.substr(1, 13);
+		let ts = parseInt(line.substr(1, 13));
 		let txt = line.substr(16);
 		if(txt.indexOf('storedimage') > -1) {
-			console.log('image: '+txt.substr(13))
-			sharp('../camera/snapshots/snap_2017.07.13_06:54:16.jpg')
-				.resize(320, 240)
-				.toFile('www/thumbs/'+'snap_2017.07.13_06:54:16.jpg', (err, info) => {
-					console.log(err, info)
+			let img = txt.substr(13);
+			sharp('../camera/snapshots/'+img)
+				.resize(480, 360)
+				.toFile('www/thumbs/'+img, (err, info) => {
+					if(err) console.warn(err);
+					else obj.snapshots.push({
+						ts: ts,
+						img: img
+					})
 				})
-		}
-		if(txt.indexOf('storedface') > -1) {
-			console.log('face: '+txt.substr(12))
+		} else if(txt.indexOf('storedface') > -1) {
+			let img = txt.substr(12);
+			sharp('../camera/detected-faces/'+img)
+				.resize(480, 360)
+				.toFile('www/thumbs/'+img, (err, info) => {
+					if(err) console.warn(err);
+					else obj.faces.push({
+						ts: ts,
+						img: img
+					})
+				})
+		} else if(txt.indexOf('facedetected') > -1) {
+			obj.facedetect.push({ ts: ts, val: parseFloat(txt.substr(14)) });
+
+		} else if(txt.indexOf('motorstate') > -1) {
+			obj.motorstate.push({ ts: ts, val: txt.substr(12) });
+
+		} else if(txt.indexOf('steering') > -1) {
+			obj.steering.push({ ts: ts, val: parseFloat(txt.substr(10)) });
+
+		} else if(txt.indexOf('speed') > -1) {
+			obj.speed.push({ ts: ts, val: parseFloat(txt.substr(7)) });
+
+		} else if(txt.indexOf('ultrasonic') > -1) {
+			obj.ultrasonic.push({ ts: ts, val: parseFloat(txt.substr(12)) });
+
+		} else if(txt.indexOf('camerafps') > -1) {
+			obj.camerafps.push({ ts: ts, val: parseFloat(txt.substr(11)) });
+
+		} else if(txt.indexOf('detectfps') > -1) {
+			obj.detectfps.push({ ts: ts, val: parseFloat(txt.substr(11)) });
+
+		} else {
+			console.warn('NOT HANDLED: '+line);
 		}
 	} else {
-		console.log('No timestamp in log:', line);
+		console.log('NOT HANDLED: '+line);
 	}
 });
 
 app.use(express.static(__dirname+'/www'));
+app.get('/log.json', (req, res) => res.send(obj));
 
 app.listen(8080, () => {
 	console.log('Serving on port 8080!');
