@@ -9,25 +9,14 @@
 </head>
 
 <body>
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 350 260">
-	</svg>
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 110 110"></svg>
 	<table id="ttable">
-	<tr><td id="thumbs"></td><td id="thumbspacer"></td></tr>		
+		<tr><td id="thumbs">
+			<div id="arrows" class="spread"></div>
+			<div id="photos" class="spread"></div>
+			<div id="snaps" class="spread"></div>
+			<div id="faces" class="spread"></div>
+			</td><td id="thumbspacer"></td></tr>		
 	</table>
-
-	<!-- The command section to send commands to the server and receive them back -->
-	<table>
-		<tr>
-			<td class="linetitle">Command to send to server: </td>
-			<td>
-				<input type="text" id="cmd" />
-				<button onclick="sendCommand()">send</button>
-			</td>
-		</tr>
-		<tr>
-			<td class="linetitle">Command received from server: </td>
-			<td id="currentcommand"></td>
-		</tr>
-	</table>
-</body>
+	<img id="bigpic">
 </html>

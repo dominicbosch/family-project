@@ -31,6 +31,14 @@ let obj = {
 	camerafps: [],
 	detectfps: []
 };
+let motorStates = {
+	accelerating: 'Accelerating because face detected!',
+	fullspeed: 'Staying at full speed!',
+	slowdown: 'Slowing down because no more faces!',
+	nofacebreak: 'Breaking because no more faces!',
+	obstacle: 'Slowing down because of obstacle!',
+	obstaclebreak: 'Breaking because of obstacle!'
+}
 
 // Parse the log file and put the data in the correct objectS
 lineReader.on('line', function (line) {
@@ -66,7 +74,7 @@ lineReader.on('line', function (line) {
 			obj.facedetect.push({ ts: ts, val: parseFloat(txt.substr(14)) });
 
 		} else if(txt.indexOf('motorstate') > -1) {
-			obj.motorstate.push({ ts: ts, val: txt.substr(12) });
+			obj.motorstate.push({ ts: ts, val: motorStates[txt.substr(12)] });
 
 		} else if(txt.indexOf('steering') > -1) {
 			obj.steering.push({ ts: ts, val: parseFloat(txt.substr(10)) });

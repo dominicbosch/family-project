@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+	function addListeners(img, src) {
+		img.on('mouseover', function() {
+			console.log('mouseover', src);
+			d3.select('#bigpic').attr('src','thumbs/'+src);
+		})
+		.on('mouseout', function() {
+			d3.select('#bigpic').attr('src', null);
+		});
+	}
 	d3.json('log.json', function(err, data) {
 		var x = d3.scaleLinear()
 			.domain([data.tsmin, data.tsmax])
@@ -8,28 +17,48 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log(data);
 			for (let i = 0; i < data.snapshots.length; i++) {
 				let fc = data.snapshots[i];
-				d3.select('#thumbs')
-					.append('div')
-					.style('left', x(fc.ts)+'%')
-					.append('img')
-						.attr('src', 'thumbs/'+data.snapshots[i].img)
-						.classed('snapshot', true);
-			}
-			for (let i = 0; i < data.faces.length; i++) {
-				let fc = data.faces[i];
-				d3.select('#thumbs')
+				let img = d3.select('#snaps')
 					.append('div')
 					.style('left', x(fc.ts)+'%')
 					.append('img')
 						.attr('src', 'thumbs/'+fc.img)
-						.classed('face', true);
-				d3.select('#thumbs')
+						.classed('snapshot', true);
+				addListeners(img, fc.img);
+			}
+			for (let i = 0; i < data.faces.length; i++) {
+				let fc = data.faces[i];
+				d3.select('#photos')
 					.append('div')
 					.style('left', x(fc.ts)+'%')
 					.append('img')
 						.attr('src', 'img/photo.png')
 						.classed('photo', true);
+				let img = d3.select('#faces')
+					.append('div')
+					.style('left', x(fc.ts)+'%')
+					.append('img')
+						.attr('src', 'thumbs/'+fc.img)
+						.classed('face', true);
+				addListeners(img, fc.img);
 			}
+
+			// steering int
+			// speed int
+			// ultrasonic int
+			// camerafps int
+			// detectfps int
+			for (let i = 0; i < data.facedetect.length; i++) {
+				let fc = data.facedetect[i];
+				let img = d3.select('#arrows')
+					.append('div')
+					.style('left', x(fc.ts)+'%')
+					.append('img')
+						.attr('src', 'img/arrow-blue.png')
+						.style('transform', 'rotate('+(270+90*fc.val)+'deg)')
+						.classed('arrow', true);
+			}
+			// motorstate str
+			console.log(data.motorstate);
 		}
 	});
 });
