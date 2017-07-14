@@ -51,7 +51,8 @@ class FaceDetect:
 			if self.frame is not lastFrame:			
 
 				startDetect = time.time()
-				lastFrame = self.frame
+				lastFrame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
+				# lastFrame = self.frame
 				faces = self.face_cascade.detectMultiScale(self.frame, 1.1, 5)
 				now = time.time()
 				timestamp = datetime.datetime.now()
