@@ -7,7 +7,6 @@ let d3Steer;
 let d3Speed;
 let d3Ultrasonic;
 let formatPrct = d3.format('.0%');
-let formatDec = d3.format('0.2');
 
 document.addEventListener('DOMContentLoaded', function() {
 	d3Graph = d3.select('#graph');
@@ -17,10 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		d3.select('#timeline').style('left', d3.event.clientX+'px');
 		
 		val = getLastVal(data.camerafps, ts);
-		d3.select('#ttcamerafps .val').text(val||0);
+		d3.select('#ttcamerafps .val').text((val||0).toFixed(2));
 		
 		val = getLastVal(data.detectfps, ts);
-		d3.select('#ttdetectfps .val').text(formatDec(val||0));
+		d3.select('#ttdetectfps .val').text((val||0).toFixed(2));
 		
 		val = getLastVal(data.facedetect, ts);
 		d3.select('#ttface .val').text(formatPrct(val||0));
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		else d3.select('#bigpic').attr('src', null);
 
 		val = getLastVal(data.ultrasonic, ts);
-		d3.select('#ttultrasonic .val').text(formatDec(val||0)+'m');
+		d3.select('#ttultrasonic .val').text((val||0).toFixed(2)+'m');
 
 	});
 	d3.json('log.json', function(err, data) {

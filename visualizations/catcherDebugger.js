@@ -35,7 +35,7 @@ let motorStates = {
 	accelerating: 'Accelerating because face detected!',
 	fullspeed: 'Staying at full speed!',
 	slowdown: 'Slowing down because no more faces!',
-	nofacebreak: 'Breaking because no more faces!',
+	nofacebreak: 'Breaking because no faces!',
 	obstacle: 'Slowing down because of obstacle!',
 	obstaclebreak: 'Breaking because of obstacle!'
 }
