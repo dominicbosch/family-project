@@ -9,14 +9,36 @@
 </head>
 
 <body>
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 110 110"></svg>
+	<div id="timeline"></div>
+	<div class="legend speed">&#9648; Speed</div>
+	<div class="legend steer">&#9648; Steering</div>
+	<div class="legend ultrasonic">&#9648; Ultrasonic</div>
+	<svg id="graph" xmlns="http://www.w3.org/2000/svg"></svg>
 	<table id="ttable">
-		<tr><td id="thumbs">
+		<tr>
+		<td class="tinyspacer"></td>
+		<td id="thumbs">
 			<div id="arrows" class="spread"></div>
 			<div id="photos" class="spread"></div>
 			<div id="snaps" class="spread"></div>
 			<div id="faces" class="spread"></div>
-			</td><td id="thumbspacer"></td></tr>		
+		</td>
+		<td class="spacer"></td>
+		</tr>
 	</table>
-	<img id="bigpic">
+	<div id="tooltip">
+	<table><tr>
+	<td><img id="bigpic"></td>
+	<td><table id="stats">
+		<tr id="ttcamerafps"><td>Camera FPS: </td><td class="val"></td></tr>
+		<tr id="ttdetectfps"><td>Detect FPS: </td><td class="val"></td></tr>
+		<tr id="ttface"><td>Last Face: </td><td class="val"></td></tr>
+		<tr id="ttsteer"><td>Steering: </td><td class="val"></td></tr>
+		<tr id="ttmotorstate"><td>Motor State: </td><td class="val"></td></tr>
+		<tr id="ttspeed"><td>Speed: </td><td class="val"></td></tr>
+		<tr id="ttultrasonic"><td>Ultrasonic: </td><td class="val"></td></tr>
+	</table></td>
+	</tr>
+	</table>
+	</div>
 </html>

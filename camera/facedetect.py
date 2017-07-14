@@ -56,12 +56,6 @@ class FaceDetect:
 				now = time.time()
 				timestamp = datetime.datetime.now()
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
-				if self.storeAllImages:
-					nm = 'snap_{}.jpg'.format(ts)
-					path = self.savePathAll + nm
-					cv2.imwrite(path, self.frame)
-					if self.verbose:
-						print('Stored Image as: '+nm)
 				if self.verbose:
 					print 'FaceDetect | Detect Time: {}'.format(now-startDetect)
 				# Execute the callback whenever faces have been detected
@@ -94,6 +88,13 @@ class FaceDetect:
 							print('Stored Face as: '+nm)
 
 					callback(arrFaces)
+				
+				elif self.storeAllImages:
+					nm = 'snap_{}.jpg'.format(ts)
+					path = self.savePathAll + nm
+					cv2.imwrite(path, self.frame)
+					if self.verbose:
+						print('Stored Image as: '+nm)
 			else:
 				time.sleep(0.010)
 
