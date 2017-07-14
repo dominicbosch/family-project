@@ -51,9 +51,9 @@ class FaceDetect:
 			if self.frame is not lastFrame:			
 
 				startDetect = time.time()
-				lastFrame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
-				# lastFrame = self.frame
-				faces = self.face_cascade.detectMultiScale(self.frame, 1.1, 5)
+				lastFrame = self.frame
+				greyFrame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
+				faces = self.face_cascade.detectMultiScale(greyFrame, 1.1, 5)
 				now = time.time()
 				timestamp = datetime.datetime.now()
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
@@ -79,12 +79,12 @@ class FaceDetect:
 						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
 						if self.storeImages:
-							cv2.rectangle(self.frame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
+							cv2.rectangle(greyFrame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
 
 					if self.storeImages:
 						nm = 'face_{}.jpg'.format(ts)
 						path = self.savePath + nm
-						cv2.imwrite(path, self.frame)
+						cv2.imwrite(path, greyFrame)
 						if self.verbose:
 							print('Stored Face as: '+nm)
 
@@ -93,7 +93,7 @@ class FaceDetect:
 				elif self.storeAllImages:
 					nm = 'snap_{}.jpg'.format(ts)
 					path = self.savePathAll + nm
-					cv2.imwrite(path, self.frame)
+					cv2.imwrite(path, greyFrame)
 					if self.verbose:
 						print('Stored Image as: '+nm)
 			else:
