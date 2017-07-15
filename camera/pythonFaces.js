@@ -32,6 +32,7 @@ exports.start = function() {
 		if(options.cf) args.push('--cf', options.cf);
 		if(options.iw) args.push('--iw', options.iw);
 		if(options.ih) args.push('--ih', options.ih);
+		if(options.fr) args.push('--fr', options.fr);
 		pythonProcess = cp.spawn('python', args);
 		pythonProcess.stdout.on('data', (data) => {
 			let arr = data.toString().split('\n');

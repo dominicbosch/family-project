@@ -41,6 +41,11 @@ parser.add_argument('--ih',
 	dest='height',
 	help='Image height')
 
+parser.add_argument('--fr',
+	nargs='?', type=int, default=10,
+	dest='framerate',
+	help='Video framerate')
+
 parser.add_argument('-s',
 	action='store_true',
 	dest='store',
@@ -82,6 +87,7 @@ signal.signal(signal.SIGTERM, exitHandler)
 try:
 	detector = FaceDetect(
 		res=(args.width, args.height),
+		framerate=args.framerate,
 		hflip=(args.hflip==True),
 		vflip=(args.vflip==True),
 		cascade=args.cascade,

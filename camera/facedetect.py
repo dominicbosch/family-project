@@ -10,6 +10,7 @@ class FaceDetect:
 	def __init__(
 		self,
 		res=(1024, 768),
+		framerate=10,
 		hflip=False,
 		vflip=False,
 		storeImages=False,
@@ -40,7 +41,7 @@ class FaceDetect:
 			if self.storeAllImages:
 				print('Storing ALL images to {}'.format(self.savePathAll))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
-		self.stream = PiVideoStream(res=res, hflip=hflip, vflip=vflip, verbose=verbose)
+		self.stream = PiVideoStream(res=res, framerate=framerate, hflip=hflip, vflip=vflip, verbose=verbose)
 		self.frame = None
 
 	def run(self, callback):
@@ -52,8 +53,10 @@ class FaceDetect:
 
 				startDetect = time.time()
 				lastFrame = self.frame
-				greyFrame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
-				faces = self.face_cascade.detectMultiScale(greyFrame, 1.1, 5)
+				# greyscale seems not to speedup, ĥence we leave it
+				# detectframe = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
+				detectframe = lastFrame
+				faces = self.face_cascade.detectMultiScale(detectframe, 1.1, 5)
 				now = time.time()
 				timestamp = datetime.datetime.now()
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
@@ -79,12 +82,12 @@ class FaceDetect:
 						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
 						if self.storeImages:
-							cv2.rectangle(greyFrame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
+							cv2.rectangle(detectframe, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
 
 					if self.storeImages:
 						nm = 'face_{}.jpg'.format(ts)
 						path = self.savePath + nm
-						cv2.imwrite(path, greyFrame)
+						cv2.imwrite(path, detectframe)
 						if self.verbose:
 							print('Stored Face as: '+nm)
 
@@ -93,7 +96,7 @@ class FaceDetect:
 				elif self.storeAllImages:
 					nm = 'snap_{}.jpg'.format(ts)
 					path = self.savePathAll + nm
-					cv2.imwrite(path, greyFrame)
+					cv2.imwrite(path, detectframe)
 					if self.verbose:
 						print('Stored Image as: '+nm)
 			else:
