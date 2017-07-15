@@ -56,6 +56,11 @@ This command will start a webserver on the raspberry which acts as an interface 
 
 The main purpose of the program is a sentry car that checks the perimeter for patterns (faces/cats) and, upon recognition, starts driving towards the pattern (face/cat), trying to catch it.
 
+Recommended Parameters
+----------------------
+
+Since face detection is limited through the raspbrerry's hardware, our tests showed a feasible 2FPS with a resolution of 640x480 
+
 
 Architecture
 ------------

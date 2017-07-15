@@ -61,7 +61,7 @@ class FaceDetect:
 				timestamp = datetime.datetime.now()
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
 				if self.verbose:
-					print 'FaceDetect | Detect Time: {}'.format(now-startDetect)
+					print 'FaceDetect | Detect Time: {0:.2f}'.format(1/(now-startDetect))
 				# Execute the callback whenever faces have been detected
 				if len(faces) > 0:
 

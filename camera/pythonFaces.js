@@ -64,7 +64,7 @@ let arrFaceKeys = ['id', 'x', 'y', 'w', 'h', 'relX', 'relY', 'relW', 'relH'];
 function processLine(line) {
 	if(line.indexOf(strng='Camera | FPS: ') > -1) {
 		emitEvent('fps', parseFloat(extractValue(line, strng)));
-	} else if(line.indexOf(strng='FaceDetect | Detect Time: ') > -1) {
+	} else if(line.indexOf(strng='FaceDetect | Detect FPS: ') > -1) {
 		emitEvent('detecttime', parseFloat(extractValue(line, strng)));
 	} else if(line.indexOf('#') > -1) {
 		let oFace = {};

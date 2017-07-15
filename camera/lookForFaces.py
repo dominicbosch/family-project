@@ -32,17 +32,17 @@ parser.add_argument('--cf',
 	help='Pattern recognition cascade filename as it is found in folder "cascades"')
 
 parser.add_argument('--iw',
-	nargs='?', type=int, default=1024,
+	nargs='?', type=int, default=640,
 	dest='width',
 	help='Image width')
 
 parser.add_argument('--ih',
-	nargs='?', type=int, default=768,
+	nargs='?', type=int, default=480,
 	dest='height',
 	help='Image height')
 
 parser.add_argument('--fr',
-	nargs='?', type=int, default=10,
+	nargs='?', type=int, default=5,
 	dest='framerate',
 	help='Video framerate')
 
