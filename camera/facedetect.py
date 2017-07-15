@@ -53,7 +53,7 @@ class FaceDetect:
 
 				startDetect = time.time()
 				lastFrame = self.frame
-				# greyscale seems not to speedup, ĥence we leave it
+				# greyscale seems not to speedup, hence we leave it
 				# detectframe = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
 				detectframe = lastFrame
 				faces = self.face_cascade.detectMultiScale(detectframe, 1.1, 5)
