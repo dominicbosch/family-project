@@ -99,6 +99,9 @@ lineReader.on('line', function (line) {
 	}
 });
 
+lineReader.on('close', function() {
+	console.log('Done parsing log file, go to [this-host]:8080/debugger.html to see the visualization')
+});
 app.use(express.static(__dirname+'/www'));
 app.get('/log.json', (req, res) => res.send(obj));
 
