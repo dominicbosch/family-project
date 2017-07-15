@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		let val;
 		d3.select('#timeline').style('left', d3.event.clientX+'px');
 		
+		d3.select('#tttime .val').text(d3.format('%H:%M:%S.%L')(ts));
+		
 		val = getLastVal(data.camerafps, ts);
 		d3.select('#ttcamerafps .val').text((val||0).toFixed(2));
 		
