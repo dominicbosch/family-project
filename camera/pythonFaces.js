@@ -13,7 +13,7 @@ exports.init = function(opts) {
 
 // Allow registration of event listeners
 exports.on = function(evt, func) {
-	if(['warn', 'error', 'face', 'fps', 'detecttime', 'storedimage', 'storedface'].indexOf(evt) === -1) {
+	if(['warn', 'error', 'face', 'fps', 'detectfps', 'storedimage', 'storedface'].indexOf(evt) === -1) {
 		console.error('Unknown event: '+evt);
 	} else if(typeof func === 'function') {
 		if(!eventListeners[evt]) eventListeners[evt] = [];
@@ -65,7 +65,7 @@ function processLine(line) {
 	if(line.indexOf(strng='Camera | FPS: ') > -1) {
 		emitEvent('fps', parseFloat(extractValue(line, strng)));
 	} else if(line.indexOf(strng='FaceDetect | Detect FPS: ') > -1) {
-		emitEvent('detecttime', parseFloat(extractValue(line, strng)));
+		emitEvent('detectfps', parseFloat(extractValue(line, strng)));
 	} else if(line.indexOf('#') > -1) {
 		let oFace = {};
 		let arrVals = extractValue(line, '#').split('|').map(parseFloat);
