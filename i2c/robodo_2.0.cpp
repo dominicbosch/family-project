@@ -163,13 +163,13 @@ int main(int argc, char **argv)
 	moveSlow(10, 488, 621, 5000);
 
 	printf("Sending moveSlow to Servo 0\n");
-	moveSlow(0, 621, 488, 5000);
+	moveSlow(10, 621, 488, 5000);
 
 	printf("Sending moveSlow to Servo 0\n");
-	moveSlow(0, 488, 621, 10000);
+	moveSlow(10, 488, 621, 10000);
 
 	printf("Sending moveSlow to Servo 0\n");
-	moveSlow(0, 621, 488, 10000);
+	moveSlow(10, 621, 488, 10000);
 
 
 	return 0;
