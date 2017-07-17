@@ -160,16 +160,16 @@ int main(int argc, char **argv)
 	setPWM(10, 0, 488);
 
 	printf("Sending moveSlow to Servo 0\n");
-	moveSlow(0, 320, 460, 5000);
+	moveSlow(10, 488, 621, 5000);
 
 	printf("Sending moveSlow to Servo 0\n");
-	moveSlow(0, 460, 190, 5000);
+	moveSlow(0, 621, 488, 5000);
 
 	printf("Sending moveSlow to Servo 0\n");
-	moveSlow(0, 190, 460, 10000);
+	moveSlow(0, 488, 621, 10000);
 
 	printf("Sending moveSlow to Servo 0\n");
-	moveSlow(0, 460, 190, 10000);
+	moveSlow(0, 621, 488, 10000);
 
 
 	return 0;
