@@ -59,7 +59,7 @@ The main purpose of the program is a sentry car that checks the perimeter for pa
 Recommended Parameters
 ----------------------
 
-Since face detection is limited through the raspbrerry's hardware, our tests showed a feasible 2FPS with a resolution of 640x480 
+Since face detection is limited through the raspbrerry's hardware, our tests showed a feasible 2FPS with a resolution of 640x480, minNeighbors=5, scaleFactor=1.15, minSize=(30, 30), maxSize=(200, 200)
 
 
 Architecture
