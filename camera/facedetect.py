@@ -44,6 +44,9 @@ class FaceDetect:
 		self.savePathAll = rootPath+'/snapshots/'
 		if self.verbose:
 			print('Using casacade {}'.format(cascPath))
+			print('Using scaleFactor={}, minNeighbors={}, minSize={}x{}, maxSize={}x{}'.format(
+				scaleFactor, minNeighbors, minSize, minSize, maxSize, maxSize)
+			)
 			if self.storeImages:
 				print('Storing detected faces to {}'.format(self.savePath))
 			if self.storeAllImages:

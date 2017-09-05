@@ -122,7 +122,7 @@ try:
 	detector.run(faceHasBeenDetected)
 
 except:
-	traceback.print_stack()
+	traceback.print_exc()
 
 finally:
 	detector.stop()
