@@ -1,5 +1,5 @@
 const pyFaces = require('../camera/pythonFaces');
-const car = require('../i2c/cardo');
+const car = require('./cardo');
 
 var exports = module.exports = {};
 let conf;

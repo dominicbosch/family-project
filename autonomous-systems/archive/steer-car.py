@@ -46,7 +46,7 @@ timeFactor = 1
 sys.path.insert(0, '../camera')
 if args.simulate:
 	from simulatefacedetect import SimulateFaceDetect as FaceDetect
-	arduinoCommand = '../i2c/simulateArduino.py'
+	arduinoCommand = 'simulateArduino.py'
 	timeFactor = 20 # simulation slowdown
 else:
 	from facedetect import FaceDetect

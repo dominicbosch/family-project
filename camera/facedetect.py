@@ -13,6 +13,10 @@ class FaceDetect:
 		framerate=10,
 		hflip=False,
 		vflip=False,
+		scaleFactor=1.1,
+		minNeighbors=5,
+		minSize=(30, 30),
+		maxSize=(200, 200),
 		storeImages=False,
 		storeAllImages=False,
 		cascade=None,
@@ -22,6 +26,10 @@ class FaceDetect:
 		self.imageHeight = float(res[1])
 		self.hflip = hflip
 		self.vflip = vflip
+		self.scaleFactor = scaleFactor
+		self.minNeighbors = minNeighbors
+		self.minSize = minSize
+		self.maxSize = maxSize
 		self.storeImages = storeImages
 		self.storeAllImages = storeAllImages
 		self.verbose = verbose
@@ -53,10 +61,23 @@ class FaceDetect:
 
 				startDetect = time.time()
 				lastFrame = self.frame
-				# greyscale seems not to speedup, hence we leave it
-				# detectframe = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
-				detectframe = lastFrame
-				faces = self.face_cascade.detectMultiScale(detectframe, 1.1, 5)
+				# greyscale might improove accuracyx
+				detectframe = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
+				# detectframe = lastFrame
+				# image – Matrix of the type CV_8U containing an image where objects are detected.
+				# scaleFactor – Parameter specifying how much the image size is reduced at each image scale.
+				# minNeighbors – Parameter specifying how many neighbors each candidate rectangle should have to retain it.
+				# flags – Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade.
+				# minSize – Minimum possible object size. Objects smaller than that are ignored.
+				# maxSize – Maximum possible object size. Objects larger than that are ignored.
+				# Possible improvement through TBB? on the other hand we are already using the CPU exhaustingly
+				faces = self.face_cascade.detectMultiScale(
+					image=detectframe,
+					scaleFactor=self.scaleFactor,
+					minNeighbors=self.minNeighbors,
+					minSize=self.minSize,
+					maxSize=self.maxSize
+				)
 				now = time.time()
 				timestamp = datetime.datetime.now()
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
@@ -82,12 +103,12 @@ class FaceDetect:
 						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
 						if self.storeImages:
-							cv2.rectangle(detectframe, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
+							cv2.rectangle(lastFrame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
 
 					if self.storeImages:
 						nm = 'face_{}.jpg'.format(ts)
 						path = self.savePath + nm
-						cv2.imwrite(path, detectframe)
+						cv2.imwrite(path, lastFrame)
 						if self.verbose:
 							print('Stored Face as: '+nm)
 
@@ -96,7 +117,7 @@ class FaceDetect:
 				elif self.storeAllImages:
 					nm = 'snap_{}.jpg'.format(ts)
 					path = self.savePathAll + nm
-					cv2.imwrite(path, detectframe)
+					cv2.imwrite(path, lastFrame)
 					if self.verbose:
 						print('Stored Image as: '+nm)
 			else:

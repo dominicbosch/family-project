@@ -46,6 +46,26 @@ parser.add_argument('--fr',
 	dest='framerate',
 	help='Video framerate')
 
+parser.add_argument('--sf',
+	nargs='?', type=float, default=1.1,
+	dest='scaleFactor',
+	help='Face detection: image pyramid scale factor')
+
+parser.add_argument('--mn',
+	nargs='?', type=int, default=5,
+	dest='minNeighbors',
+	help='Face detection: number of neighbors for verified detection')
+
+parser.add_argument('--mins',
+	nargs='?', type=int, default=30,
+	dest='minSize',
+	help='Face detection: minimum face size mins*mins for detection')
+
+parser.add_argument('--maxs',
+	nargs='?', type=int, default=100,
+	dest='maxSize',
+	help='Face detection: maximum face size maxs*maxs for detection')
+
 parser.add_argument('-s',
 	action='store_true',
 	dest='store',
@@ -90,6 +110,10 @@ try:
 		framerate=args.framerate,
 		hflip=(args.hflip==True),
 		vflip=(args.vflip==True),
+		scaleFactor=args.scaleFactor,
+		minNeighbors=args.minNeighbors,
+		minSize=(args.minSize, args.minSize),
+		maxSize=(args.maxSize, args.maxSize),
 		cascade=args.cascade,
 		storeImages=args.store,
 		storeAllImages=args.storeall,

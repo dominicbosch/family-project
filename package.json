@@ -29,5 +29,6 @@
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": { "install" : "make" }
 }
