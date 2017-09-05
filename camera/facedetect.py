@@ -107,10 +107,10 @@ class FaceDetect:
 						# appending relative height
 						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
-						if self.storeImages:
+						if self.storeImages or self.storeAllImages:
 							cv2.rectangle(lastFrame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
 
-					if self.storeImages:
+					if self.storeImages or self.storeAllImages:
 						nm = 'face_{}.jpg'.format(ts)
 						path = self.savePath + nm
 						cv2.imwrite(path, lastFrame)
