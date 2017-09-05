@@ -8,8 +8,11 @@ let d3Speed;
 let d3Ultrasonic;
 let formatPrct = d3.format('.0%');
 
+// as soon as the webpage has been loaded, we load the debugger data
 document.addEventListener('DOMContentLoaded', function() {
 	d3Graph = d3.select('#graph');
+
+	// When the mouse moves, we have to update all displayed data so they match the x-position of the mouse 
 	d3.select('body').on('mousemove', function() {
 		let ts = xScale.invert(d3.event.clientX);
 		let val;
@@ -50,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 
+// this function is only called once, when the document is ready and the
+// log.json data has been fetched which needs to be visulalized
 function addVisualizations(d) {
 	console.log(d);
 	data = d;

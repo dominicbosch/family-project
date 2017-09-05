@@ -64,12 +64,13 @@ class FaceDetect:
 				# greyscale might improove accuracyx
 				detectframe = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
 				# detectframe = lastFrame
-				# image – Matrix of the type CV_8U containing an image where objects are detected.
-				# scaleFactor – Parameter specifying how much the image size is reduced at each image scale.
-				# minNeighbors – Parameter specifying how many neighbors each candidate rectangle should have to retain it.
-				# flags – Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade.
-				# minSize – Minimum possible object size. Objects smaller than that are ignored.
-				# maxSize – Maximum possible object size. Objects larger than that are ignored.
+
+				# image - Matrix of the type CV_8U containing an image where objects are detected. 
+				# scaleFactor - Parameter specifying how much the image size is reduced at each image scale. 
+				# minNeighbors - Parameter specifying how many neighbors each candidate rectangle should have to retain it. 
+				# flags - Parameter with the same meaning for an old cascade as in the function cvHaarDetectObjects. It is not used for a new cascade. 
+				# minSize - Minimum possible object size. Objects smaller than that are ignored. 
+				# maxSize - Maximum possible object size. Objects larger than that are ignored. 
 				# Possible improvement through TBB? on the other hand we are already using the CPU exhaustingly
 				faces = self.face_cascade.detectMultiScale(
 					image=detectframe,
@@ -83,6 +84,7 @@ class FaceDetect:
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
 				if self.verbose:
 					print 'FaceDetect | Detect FPS: {0:.2f}'.format(1/(now-startDetect))
+				
 				# Execute the callback whenever faces have been detected
 				if len(faces) > 0:
 

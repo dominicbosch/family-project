@@ -82,7 +82,7 @@ args = parser.parse_args()
 def writeLog(msg):
 	timestamp = datetime.datetime.now()
 	ts = timestamp.strftime('[%Y.%m.%d_%I:%M:%S]: ')
-	print ts + msg
+	print(ts + msg)
 
 def faceHasBeenDetected(arrFaces):
 	numF = len(arrFaces)
