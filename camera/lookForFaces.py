@@ -57,7 +57,7 @@ parser.add_argument('--mn',
 	help='Face detection: number of neighbors for verified detection')
 
 parser.add_argument('--mins',
-	nargs='?', type=int, default=30,
+	nargs='?', type=int, default=20,
 	dest='minSize',
 	help='Face detection: minimum face size mins*mins for detection')
 
