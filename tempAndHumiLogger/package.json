@@ -1,0 +1,11 @@
+{
+  "name": "temp-humi-logger",
+  "version": "1.0.0",
+  "description": "Logs temperature and humidity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dominic Bosch",
+  "license": "MIT"
+}
