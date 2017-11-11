@@ -20,7 +20,7 @@ function readSensorAndStore(pin, type) {
 			temp = temp.toFixed(2);
 			humi = humi.toFixed(2);
 			let ts = (new Date()).getTime();
-			let name = 'data_pin'+pin+'_type'+type+'.csv';
+			let name = __dirname+'/datalogs/data_pin'+pin+'_type'+type+'.csv';
 			fs.appendFileSync(name, ts+','+temp+','+humi);
 		}
 	});
