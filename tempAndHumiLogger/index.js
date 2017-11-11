@@ -1,3 +1,4 @@
+const fs = require('fs');
 const sensor = require('node-dht-sensor');
 
 const conf = [
@@ -14,7 +15,7 @@ function runAllSensors() {
 }
 
 function readSensorAndStore(pin, type) {
-	sensor.read(pin, type, function(err, temp, humi) {
+	sensor.read(type, pin, function(err, temp, humi) {
 		if (!err) {
 			temp = temp.toFixed(2);
 			humi = humi.toFixed(2);
