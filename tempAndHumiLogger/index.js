@@ -47,7 +47,7 @@ function fetchLog(sens) {
 			if(err) reject(err);
 			else resolve({
 				sensor: sens,
-				data: data.split('\n').map((d) => d.split(','))
+				data: data.toString().split('\n').map((d) => d.split(','))
 			});
 		})
 	});
