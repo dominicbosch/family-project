@@ -22,10 +22,11 @@ app.get('/getlogs', function(req, res){
 	var start = process.hrtime();
 	Promise.all(conf.map(fetchLog))
 		.then((arr) => {
-			let at = start(process.hrtime());
+			let at = process.hrtime(start);
 			console.log('Log fetching took %ds %dms', at[0], at[1]/1e6)
 			res.send(arr);
-		});
+		})
+		.catch(console.error);
 });
 
 // Standard reply to all nonsense:
