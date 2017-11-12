@@ -1,5 +1,5 @@
 const fs = require('fs');
-// const sensor = require('node-dht-sensor');
+const sensor = require('node-dht-sensor');
 const http = require('http');
 const WebSocket = require('ws');
 const express = require('express');
@@ -60,22 +60,22 @@ function runAllSensors() {
 }
 
 function readSensorAndStore(sens) {
-	// sensor.read(sens.type, sens.pin, function(err, temp, humi) {
-	// 	if (!err) {
-	// 		temp = temp.toFixed(2);
-	// 		humi = humi.toFixed(2);
-	// 		let ts = (new Date()).getTime();
-	// 		currVals[sens.id] = {
-	// 			temp: temp,
-	// 			humi: humi,
-	// 			ts: ts
-	// 		};
-	// 		wss.clients.forEach(function(client) {
-	// 			client.send(currVals);
-	// 		});
-	// 		fs.appendFileSync(dataLogPath(sens), ts+','+temp+','+humi);
-	// 	}
-	// });
+	sensor.read(sens.type, sens.pin, function(err, temp, humi) {
+		if (!err) {
+			temp = temp.toFixed(2);
+			humi = humi.toFixed(2);
+			let ts = (new Date()).getTime();
+			currVals[sens.id] = {
+				temp: temp,
+				humi: humi,
+				ts: ts
+			};
+			wss.clients.forEach(function(client) {
+				client.send(currVals);
+			});
+			fs.appendFileSync(dataLogPath(sens), ts+','+temp+','+humi);
+		}
+	});
 }
 
 
