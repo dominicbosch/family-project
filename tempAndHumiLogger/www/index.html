@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Temp&amp;Humi Logger</title>
+	<script type="text/javascript" src="js/code.js"></script>
+	<link rel="stylesheet" href="css/styles.css">
+	<script src="js/lib/highcharts.js"></script>
+
+</head>
+<body>
+<h1>Temperature &amp; Humidity Logger</h1>
+<h2>Latest Status</h2>
+<table>
+	<tr>
+		<td></td>
+		<td>Weighted Average</td>
+		<td>AM2302</td>
+		<td>DHT11 #1</td>
+		<td>DHT11 #2</td>
+	</tr>
+	<tr id="temp">
+		<td>Temperature</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr id="humi">
+		<td>Humidity</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+<h2>Graph</h2>
+<svg id="graph"></svg>
+</body>
+</html>
