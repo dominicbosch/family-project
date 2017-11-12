@@ -71,7 +71,7 @@ function readSensorAndStore(sens) {
 				ts: ts
 			};
 			wss.clients.forEach(function(client) {
-				client.send(currVals);
+				client.send(JSON.stringify(currVals));
 			});
 			fs.appendFileSync(dataLogPath(sens), ts+','+temp+','+humi);
 		}
