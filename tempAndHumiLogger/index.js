@@ -42,7 +42,7 @@ function dataLogPath(sens) {
 }
 
 function fetchLog(sens) {
-	return newPromise(function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		fs.readFile(dataLogPath(sens), (err, data) => {
 			if(err) reject(err);
 			else resolve({
