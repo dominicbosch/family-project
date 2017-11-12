@@ -19,10 +19,10 @@ app.use('/', express.static(__dirname+'/www'));
 
 // this will be quite an intensive task once the logs get bigger:
 app.get('/getlogs', function(req, res){
-	let start = process.hrtime();
+	var start = process.hrtime();
 	Promise.all(conf.map(d => fetchLog(d)))
 		.then((arr) => {
-			console.log('Log fetching took %d', start-process.hrtime())
+			console.log('Log fetching took %d', process.hrtime()-start)
 			res.send(arr);
 		});
 });
