@@ -1,6 +1,8 @@
-document.addEventListener('load', function() {
-	fetchData(window.location.host+'/getlog')
-		.then(visualizeLog);
+window.addEventListener('load', function() {
+	console.log('LOADED');
+	fetchData('http://'+window.location.host+'/getlog')
+		.then(visualizeLog)
+		.catch((err) => console.error('Couldn\'t get log: '+err.message));
 });
 
 function fetchData(url) {
