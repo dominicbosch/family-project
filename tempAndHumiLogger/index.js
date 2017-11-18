@@ -5,15 +5,20 @@ const WebSocket = require('ws');
 const express = require('express');
 
 const conf = [
-	{ pin: 5, type: 11, id: 'DHT11 #1' },
-	{ pin: 6, type: 11, id: 'DHT11 #2' },
-	{ pin: 12, type: 22, id: 'AM2302' }
+	{ pin: 5, type: 11, id: 'DHT11 #1', w: 0.1 },
+	{ pin: 6, type: 11, id: 'DHT11 #2', w: 0.1 },
+	{ pin: 12, type: 22, id: 'AM2302', w: 0.4 }
 ];
 const currVals = {};
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+
+// TODO add sophisticated preprocessor that aggregates data over longer time periods
+// TODO it will not make sense to average more than an hour
+// TODO maybe show standard deviations per hour?
+// TODO maybe overlay day cycles with greying out?
 
 app.use('/', express.static(__dirname+'/www'));
 
@@ -86,6 +91,6 @@ server.listen(8080, function listening() {
 	console.log('Listening on %d', server.address().port);
 });
 
-// Do it initially and then every ten seconds
+// Do it initially and then every minute
 runAllSensors();
-setInterval(runAllSensors, 10000);
+setInterval(runAllSensors, 60 * 1000);

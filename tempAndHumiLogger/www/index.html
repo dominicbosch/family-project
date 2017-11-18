@@ -6,6 +6,11 @@
 	<link rel="stylesheet" href="css/styles.css">
 	<script src="js/lib/highcharts.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
 </head>
 <body>
 <h1>Temperature &amp; Humidity Logger</h1>
@@ -34,6 +39,7 @@
 	</tr>
 </table>
 <h2>Graph</h2>
-<svg id="graph"></svg>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<!-- <svg id="graph"></svg> -->
 </body>
 </html>
