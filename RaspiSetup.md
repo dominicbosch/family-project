@@ -26,7 +26,7 @@ Update & Install Raspberry
 - `sudo apt update`
 - `sudo apt upgrade`
 - `sudo rpi-update`
-- `sudo apt install python-smbus i2c-tools feh`
+- `sudo apt install python-smbus i2c-tools feh git`
 - `sudo raspi-config`:
 	- [8] Update
 	- [7 -> A1] Expand filesystem
