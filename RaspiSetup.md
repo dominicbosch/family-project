@@ -12,8 +12,8 @@ Configure SSH, Safety and Wireless
 - Login with user `pi` password `raspberry`
 - `sudo passwd pi` (change password to something safe)
 - `sudo raspi-config`:
-	- [2] Change hostname to something savage (e.g. `cat-catcher-1`)
-	- [5 -> P2] Enable SSH
+	- `[2]` Change hostname to something savage (e.g. `cat-catcher-1`)
+	- `[5 -> P2]` Enable SSH
 - Connect to wireless:
 	- `wpa_passphrase "[ESSID]" "[PASSWORD]" | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf`
 	- `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`, delete commented line (#) with clear text password
@@ -33,11 +33,11 @@ Update & Install Raspberry
 	sudo apt install python-smbus i2c-tools feh git python-skimage
 	sudo raspi-config
 
-- [8] Update
-- [7 -> A1] Expand filesystem
-- [5 -> P1] Enable camera
-- [5 -> P5] Enable I2C
-- [4] Add Locale `de_CH.UTF-8 UTF-8` but keep default Locale `en_GB.UTF-8` for the system environment
+- `[8]` Update
+- `[7 -> A1]` Expand filesystem
+- `[5 -> P1]` Enable camera
+- `[5 -> P5]` Enable I2C
+- `[4]` Add Locale `de_CH.UTF-8 UTF-8` but keep default Locale `en_GB.UTF-8` for the system environment
 
 
 	sudo i2cdetect -y 1 # (verify PWM Hat is connected)
@@ -50,10 +50,10 @@ Install Movidius Neural Compute Stick
 This will take a while on the Raspberry because it also installs OpenCV, which has been a pain before. Thank you Movidius for making this easy ;)
 
 
-    git clone http://github.com/Movidius/ncsdk
+	git clone http://github.com/Movidius/ncsdk
 	cd ncsdk
-    make install
-    make examples
+	make install
+	make examples
 
 
 Clone yoloNCS
@@ -61,7 +61,9 @@ Clone yoloNCS
 
 Great framework for location detaction of classified object in image
 
-    git clone https://github.com/gudovskiy/yoloNCS.git
+	git clone https://github.com/gudovskiy/yoloNCS.git
+
+- Store caffemodel from [here](https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp=sharing) in `.weights` folder
 
 
 Clone Family-Project
@@ -69,15 +71,15 @@ Clone Family-Project
 
 
 	cd ~/projects
-    git clone https://github.com/dominicbosch/family-project.git
+	git clone https://github.com/dominicbosch/family-project.git
 
 
 Install
 -------
 
 
-    cd ~/projects/yoloNCS
-	mvNCCompile prototxt/yolo_tiny_deploy.prototxt -w ../family-project/yoloNCS/yolo_tiny.caffemodel -s 12
-    cd ~/projects/family-project/
-    npm install
+	cd ~/projects/yoloNCS
+	mvNCCompile prototxt/yolo_tiny_deploy.prototxt -w .weights/yolo_tiny.caffemodel -s 12
+	cd ~/projects/family-project/
+	npm install
 
