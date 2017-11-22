@@ -27,11 +27,11 @@ Update & Install Raspberry
 - Connect to raspi via SSH using new hostname (e.g. `ssh pi@cat-catcher-1`)
 
 
-	sudo apt update
-	sudo apt upgrade
-	sudo rpi-update
-	sudo apt install python-smbus i2c-tools feh git python-skimage
-	sudo raspi-config
+      sudo apt update
+      sudo apt upgrade
+      sudo rpi-update
+      sudo apt install python-smbus i2c-tools feh git python-skimage
+      sudo raspi-config
 
 - `[8]` Update
 - `[7 -> A1]` Expand filesystem
@@ -40,8 +40,8 @@ Update & Install Raspberry
 - `[4]` Add Locale `de_CH.UTF-8 UTF-8` but keep default Locale `en_GB.UTF-8` for the system environment
 
 
-	sudo i2cdetect -y 1 # (verify PWM Hat is connected)
-	sudo reboot now`
+      sudo i2cdetect -y 1 # (verify PWM Hat is connected)
+      sudo reboot now
 
 
 Install Movidius Neural Compute Stick
