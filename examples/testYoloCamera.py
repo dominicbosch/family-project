@@ -5,5 +5,9 @@ from facedetectYoloNCS import FaceDetect
 def detectedStuff(arrResults):
 	print ('Stuff has been detected: {}'.format(len(arrResults)))
 
-fd = FaceDetect(storeImages=True)
-fd.run(detectedStuff)
+try:
+	fd = FaceDetect(storeImages=True)
+	fd.run(detectedStuff)
+
+except KeyboardInterrupt:
+	fd.stop()
