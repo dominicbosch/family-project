@@ -10,4 +10,5 @@ try:
 	fd.run(detectedStuff)
 
 except KeyboardInterrupt:
+	print('Cleaning and exiting')
 	fd.stop()

@@ -82,6 +82,14 @@ Install
 
 	cd ~/projects/yoloNCS
 	mvNCCompile prototxt/yolo_tiny_deploy.prototxt -w .weights/yolo_tiny.caffemodel -s 12
+	mv graph ~/projects/family-project/camera
 	cd ~/projects/family-project/
-	npm install
 
+
+Test Camera Classification
+--------------------------
+
+	cd ~/projects/family-project/examples
+	python testYoloCamera.py
+
+The detected images will be found in `camera/detected-faces`
