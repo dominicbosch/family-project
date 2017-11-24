@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(0, '../camera')
 
+import cv2
 from yoloClassifier import YoloClassifier
 
 if len(sys.argv) < 2:

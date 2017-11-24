@@ -1,5 +1,4 @@
 from mvnc import mvncapi as mvnc
-import sys,os,time,csv,getopt,cv2
 import numpy as np
 from datetime import datetime
 from skimage.transform import resize
@@ -13,7 +12,9 @@ class YoloClassifier:
 
 		device = mvnc.Device(devices[0])
 		device.OpenDevice()
-		with open(graphFile, mode='rb') as f:
+
+		rootPath = ('/'.join(os.path.realpath(__file__).split('/')[:-1]))+'/'
+		with open(rootPath+graphFile, mode='rb') as f:
 			blob = f.read()
 		graph = device.AllocateGraph(blob)
 		graph.SetGraphOption(mvnc.GraphOption.ITERATIONS, 1)
