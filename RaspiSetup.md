@@ -2,7 +2,7 @@ Setup a Raspberry from Scratch for this project
 ===============================================
 
 - Download [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/)
-- Flash to sd card and plug sd card into raspberry.
+- Flash to SD card and plug SD card into raspberry.
 
 
 Configure SSH, Safety and Wireless
@@ -41,7 +41,8 @@ Update & Install Raspberry
 
 
 	sudo i2cdetect -y 1 # (verify PWM Hat is connected)
-	sudo reboot now`
+	mkdir ~/projects
+	sudo reboot now
 
 
 Install Movidius Neural Compute Stick
@@ -50,6 +51,7 @@ Install Movidius Neural Compute Stick
 This will take a while on the Raspberry because it also installs OpenCV, which has been a pain before. Thank you Movidius for making this easy ;)
 
 
+	cd ~/projects
 	git clone http://github.com/Movidius/ncsdk
 	cd ncsdk
 	make install
@@ -61,6 +63,7 @@ Clone yoloNCS
 
 Great framework for location detaction of classified object in image
 
+	cd ~/projects
 	git clone https://github.com/gudovskiy/yoloNCS.git
 
 - Store caffemodel from [here](https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp=sharing) in `.weights` folder
