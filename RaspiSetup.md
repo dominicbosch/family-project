@@ -25,24 +25,25 @@ Update & Install Raspberry
 
 - Plug in power
 - Connect to raspi via SSH using new hostname (e.g. `ssh pi@cat-catcher-1`)
+- Update & Configure Raspberry:
 
+      sudo apt update
+      sudo apt upgrade
+      sudo rpi-update
+      sudo apt install python-smbus i2c-tools feh git python-skimage
+      sudo raspi-config
 
-	sudo apt update
-	sudo apt upgrade
-	sudo rpi-update
-	sudo apt install python-smbus i2c-tools feh git python-skimage
-	sudo raspi-config
+  - `[8]` Update 
+  - `[7 -> A1]` Expand filesystem
+  - `[5 -> P1]` Enable camera
+  - `[5 -> P5]` Enable I2C
+  - `[4]` Add Locale `de_CH.UTF-8 UTF-8` but keep default Locale `en_GB.UTF-8` for the system environment
+	
+- Verify & Reboot:
 
-- `[8]` Update
-- `[7 -> A1]` Expand filesystem
-- `[5 -> P1]` Enable camera
-- `[5 -> P5]` Enable I2C
-- `[4]` Add Locale `de_CH.UTF-8 UTF-8` but keep default Locale `en_GB.UTF-8` for the system environment
-
-
-	sudo i2cdetect -y 1 # (verify PWM Hat is connected)
-	mkdir ~/projects
-	sudo reboot now
+      mkdir ~/projects
+      sudo i2cdetect -y 1 # (verify PWM Hat is connected)
+      sudo reboot now
 
 
 Install Movidius Neural Compute Stick
@@ -72,14 +73,12 @@ Great framework for location detaction of classified object in image
 Clone Family-Project
 --------------------
 
-
 	cd ~/projects
 	git clone https://github.com/dominicbosch/family-project.git
 
 
 Install
 -------
-
 
 	cd ~/projects/yoloNCS
 	mvNCCompile prototxt/yolo_tiny_deploy.prototxt -w .weights/yolo_tiny.caffemodel -s 12
