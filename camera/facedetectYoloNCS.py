@@ -17,7 +17,6 @@ class FaceDetect:
 		vflip=False,
 		storeImages=False,
 		storeAllImages=False,
-		cascade=None,
 		verbose=False
 	):
 		self.imageWidth = float(res[0])
@@ -28,7 +27,7 @@ class FaceDetect:
 		self.storeAllImages = storeAllImages
 		self.verbose = verbose
 		self.isRunning = False
-		self.classifier = YoloClassifier()
+		self.yolo = YoloClassifier()
 		
 		# Get current file path in order to make an absolute reference to the cascade folder
 		rootPath = '/'.join(os.path.realpath(__file__).split('/')[:-1])
@@ -59,6 +58,7 @@ class FaceDetect:
 				startDetect = time.time()
 				lastFrame = self.frame
 
+				ret = self.yolo.classify(self.frame)
 
 				now = time.time()
 				timestamp = datetime.datetime.now()
@@ -66,27 +66,43 @@ class FaceDetect:
 				if self.verbose:
 					print 'FaceDetect | Detect FPS: {0:.2f}'.format(1/(now-startDetect))
 				
-				# Execute the callback whenever faces have been detected
-				if len(faces) > 0:
+				if len(ret) > 0:
 
-					# sort the faces list, first the biggest ones
-					sortedFaces = sorted(faces, self.getSortMeasure)
 					arrFaces = []
-					for af in faces:
-						# gonna be: [x, y, w, h, relX, relY, relW, relH]
+					for el in ret:
+						x = int(el[1])
+						y = int(el[2])
+						w = int(el[3])//2
+						h = int(el[4])//2
+						xmin = x-w
+						xmax = x+w
+						ymin = y-h
+						ymax = y+h
+						if xmin<0:
+							xmin = 0
+						if ymin<0:
+							ymin = 0
+						if xmax>self.imageWidth:
+							xmax = self.imageWidth
+						if ymax>self.imageHeight:
+							ymax = self.imageHeight
+						print ('    class : ' + el[0] + ' , [x,y,w,h]=[' + str(x) + ',' + str(y) + ',' + str(int(el[3])) + ',' + str(int(el[4]))+'], Confidence = ' + str(el[5]) )
+
 						# set x, y, w, h
-						face = [af[0], af[1], af[2], af[3]]
+						face = [x, y, w, h]
 						# range; [-1, 1]
-						face.append((2.0*af[0]+af[2])/self.imageWidth-1)
+						face.append((2.0*x+w)/self.imageWidth-1)
 						# range[-1, 1]
-						face.append((2.0*af[1]+af[3])/self.imageHeight-1)
+						face.append((2.0*y+h)/self.imageHeight-1)
 						# appending relative width
-						face.append(1.0*af[2]/self.imageWidth)
+						face.append(1.0*w/self.imageWidth)
 						# appending relative height
-						face.append(1.0*af[3]/self.imageHeight)
+						face.append(1.0*h/self.imageHeight)
 						arrFaces.append(face)
 						if self.storeImages or self.storeAllImages:
-							cv2.rectangle(lastFrame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
+							cv2.rectangle(lastFrame,(xmin,ymin),(xmax,ymax),(0,255,0),2)
+							cv2.rectangle(lastFrame,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1)
+							cv2.putText(lastFrame,el[0] + ' : %.2f' % el[5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
 
 					if self.storeImages or self.storeAllImages:
 						nm = 'face_{}.jpg'.format(ts)
@@ -116,5 +132,6 @@ class FaceDetect:
 	def stop(self):
 		self.isRunning = False
 		self.stream.stop()
+		self.yolo.close()
 
 

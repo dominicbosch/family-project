@@ -9,5 +9,6 @@ if len(sys.argv) < 2:
 	sys.exit()
 
 clf = YoloClassifier()
-clf.classify(cv2.imread(sys.argv[1]))
+ret = clf.classify(cv2.imread(sys.argv[1]))
+print (ret)
 clf.close()

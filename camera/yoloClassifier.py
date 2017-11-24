@@ -32,16 +32,14 @@ class YoloClassifier:
 		out, userobj = self.graph.GetResult()
 		end = datetime.now()
 		elapsedTime = end-start
-		print ('total classify time is {} milliseconds'.format(elapsedTime.total_seconds()*1000))
+		print (' -> Total classify time is {} ms'.format(elapsedTime.total_seconds()*1000))
 		
 		start = datetime.now()
 		results = self.interpret_output(out.astype(np.float32), img.shape[1], img.shape[0]) # fc27 instead of fc12 for yolo_small
 		end = datetime.now()
 		elapsedTime = end-start
-		print ('total interpretation time is {} milliseconds'.format(elapsedTime.total_seconds()*1000))
-		
-		print (results)
-		self.show_results(img, results, img.shape[1], img.shape[0])
+		print (' -> Total interpretation time is {} ms'.format(elapsedTime.total_seconds()*1000))
+		return results
 
 	def interpret_output(self, output, img_width, img_height):
 		classes = ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train","tvmonitor"]
@@ -104,41 +102,12 @@ class YoloClassifier:
 
 		return result
 
-	def iou(self, box1,box2):
+	def iou(self, box1, box2):
 		tb = min(box1[0]+0.5*box1[2],box2[0]+0.5*box2[2])-max(box1[0]-0.5*box1[2],box2[0]-0.5*box2[2])
 		lr = min(box1[1]+0.5*box1[3],box2[1]+0.5*box2[3])-max(box1[1]-0.5*box1[3],box2[1]-0.5*box2[3])
 		if tb < 0 or lr < 0 : intersection = 0
 		else : intersection =  tb*lr
 		return intersection / (box1[2]*box1[3] + box2[2]*box2[3] - intersection)
-
-
-	def show_results(self, img, results, img_width, img_height):
-		img_cp = img.copy()
-		disp_console = True
-		imshow = True
-		for i in range(len(results)):
-			x = int(results[i][1])
-			y = int(results[i][2])
-			w = int(results[i][3])//2
-			h = int(results[i][4])//2
-			if disp_console : print ('    class : ' + results[i][0] + ' , [x,y,w,h]=[' + str(x) + ',' + str(y) + ',' + str(int(results[i][3])) + ',' + str(int(results[i][4]))+'], Confidence = ' + str(results[i][5]) )
-			xmin = x-w
-			xmax = x+w
-			ymin = y-h
-			ymax = y+h
-			if xmin<0:
-				xmin = 0
-			if ymin<0:
-				ymin = 0
-			if xmax>img_width:
-				xmax = img_width
-			if ymax>img_height:
-				ymax = img_height
-			if  imshow:
-				#cv2.rectangle(img_cp,(xmin,ymin),(xmax,ymax),(0,255,0),2)
-				print ((xmin, ymin, xmax, ymax))
-				#cv2.rectangle(img_cp,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1)
-				#cv2.putText(img_cp,results[i][0] + ' : %.2f' % results[i][5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
 
 	def close(self):
 		self.graph.DeallocateGraph()
