@@ -30,7 +30,7 @@ Update & Install Raspberry
       sudo apt update
       sudo apt upgrade
       sudo rpi-update
-      sudo apt install python-smbus i2c-tools feh git python-skimage
+      sudo apt install python-smbus i2c-tools feh git python-skimage python-picamera
       sudo raspi-config
 
   - `[8]` Update 
