@@ -1,4 +1,5 @@
 from mvnc import mvncapi as mvnc
+import os
 import numpy as np
 from datetime import datetime
 from skimage.transform import resize
