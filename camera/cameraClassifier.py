@@ -63,27 +63,15 @@ class CameraClassifier:
 				timestamp = datetime.datetime.now()
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
 				if self.verbose:
-					print 'FaceDetect | Detect FPS: {0:.2f}'.format(1/(now-startDetect))
-				
-				if len(ret) > 0:
+					print 'CameraClassifier | found {} in {} ms Detect FPS: {0:.2f}'.format(len(ret[1]),ret[0],1/(now-startDetect))
+
+				if len(ret[1]) > 0:
 					arrFaces = []
-					for el in ret:
+					for el in ret[1]:
 						x = int(el[1])
 						y = int(el[2])
 						w = int(el[3])//2
 						h = int(el[4])//2
-						xmin = x-w
-						xmax = x+w
-						ymin = y-h
-						ymax = y+h
-						if xmin<0:
-							xmin = 0
-						if ymin<0:
-							ymin = 0
-						if xmax>self.imageWidth:
-							xmax = self.imageWidth
-						if ymax>self.imageHeight:
-							ymax = self.imageHeight
 						if self.verbose:
 							print ('    class : ' + el[0] 
 								+ ' , [x,y,w,h]=[' + str(x) 
@@ -101,12 +89,9 @@ class CameraClassifier:
 						# appending relative height
 						face.append(1.0*h/self.imageHeight)
 						arrFaces.append(face)
-						if self.storeDetections or self.storeAllImages:
-							cv2.rectangle(lastFrame,(xmin,ymin),(xmax,ymax),(0,255,0),2)
-							cv2.rectangle(lastFrame,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1)
-							cv2.putText(lastFrame,el[0] + ' : %.2f' % el[5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
 
 					if self.storeDetections or self.storeAllImages:
+						self.yolo.tagImage(lastFrame, ret, self.imageWidth, self.imageHeight)
 						nm = 'fdyncs.py_{}_detected.jpg'.format(ts)
 						path = self.savePath + nm
 						cv2.imwrite(path, lastFrame)

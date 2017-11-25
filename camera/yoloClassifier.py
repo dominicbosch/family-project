@@ -1,12 +1,14 @@
 from mvnc import mvncapi as mvnc
 import os
+import cv2
 import numpy as np
 from datetime import datetime
 from skimage.transform import resize
 
 class YoloClassifier:
 	def __init__(self, graphFile='graph', verbose=False):
-		mvnc.SetGlobalOption(mvnc.GlobalOption.LOG_LEVEL, 2)
+		if verbose:
+			mvnc.SetGlobalOption(mvnc.GlobalOption.LOG_LEVEL, 2)
 		devices = mvnc.EnumerateDevices()
 		if len(devices) == 0:
 			raise Exception('No Movidius found!')
@@ -19,33 +21,38 @@ class YoloClassifier:
 			blob = f.read()
 		graph = device.AllocateGraph(blob)
 		graph.SetGraphOption(mvnc.GraphOption.ITERATIONS, 1)
+		self.verbose = verbose
 		self.device = device
 		self.graph = graph
 
 	def classify(self, img):
-		print('Classifying image {}'.format(img.shape))
+		start = datetime.now()
+		if self.verbose:
+			print('Classifying image {}'.format(img.shape))
 		dim=(448,448)
 		im = resize(img.copy()/255.0,dim,1)
 		im = im[:,:,(2,1,0)]
-		start = datetime.now()
 		self.graph.LoadTensor(im.astype(np.float16), 'user object')
 		out, userobj = self.graph.GetResult()
 		end = datetime.now()
 		elapsedTime = end-start
-		print (' -> Total classify time is {} ms'.format(elapsedTime.total_seconds()*1000))
+		if self.verbose:
+			print (' -> Total classify time is {} ms'.format(elapsedTime.total_seconds()*1000))
 		
-		start = datetime.now()
+		startClassify = datetime.now()
 		results = self.interpret_output(out.astype(np.float32), img.shape[1], img.shape[0]) # fc27 instead of fc12 for yolo_small
 		end = datetime.now()
-		elapsedTime = end-start
-		print (' -> Total interpretation time is {} ms'.format(elapsedTime.total_seconds()*1000))
-		return results
+		elapsedTime = end-startClassify
+		if self.verbose:
+			print (' -> Total interpretation time is {} ms'.format(elapsedTime.total_seconds()*1000))
+		return [(end-start).total_seconds()*1000, results]
 
 	def interpret_output(self, output, img_width, img_height):
 		classes = ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train","tvmonitor"]
 		w_img = img_width
 		h_img = img_height
-		print ((w_img, h_img))
+		if self.verbose:
+			print ((w_img, h_img))
 		threshold = 0.2
 		iou_threshold = 0.5
 		num_class = 20
@@ -108,6 +115,28 @@ class YoloClassifier:
 		if tb < 0 or lr < 0 : intersection = 0
 		else : intersection =  tb*lr
 		return intersection / (box1[2]*box1[3] + box2[2]*box2[3] - intersection)
+
+	def tagImage(img, result, maxWidth, maxHeight):
+		for el in result:
+			x = int(el[1])
+			y = int(el[2])
+			w = int(el[3])//2
+			h = int(el[4])//2
+			xmin = x-w
+			xmax = x+w
+			ymin = y-h
+			ymax = y+h
+			if xmin<0:
+				xmin = 0
+			if ymin<0:
+				ymin = 0
+			if xmax>maxWidth:
+				xmax = maxWidth
+			if ymax>maxHeight:
+				ymax = maxHeight
+			cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,255,0),2)
+			cv2.rectangle(img,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1)
+			cv2.putText(img,el[0] + ' : %.2f' % el[5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
 
 	def close(self):
 		self.graph.DeallocateGraph()
