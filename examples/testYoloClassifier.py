@@ -19,8 +19,8 @@ clf = YoloClassifier(verbose=True)
 
 # Get current file path in order to make an absolute reference to the cascade folder
 savePath = '/'.join(os.path.realpath(__file__).split('/')[:-1])+'/detections/'
-f = open('run_{}.csv'.format(ts), 'w')
-f.write('filename,time,1st class,1st confidence,2nd class,2nd confidence,\n')
+f = open(savePath+'run_{}.csv'.format(ts), 'w')
+f.write('filename,width,height,time,1st class,1st confidence,2nd class,2nd confidence,\n')
 
 path = sys.argv[1]
 arrImages = glob.glob("{}*.jpg".format(path))
@@ -30,9 +30,10 @@ for im in arrImages:
 	res = ret[1]
 	shp = frame.shape
 	clf.tagImage(frame, res, shp[0], shp[1])
-	filePath = savePath+'run_{}_{}'.format(ts, os.path.basename(im))
+	fileName = os.path.basename(im)
+	filePath = savePath+'run_{}_{}'.format(ts, fileName)
 	cv2.imwrite(filePath, frame)
-	f.write('{},{}'.format(filePath, ret[0]))
+	f.write('{},{},{},{}s'.format(fileName, shp[0], shp[1], ret[0]))
 	if len(res) > 0:
 		f.write(',{},{}'.format(res[0][0], res[0][5]))
 	if len(res) > 1:
