@@ -116,7 +116,7 @@ class YoloClassifier:
 		else : intersection =  tb*lr
 		return intersection / (box1[2]*box1[3] + box2[2]*box2[3] - intersection)
 
-	def tagImage(img, result, maxWidth, maxHeight):
+	def tagImage(self, img, result, maxWidth, maxHeight):
 		for el in result:
 			x = int(el[1])
 			y = int(el[2])
