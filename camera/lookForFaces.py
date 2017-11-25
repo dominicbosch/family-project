@@ -115,7 +115,7 @@ try:
 		minSize=(args.minSize, args.minSize),
 		maxSize=(args.maxSize, args.maxSize),
 		cascade=args.cascade,
-		storeImages=args.store,
+		storeDetections=args.store,
 		storeAllImages=args.storeall,
 		verbose=(args.verbose==True)
 	)

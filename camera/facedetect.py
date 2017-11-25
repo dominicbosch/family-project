@@ -17,7 +17,7 @@ class FaceDetect:
 		minNeighbors=5,
 		minSize=(30, 30),
 		maxSize=(200, 200),
-		storeImages=False,
+		storeDetections=False,
 		storeAllImages=False,
 		cascade=None,
 		verbose=False
@@ -30,7 +30,7 @@ class FaceDetect:
 		self.minNeighbors = minNeighbors
 		self.minSize = minSize
 		self.maxSize = maxSize
-		self.storeImages = storeImages
+		self.storeDetections = storeDetections
 		self.storeAllImages = storeAllImages
 		self.verbose = verbose
 		self.isRunning = False
@@ -40,17 +40,16 @@ class FaceDetect:
 			cascPath = rootPath+'/cascades/lbpcascade_frontalface.xml'
 		else:
 			cascPath = rootPath+'/cascades/{}'.format(cascade)
-		self.savePath = rootPath+'/detected-faces/'
-		self.savePathAll = rootPath+'/snapshots/'
+		self.savePath = rootPath+'/output/'
 		if self.verbose:
 			print('Using casacade {}'.format(cascPath))
 			print('Using scaleFactor={}, minNeighbors={}, minSize={}x{}, maxSize={}x{}'.format(
 				scaleFactor, minNeighbors, minSize, minSize, maxSize, maxSize)
 			)
-			if self.storeImages:
+			if self.storeDetections:
 				print('Storing detected faces to {}'.format(self.savePath))
 			if self.storeAllImages:
-				print('Storing ALL images to {}'.format(self.savePathAll))
+				print('Storing ALL images to {}'.format(self.savePath))
 		self.face_cascade = cv2.CascadeClassifier(cascPath)
 		self.stream = PiVideoStream(res=res, framerate=framerate, hflip=hflip, vflip=vflip, verbose=verbose)
 		self.frame = None
@@ -107,21 +106,21 @@ class FaceDetect:
 						# appending relative height
 						face.append(1.0*af[3]/self.imageHeight)
 						arrFaces.append(face)
-						if self.storeImages or self.storeAllImages:
+						if self.storeDetections or self.storeAllImages:
 							cv2.rectangle(lastFrame, (af[0],af[1]), (af[0]+af[2],af[1]+af[3]), (0,0,255), 2)
 
-					if self.storeImages or self.storeAllImages:
-						nm = 'face_{}.jpg'.format(ts)
+					if self.storeDetections or self.storeAllImages:
+						nm = 'fd.py_{}_detected.jpg'.format(ts)
 						path = self.savePath + nm
 						cv2.imwrite(path, lastFrame)
 						if self.verbose:
-							print('Stored Face as: '+nm)
+							print('Stored detected face as: '+nm)
 
 					callback(arrFaces)
 				
 				elif self.storeAllImages:
-					nm = 'snap_{}.jpg'.format(ts)
-					path = self.savePathAll + nm
+					nm = 'fd.py_{}.jpg'.format(ts)
+					path = self.savePath + nm
 					cv2.imwrite(path, lastFrame)
 					if self.verbose:
 						print('Stored Image as: '+nm)

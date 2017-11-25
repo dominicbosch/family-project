@@ -5,7 +5,16 @@ from picamera.array import PiRGBArray
 from threading import Thread
 
 class PiVideoStream:
-	def __init__(self, res=(1024, 768), framerate=10, sensor_mode=0, hflip=False, vflip=False, verbose=False):
+	def __init__(
+		self,
+		res=(1024,768),
+		framerate=10,
+		sensor_mode=0,
+		hflip=False,
+		vflip=False,
+		verbose=False,
+		use_video_port=True
+	):
 		# initialize the camera and stream
 		if verbose:
 			print 'Starting camera with res={}x{}, hflip={}, vflip={}'.format(res[0], res[1], hflip, vflip)
@@ -15,7 +24,7 @@ class PiVideoStream:
 		self.verbose = verbose
 		self.rawCapture = PiRGBArray(self.camera, size=res)
 		self.stream = self.camera.capture_continuous(self.rawCapture,
-			format="bgr", use_video_port=True)
+			format="bgr", use_video_port=use_video_port)
 
 		# initialize the frame and the variable used to indicate
 		# if the thread should be stopped
@@ -34,6 +43,7 @@ class PiVideoStream:
 		# TODO we should throttle this down by adding some sleep
 		for f in self.stream:
 			self.frameNum += 1
+			# we only calculate FPS after ten frames
 			if self.frameNum == 10:
 				now = time.time()
 				if self.verbose:

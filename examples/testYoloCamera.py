@@ -1,12 +1,12 @@
 import sys
 sys.path.insert(0, '../camera')
-from facedetectYoloNCS import FaceDetect
+from cameraClassifier import CameraClassifier
 
 def detectedStuff(arrResults):
-	print ('Stuff has been detected: {}'.format(len(arrResults)))
+	print ('So much stuff has been detected: {}'.format(len(arrResults)))
 
 try:
-	fd = FaceDetect(storeImages=True)
+	fd = CameraClassifier(storeDetections=True, verbose=True)
 	fd.run(detectedStuff)
 
 except KeyboardInterrupt:

@@ -5,7 +5,7 @@ from datetime import datetime
 from skimage.transform import resize
 
 class YoloClassifier:
-	def __init__(self, graphFile='graph'):
+	def __init__(self, graphFile='graph', verbose=False):
 		mvnc.SetGlobalOption(mvnc.GlobalOption.LOG_LEVEL, 2)
 		devices = mvnc.EnumerateDevices()
 		if len(devices) == 0:

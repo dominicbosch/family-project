@@ -7,7 +7,7 @@ import datetime
 from pivideostream import PiVideoStream
 from yoloClassifier import YoloClassifier
 
-class FaceDetect:
+class CameraClassifier:
 	def __init__(
 		self,
 		res=(1296, 730),
@@ -15,7 +15,7 @@ class FaceDetect:
 		framerate=20,
 		hflip=False,
 		vflip=False,
-		storeImages=False,
+		storeDetections=False,
 		storeAllImages=False,
 		verbose=False
 	):
@@ -23,7 +23,7 @@ class FaceDetect:
 		self.imageHeight = float(res[1])
 		self.hflip = hflip
 		self.vflip = vflip
-		self.storeImages = storeImages
+		self.storeDetections = storeDetections
 		self.storeAllImages = storeAllImages
 		self.verbose = verbose
 		self.isRunning = False
@@ -31,13 +31,12 @@ class FaceDetect:
 		
 		# Get current file path in order to make an absolute reference to the cascade folder
 		rootPath = '/'.join(os.path.realpath(__file__).split('/')[:-1])
-		self.savePath = rootPath+'/detected-faces/'
-		self.savePathAll = rootPath+'/snapshots/'
+		self.savePath = rootPath+'/output/'
 		if self.verbose:
-			if self.storeImages:
-				print('Storing detected faces to {}'.format(self.savePath))
+			if self.storeDetections:
+				print('Storing detections to {}'.format(self.savePath))
 			if self.storeAllImages:
-				print('Storing ALL images to {}'.format(self.savePathAll))
+				print('Storing ALL images to {}'.format(self.savePath))
 		self.stream = PiVideoStream(
 			res=res,
 			framerate=framerate,
@@ -67,7 +66,6 @@ class FaceDetect:
 					print 'FaceDetect | Detect FPS: {0:.2f}'.format(1/(now-startDetect))
 				
 				if len(ret) > 0:
-
 					arrFaces = []
 					for el in ret:
 						x = int(el[1])
@@ -86,7 +84,11 @@ class FaceDetect:
 							xmax = self.imageWidth
 						if ymax>self.imageHeight:
 							ymax = self.imageHeight
-						print ('    class : ' + el[0] + ' , [x,y,w,h]=[' + str(x) + ',' + str(y) + ',' + str(int(el[3])) + ',' + str(int(el[4]))+'], Confidence = ' + str(el[5]) )
+						if self.verbose:
+							print ('    class : ' + el[0] 
+								+ ' , [x,y,w,h]=[' + str(x) 
+								+ ',' + str(y) + ',' + str(int(el[3])) 
+								+ ',' + str(int(el[4]))+'], Confidence = ' + str(el[5]) )
 
 						# set x, y, w, h
 						face = [x, y, w, h]
@@ -99,26 +101,26 @@ class FaceDetect:
 						# appending relative height
 						face.append(1.0*h/self.imageHeight)
 						arrFaces.append(face)
-						if self.storeImages or self.storeAllImages:
+						if self.storeDetections or self.storeAllImages:
 							cv2.rectangle(lastFrame,(xmin,ymin),(xmax,ymax),(0,255,0),2)
 							cv2.rectangle(lastFrame,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1)
 							cv2.putText(lastFrame,el[0] + ' : %.2f' % el[5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
 
-					if self.storeImages or self.storeAllImages:
-						nm = 'face_{}.jpg'.format(ts)
+					if self.storeDetections or self.storeAllImages:
+						nm = 'fdyncs.py_{}_detected.jpg'.format(ts)
 						path = self.savePath + nm
 						cv2.imwrite(path, lastFrame)
 						if self.verbose:
-							print('Stored Face as: '+nm)
+							print('Stored detected image as: '+nm)
 
 					callback(arrFaces)
 				
 				elif self.storeAllImages:
-					nm = 'snap_{}.jpg'.format(ts)
-					path = self.savePathAll + nm
+					nm = 'fdyncs.py_{}.jpg'.format(ts)
+					path = self.savePath + nm
 					cv2.imwrite(path, lastFrame)
 					if self.verbose:
-						print('Stored Image as: '+nm)
+						print('Stored image as: '+nm)
 			else:
 				time.sleep(0.010)
 
