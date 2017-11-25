@@ -31,7 +31,7 @@ for im in arrImages:
 	shp = frame.shape
 	clf.tagImage(frame, res, shp[0], shp[1])
 	filePath = savePath+'run_{}_{}'.format(ts, os.path.basename(im))
-	cv2.imwrite(filePath, lastFrame)
+	cv2.imwrite(filePath, frame)
 	f.write('{},{}'.format(filePath, ret[0]))
 	if len(res) > 0:
 		f.write(',{},{}'.format(res[0][0], res[0][5]))
