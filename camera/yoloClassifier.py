@@ -32,27 +32,35 @@ class YoloClassifier:
 		dim=(448,448)
 		im = resize(img.copy()/255.0,dim,1)
 		im = im[:,:,(2,1,0)]
-		self.graph.LoadTensor(im.astype(np.float16), 'user object')
-		out, userobj = self.graph.GetResult()
+		
 		end = datetime.now()
 		elapsedTime = end-start
 		if self.verbose:
-			print (' -> Total classify time is {} ms'.format(elapsedTime.total_seconds()*1000))
+			print (' -> Image manipulation took {} ms'.format(elapsedTime.total_seconds()*1000))
 		
-		startClassify = datetime.now()
+		strt = datetime.now()
+		self.graph.LoadTensor(im.astype(np.float16), 'user object')
+		out, userobj = self.graph.GetResult()
+		
+		end = datetime.now()
+		elapsedTime = end-strt
+		if self.verbose:
+			print (' -> Classification took {} ms'.format(elapsedTime.total_seconds()*1000))
+		
+		strt = datetime.now()
 		results = self.interpret_output(out.astype(np.float32), img.shape[1], img.shape[0]) # fc27 instead of fc12 for yolo_small
 		end = datetime.now()
-		elapsedTime = end-startClassify
+		elapsedTime = end-start
 		if self.verbose:
-			print (' -> Total interpretation time is {} ms'.format(elapsedTime.total_seconds()*1000))
-		return [(end-start).total_seconds()*1000, results]
+			print (' -> Parsing took {} ms'.format((end-strt).total_seconds()*1000))
+			print (' # Total classification took {} ms'.format(elapsedTime.total_seconds()*1000))
+
+		return [elapsedTime.total_seconds()*1000, results]
 
 	def interpret_output(self, output, img_width, img_height):
 		classes = ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train","tvmonitor"]
 		w_img = img_width
 		h_img = img_height
-		if self.verbose:
-			print ((w_img, h_img))
 		threshold = 0.2
 		iou_threshold = 0.5
 		num_class = 20
