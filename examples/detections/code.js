@@ -4,6 +4,7 @@ window.addEventListener('load', function() {
 
 function showRuns() {
     d3.json('getruns', function (data) {
+        d3.select('#back').style('visibility', 'hidden');
         console.log('runs', data)
         d3.selectAll('#content *').remove();
         d3.select('#content')
@@ -29,34 +30,36 @@ function showRun(file) {
         let rows = body.selectAll('tr')
             .data(csv).enter()
             .append('tr')
-            .on('click', showImage);
+            .on('click', im => {
+                window.open(file.substr(0, file.length-4)+'_'+im.filename, '_blank')
+            });
         head.append('td').text('Image');
         rows.append('td')
-            .text(d => d.filename.substr(24));
+            .text(d => d.filename);
+        head.append('td').text('Width');
+        rows.append('td')
+            .text(d => d.width);
+        head.append('td').text('Height');
+        rows.append('td')
+            .text(d => d.height);
         head.append('td').text('Time');
         rows.append('td')
             .text(d => parseInt(d.time)+'ms');
         head.append('td').text('1st Classification');
         rows.append('td')
-            .text(d => d['1st class']);
-        head.append('td').text('1st Confidence');
-        rows.append('td')
-            .text(d => calcConf(d['1st confidence']));
+            .text(d => calcConf(d['1st class'], d['1st confidence']));
         head.append('td').text('2nd Classification');
         rows.append('td')
-            .text(d => d['2nd class']);
-        head.append('td').text('2nd Confidence');
-        rows.append('td')
-            .text(d => calcConf(d['2nd confidence']));
+            .text(d => calcConf(d['2nd class'], d['2nd confidence']));
         console.log(csv);
     })
 }
 
-function calcConf(d) {
+function calcConf(cls, d) {
     if (d === undefined) return '';
-    return parseInt(d*1000)/10+' %';
+    return cls+' ('+parseInt(d*1000)/10+' %)';
 }
 
 function showImage(im) {
-    window.open(im.filename, '_blank');
+    
 }
