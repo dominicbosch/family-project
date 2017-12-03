@@ -5,8 +5,8 @@ const WebSocket = require('ws');
 const express = require('express');
 
 const conf = [
-	{ pin: 5, type: 11, id: 'DHT11 #1', w: 0.1 },
-	{ pin: 6, type: 11, id: 'DHT11 #2', w: 0.1 },
+	{ pin: 5, type: 11, id: 'DHT11-1', w: 0.1 },
+	{ pin: 6, type: 11, id: 'DHT11-2', w: 0.1 },
 	{ pin: 12, type: 22, id: 'AM2302', w: 0.4 }
 ];
 const currVals = {};
@@ -22,8 +22,24 @@ const wss = new WebSocket.Server({ server });
 
 app.use('/', express.static(__dirname+'/www'));
 
+app.get('/logs', (req, res) => {
+	fs.readdir(__dirname+'/datalogs', (err, files) => {
+
+		if(err) res.status(404).send(err.message);
+		else {
+			let arr = files.filter(d => d.substr(0, 7) === 'sensor_');
+			let obj = {};
+			for (let i = 0; i < arr.length; i++) {
+				let dt = arr[i].split('_')[2];
+				obj[dt] = 1;
+			}
+			res.send(Object.keys(obj));
+		}
+	});
+});
+
 // this will be quite an intensive task once the logs get bigger:
-app.get('/getlogs', function(req, res){
+app.get('/log/:day', function(req, res){
 	var start = process.hrtime();
 	Promise.all(conf.map(fetchLog))
 		.then((arr) => {
@@ -34,22 +50,13 @@ app.get('/getlogs', function(req, res){
 		.catch(console.error);
 });
 
-// Standard reply to all nonsense:
-// app.use(function (req, res) {
-// 	res.send(currVals);
-// });
-
 // if new client connects to socket he immediately receives the latest data
 wss.on('connection', function(ws, req) {
 	ws.send(JSON.stringify(currVals));
 });
 
-function dataLogPath(sens) {
-	return __dirname+'/datalogs/data_pin'+sens.pin+'_type'+sens.type+'.csv';
-}
-
 function fetchLog(sens) {
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		fs.readFile(dataLogPath(sens), (err, data) => {
 			if(err) reject(err);
 			else resolve({
@@ -67,7 +74,7 @@ function runAllSensors() {
 }
 
 function readSensorAndStore(sens) {
-	sensor.read(sens.type, sens.pin, function(err, temp, humi) {
+	sensor.read(sens.type, sens.pin, (err, temp, humi) => {
 		if (!err) {
 			temp = temp.toFixed(2);
 			humi = humi.toFixed(2);
@@ -77,19 +84,18 @@ function readSensorAndStore(sens) {
 				humi: humi,
 				ts: ts
 			};
-			wss.clients.forEach(function(client) {
-				client.send(JSON.stringify(currVals));
-			});
-			fs.appendFileSync(dataLogPath(sens), ts+','+temp+','+humi);
+			let txt = JSON.stringify(currVals);
+			wss.clients.forEach((client) => client.send(txt));
+			let dt = new Date().toISOString().substr(0, 10);
+			let path = __dirname+'/datalogs/sensor_'+sens.id+'_'+dt+'.csv';
+			fs.appendFileSync(path, ts+','+temp+','+humi);
 		}
 	});
 }
 
 
 
-server.listen(8080, function listening() {
-	console.log('Listening on %d', server.address().port);
-});
+server.listen(8080, () => console.log('Listening on '+server.address().port));
 
 // Do it initially and then every minute
 runAllSensors();
