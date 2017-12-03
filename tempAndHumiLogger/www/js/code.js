@@ -51,17 +51,24 @@ function updateRealtimeMeasurements(data) {
 const wd = ['So.', 'Mo.', 'Tue.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
 
 function listlog(data) {
-    d3.select('#days').selectAll('option')
-        .data(data).enter().append('option')
+    d3.select('#days')
+        .on('change', requestDay)
+        .selectAll('option')
+        .data(data.sort()).enter().append('option')
+        .attr('value', d => d)
         .text(d => {
             let day = wd[new Date(d).getDay()];
-            return day+' '+d;
-        })
-        .change(d => console.log('change: ', d))
+            return day+' '+d.split('-').reverse().join('.');
+        });
     
 	console.log('comeon you lazy guy, implement the visualization', data);
 }
 
+function requestDay() {
+    let dat = d3.select('#days').property('value');
+    fetchData('http://'+window.location.host+'/log/'+dat)
+        .then(o => console.log('Got day log: ', o));
+}
 // $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
 
 //     Highcharts.chart('container', {

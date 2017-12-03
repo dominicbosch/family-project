@@ -39,15 +39,17 @@ app.get('/logs', (req, res) => {
 });
 
 // this will be quite an intensive task once the logs get bigger:
-app.get('/log/:day', function(req, res){
-	var start = process.hrtime();
-	Promise.all(conf.map(fetchLog))
-		.then((arr) => {
-			let at = process.hrtime(start);
-			console.log('Log fetching took %ds %dms', at[0], at[1]/1e6)
-			res.send(arr);
-		})
-		.catch(console.error);
+app.get('/log/:day', function(req, res) {
+	fs.readdir(__dirname+'/datalogs', (err, files) => {
+		let arr = files.filter(d => {
+			let a = d.split('_');
+			if (a.length < 3) return false;
+			return a[2].substr(0, 10) === request.params.day;
+		});
+		Promise.all(arr.map(fetchLog))
+			.then((arr) => res.send(arr) )
+			.catch(console.error);
+	});
 });
 
 // if new client connects to socket he immediately receives the latest data
@@ -55,13 +57,15 @@ wss.on('connection', function(ws, req) {
 	ws.send(JSON.stringify(currVals));
 });
 
-function fetchLog(sens) {
+function fetchLog(fileName) {
 	return new Promise((resolve, reject) => {
-		fs.readFile(dataLogPath(sens), (err, data) => {
+		let id = fileName.split('_')[1];
+		let cid = conf.map(s => s.id).indexOf(id);
+		fs.readFile(__dirname+'/datalogs/'+fileName, (err, data) => {
 			if(err) reject(err);
 			else resolve({
-				sensor: sens,
-				data: data.toString().split('\n').map((d) => d.split(','))
+				sensor: conf[cid],
+				data: data.toString().split('\n').map(d => d.split(','))
 			});
 		})
 	});
