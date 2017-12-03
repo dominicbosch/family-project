@@ -51,10 +51,14 @@ function updateRealtimeMeasurements(data) {
 const wd = ['So.', 'Mo.', 'Tue.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
 
 function listlog(data) {
-    for (let i = 0; i < data.length; i++) {
-        let day = wd[new Date(data[i]).getDay()];
-        $('#days').append($('<select>').text(day+' '+data[i]));
-    }
+    d3.select('#days').selectAll('option')
+        .data(data).enter().append('option')
+        .text(d => {
+            let day = wd[new Date(data[i]).getDay()];
+            return day+' '+d;
+        })
+        .change(d => console.log('change: ', d))
+    
 	console.log('comeon you lazy guy, implement the visualization', data);
 }
 
