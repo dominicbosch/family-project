@@ -54,7 +54,7 @@ function listlog(data) {
     d3.select('#days').selectAll('option')
         .data(data).enter().append('option')
         .text(d => {
-            let day = wd[new Date(data[i]).getDay()];
+            let day = wd[new Date(d).getDay()];
             return day+' '+d;
         })
         .change(d => console.log('change: ', d))
