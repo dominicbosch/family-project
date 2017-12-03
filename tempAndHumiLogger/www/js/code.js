@@ -1,7 +1,7 @@
 window.addEventListener('load', function() {
 	console.log('LOADED');
-	fetchData('http://'+window.location.host+'/getlogs')
-		.then(visualizeLog)
+	fetchData('http://'+window.location.host+'/logs')
+		.then(listlog)
 		.catch((err) => console.error('Couldn\'t get log: '+err.message));
 });
 
@@ -41,16 +41,20 @@ socket.onclose = function (evt) {
 
 function updateRealtimeMeasurements(data) {
 	document.querySelector('#temp td:nth-child(2)').innerHTML = data['AM2302'].temp;
-	document.querySelector('#temp td:nth-child(3)').innerHTML = data['DHT11 #1'].temp;
-	document.querySelector('#temp td:nth-child(4)').innerHTML = data['DHT11 #2'].temp;
+	document.querySelector('#temp td:nth-child(3)').innerHTML = data['DHT11-1'].temp;
+	document.querySelector('#temp td:nth-child(4)').innerHTML = data['DHT11-2'].temp;
 	document.querySelector('#humi td:nth-child(2)').innerHTML = data['AM2302'].humi;
-	document.querySelector('#humi td:nth-child(3)').innerHTML = data['DHT11 #1'].humi;
-	document.querySelector('#humi td:nth-child(4)').innerHTML = data['DHT11 #2'].humi;
+	document.querySelector('#humi td:nth-child(3)').innerHTML = data['DHT11-1'].humi;
+	document.querySelector('#humi td:nth-child(4)').innerHTML = data['DHT11-2'].humi;
 }
 
+const wd = ['So.', 'Mo.', 'Tue.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
 
-
-function visualizeLog(data) {
+function listlog(data) {
+    for (let i = 0; i < data.length; i++) {
+        let day = wd[new Date(data[i]).getDay()];
+        $('#days').append('<select>').text(day+' '+data[i]);
+    }
 	console.log('comeon you lazy guy, implement the visualization', data);
 }
 

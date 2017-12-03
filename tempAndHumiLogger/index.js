@@ -30,7 +30,7 @@ app.get('/logs', (req, res) => {
 			let arr = files.filter(d => d.substr(0, 7) === 'sensor_');
 			let obj = {};
 			for (let i = 0; i < arr.length; i++) {
-				let dt = arr[i].split('_')[2];
+				let dt = arr[i].split('_')[2].substr(0, 10);
 				obj[dt] = 1;
 			}
 			res.send(Object.keys(obj));
@@ -88,7 +88,7 @@ function readSensorAndStore(sens) {
 			wss.clients.forEach((client) => client.send(txt));
 			let dt = new Date().toISOString().substr(0, 10);
 			let path = __dirname+'/datalogs/sensor_'+sens.id+'_'+dt+'.csv';
-			fs.appendFileSync(path, ts+','+temp+','+humi);
+			fs.appendFileSync(path, ts+','+temp+','+humi+'\n');
 		}
 	});
 }
