@@ -44,7 +44,7 @@ app.get('/log/:day', function(req, res) {
 		let arr = files.filter(d => {
 			let a = d.split('_');
 			if (a.length < 3) return false;
-			return a[2].substr(0, 10) === request.params.day;
+			return a[2].substr(0, 10) === req.params.day;
 		});
 		Promise.all(arr.map(fetchLog))
 			.then((arr) => res.send(arr) )
@@ -78,11 +78,12 @@ function runAllSensors() {
 }
 
 function readSensorAndStore(sens) {
+	let ts = (new Date()).getTime(); // to ensure same timestamp for all
+	let dt = new Date().toISOString().substr(0, 10);
 	sensor.read(sens.type, sens.pin, (err, temp, humi) => {
 		if (!err) {
 			temp = temp.toFixed(2);
 			humi = humi.toFixed(2);
-			let ts = (new Date()).getTime();
 			currVals[sens.id] = {
 				temp: temp,
 				humi: humi,
@@ -90,7 +91,6 @@ function readSensorAndStore(sens) {
 			};
 			let txt = JSON.stringify(currVals);
 			wss.clients.forEach((client) => client.send(txt));
-			let dt = new Date().toISOString().substr(0, 10);
 			let path = __dirname+'/datalogs/sensor_'+sens.id+'_'+dt+'.csv';
 			fs.appendFileSync(path, ts+','+temp+','+humi+'\n');
 		}
