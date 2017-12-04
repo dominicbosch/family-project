@@ -36,7 +36,6 @@ socket.onmessage = function (evt) {
     let obj = JSON.parse(evt.data);
     if (obj.conf) {
         conf = obj.conf;
-        console.log(conf);
         initTable();
     }
     if (obj.data) updateRealtimeMeasurements(obj.data);
@@ -80,79 +79,142 @@ function updateRealtimeMeasurements(data) {
 const wd = ['So.', 'Mo.', 'Tue.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
 
 function listlog(data) {
+    let sorted = data.sort((a, b) => {
+        let arra = a.split('-');
+        let arrb = b.split('-');
+        if(parseInt(arra[0]) > parseInt(arrb[0])) return -1;
+        if(parseInt(arra[0]) < parseInt(arrb[0])) return 1;
+        if(parseInt(arra[1]) > parseInt(arrb[1])) return -1;
+        if(parseInt(arra[1]) < parseInt(arrb[1])) return 1;
+        if(parseInt(arra[2]) > parseInt(arrb[2])) return -1;
+        if(parseInt(arra[2]) < parseInt(arrb[2])) return 1;
+        return 0;
+    });
     d3.select('#days')
         .on('change', requestDay)
         .selectAll('option')
-        .data(data.sort()).enter().append('option')
+        .data(sorted).enter().append('option')
         .attr('value', d => d)
         .text(d => {
             let day = wd[new Date(d).getDay()];
             return day+' '+d.split('-').reverse().join('.');
         });
     
-	console.log('comeon you lazy guy, implement the visualization', data);
+    fetchData('http://'+window.location.host+'/log/'+sorted[0])
+        .then(visualizeDay);
 }
 
 function requestDay() {
     let dat = d3.select('#days').property('value');
     fetchData('http://'+window.location.host+'/log/'+dat)
-        .then(o => console.log('Got day log: ', o));
+        .then(visualizeDay);
 }
-// $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
 
-//     Highcharts.chart('container', {
-//         chart: {
-//             zoomType: 'x'
-//         },
-//         title: {
-//             text: 'USD to EUR exchange rate over time'
-//         },
-//         subtitle: {
-//             text: document.ontouchstart === undefined ?
-//                     'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-//         },
-//         xAxis: {
-//             type: 'datetime'
-//         },
-//         yAxis: {
-//             title: {
-//                 text: 'Exchange rate'
-//             }
-//         },
-//         legend: {
-//             enabled: false
-//         },
-//         plotOptions: {
-//             area: {
-//                 fillColor: {
-//                     linearGradient: {
-//                         x1: 0,
-//                         y1: 0,
-//                         x2: 0,
-//                         y2: 1
-//                     },
-//                     stops: [
-//                         [0, Highcharts.getOptions().colors[0]],
-//                         [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-//                     ]
-//                 },
-//                 marker: {
-//                     radius: 2
-//                 },
-//                 lineWidth: 1,
-//                 states: {
-//                     hover: {
-//                         lineWidth: 1
-//                     }
-//                 },
-//                 threshold: null
-//             }
-//         },
+function visualizeDay(data) {
+    let ds = [];
+    for (let i = 0; i < data.length; i++) {
+        let d = data[i];
+        let dat = d.data.map(r => [parseInt(r[0]), parseFloat(r[1])]).sort((a, b) => b[0] - a[0]);
+        // dat.pop();
+        console.log(dat);
+        ds.push({
+            name: d.sensor.id+' - Temperature',
+            data: dat
+            // ,
+            // color: {
+            //     linearGradient: {
+            //         x1: 0,
+            //         y1: 0,
+            //         x2: 0,
+            //         y2: 1
+            //     },
+            //     stops: [
+            //         [0, 'red'],
+            //         [1, 'blue']
+            //     ]
+            // }
+        })
+        dat = d.data.map(r => [parseInt(r[0]), parseFloat(r[2])]).sort((a, b) => b[0] - a[0]);
+        // dat.pop();
+        console.log(dat);
+        ds.push({
+            name: d.sensor.id+' - Humidity',
+            data: dat,
+            yAxis: 1
+        })
+    }
 
-//         series: [{
-//             type: 'area',
-//             name: 'USD to EUR',
-//             data: data
-//         }]
-//     });
-// });
+    console.log(data);
+    Highcharts.chart('container', {
+        chart: {
+            type: 'spline'
+            ,
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Temperature & Humidity Logger'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: [{
+            title: {
+                text: 'Temperature',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            labels: {
+                format: '{value}°C',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            color: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, 'red'],
+                    [1, 'blue']
+                ]
+            }
+        },{
+            gridLineWidth: 0,
+            title: {
+                text: 'Humidity',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+                
+            },
+            labels: {
+                format: '{value}%',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            min: null,
+            opposite: true
+        }],
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    radius: 1,
+                    enabled: true
+                }
+            }
+        },
+        series: ds
+    });
+}
