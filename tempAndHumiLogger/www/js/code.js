@@ -1,51 +1,80 @@
+let formatHumi;
+let formatTemp;
 window.addEventListener('load', function() {
-	console.log('LOADED');
-	fetchData('http://'+window.location.host+'/logs')
-		.then(listlog)
-		.catch((err) => console.error('Couldn\'t get log: '+err.message));
+    let d3f = d3.format('.1f');
+    formatTemp = d => d3f(d) + '°C';
+    formatHumi = d => d3f(d) + '%';
+    console.log('LOADED');
+    fetchData('http://'+window.location.host+'/logs')
+        .then(listlog)
+        .catch((err) => console.error('Couldn\'t get log: '+err.message));
 });
 
 function fetchData(url) {
-	return new Promise(function(resolve, reject) {
-		// Yay let's do it the real way!
-		let xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === XMLHttpRequest.DONE) {
-				if (xhr.status === 200) {
-					resolve(JSON.parse(xhr.responseText));
-				} else {
-					reject(new Error(xhr.status));
-				}
-			}
-		};
-		xhr.open('GET', url, true);
-		xhr.send();
-	});
+    return new Promise(function(resolve, reject) {
+        // Yay let's do it the real way!
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.responseText));
+                } else {
+                    reject(new Error(xhr.status));
+                }
+            }
+        };
+        xhr.open('GET', url, true);
+        xhr.send();
+    });
 }
 
 let socket = new WebSocket('ws://'+window.location.host);
 console.log('Connecting socket to '+'ws://'+window.location.host)
 
-socket.onmessage = function (event) {
-	console.log('realtime measurement', event.data);
-	updateRealtimeMeasurements(JSON.parse(event.data));
+let conf;
+socket.onmessage = function (evt) {
+    let obj = JSON.parse(evt.data);
+    if (obj.conf) {
+        conf = obj.conf;
+        console.log(conf);
+        initTable();
+    }
+    if (obj.data) updateRealtimeMeasurements(obj.data);
 };
 
 socket.onerror = function (err) {
-	console.error(err);
+    console.error(err);
 };
 
 socket.onclose = function (evt) {
-	console.log('socket closed', evt);
+    console.log('socket closed', evt);
 };
 
+function initTable() {
+    let sensors = conf.map(sensor => sensor.id);
+    let titles = ['', 'Average'].concat(sensors);
+    let d3El = d3.select('#status thead tr').selectAll('td').data(titles);
+    d3El.enter().append('td')
+        .merge(d3El).text(d => d);
+    d3El.exit().remove();
+}
+
 function updateRealtimeMeasurements(data) {
-	document.querySelector('#temp td:nth-child(2)').innerHTML = data['AM2302'].temp;
-	document.querySelector('#temp td:nth-child(3)').innerHTML = data['DHT11-1'].temp;
-	document.querySelector('#temp td:nth-child(4)').innerHTML = data['DHT11-2'].temp;
-	document.querySelector('#humi td:nth-child(2)').innerHTML = data['AM2302'].humi;
-	document.querySelector('#humi td:nth-child(3)').innerHTML = data['DHT11-1'].humi;
-	document.querySelector('#humi td:nth-child(4)').innerHTML = data['DHT11-2'].humi;
+    let wghts = conf.reduce((a, b) => ({ w: a.w+b.w })).w;
+    let avgTemp = conf.map(s => data[s.id].temp * s.w).reduce((a, b) => a + b) / wghts;
+    let avgHumi = conf.map(s => data[s.id].humi * s.w).reduce((a, b) => a + b) / wghts;
+    
+    let values = ['Temperature', avgTemp].concat(conf.map(s => data[s.id].temp));
+    d3El = d3.select('#status tbody tr.temp').selectAll('td').data(values);
+    d3El.enter().append('td')
+        .merge(d3El).text((d, i) => i > 0 ? formatTemp(d) : d);
+    d3El.exit().remove();
+
+    values = ['Humidity', avgHumi].concat(conf.map(s => data[s.id].humi));
+    d3El = d3.select('#status tbody tr.humi').selectAll('td').data(values);
+    d3El.enter().append('td')
+        .merge(d3El).text((d, i) => i > 0 ? formatHumi(d) : d);
+    d3El.exit().remove();
 }
 
 const wd = ['So.', 'Mo.', 'Tue.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];

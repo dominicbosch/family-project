@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Temp&amp;Humi Logger</title>
-	<script type="text/javascript" src="js/code.js"></script>
 	<link rel="stylesheet" href="css/styles.css">
 	<script src="js/lib/highcharts.js"></script>
 
@@ -11,34 +10,21 @@
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 
+	<script type="text/javascript" src="js/code.js"></script>
 
 </head>
 <body>
 <h1>Temperature &amp; Humidity Logger</h1>
+
 <h2>Latest Status</h2>
-<table>
-	<tr>
-		<td></td>
-		<td>AM2302</td>
-		<td>DHT11 #1</td>
-		<td>DHT11 #2</td>
-		<td>Weighted Average</td>
-	</tr>
-	<tr id="temp">
-		<td>Temperature</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr id="humi">
-		<td>Humidity</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
+<table id="status" class="collapsed stat">
+	<thead><tr></tr></thead>
+	<tbody>
+		<tr class="temp"></tr>
+		<tr class="humi"></tr>
+	</tbody>
 </table>
+
 <h2>Graph</h2>
 <select id="days">
 </select>

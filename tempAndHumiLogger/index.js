@@ -1,5 +1,9 @@
+const noSensor = process.argv.indexOf('-n') > -1;
+
 const fs = require('fs');
-const sensor = require('node-dht-sensor');
+if (!noSensor) {
+	const sensor = require('node-dht-sensor');
+}
 const http = require('http');
 const WebSocket = require('ws');
 const express = require('express');
@@ -9,11 +13,18 @@ const conf = [
 	{ pin: 6, type: 11, id: 'DHT11-2', w: 0.1 },
 	{ pin: 12, type: 22, id: 'AM2302', w: 0.4 }
 ];
-const currVals = {};
+
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+
+// if new client connects to socket he immediately receives the conf and latest data
+const currVals = {};
+wss.on('connection', function(ws, req) {
+	ws.send(JSON.stringify({ conf: conf }));
+	ws.send(JSON.stringify({ data: currVals }));
+});
 
 // TODO add sophisticated preprocessor that aggregates data over longer time periods
 // TODO it will not make sense to average more than an hour
@@ -24,7 +35,6 @@ app.use('/', express.static(__dirname+'/www'));
 
 app.get('/logs', (req, res) => {
 	fs.readdir(__dirname+'/datalogs', (err, files) => {
-
 		if(err) res.status(404).send(err.message);
 		else {
 			let arr = files.filter(d => d.substr(0, 7) === 'sensor_');
@@ -50,11 +60,6 @@ app.get('/log/:day', function(req, res) {
 			.then((arr) => res.send(arr) )
 			.catch(console.error);
 	});
-});
-
-// if new client connects to socket he immediately receives the latest data
-wss.on('connection', function(ws, req) {
-	ws.send(JSON.stringify(currVals));
 });
 
 function fetchLog(fileName) {
@@ -89,7 +94,7 @@ function readSensorAndStore(sens) {
 				humi: humi,
 				ts: ts
 			};
-			let txt = JSON.stringify(currVals);
+			let txt = JSON.stringify({ data: currVals });
 			wss.clients.forEach((client) => client.send(txt));
 			let path = __dirname+'/datalogs/sensor_'+sens.id+'_'+dt+'.csv';
 			fs.appendFileSync(path, ts+','+temp+','+humi+'\n');
@@ -97,10 +102,10 @@ function readSensorAndStore(sens) {
 	});
 }
 
-
-
 server.listen(8080, () => console.log('Listening on '+server.address().port));
 
-// Do it initially and then every minute
-runAllSensors();
-setInterval(runAllSensors, 60 * 1000);
+if (!noSensor) {
+	// Do it initially and then every minute
+	runAllSensors();
+	setInterval(runAllSensors, 60 * 1000);
+}

@@ -10,3 +10,23 @@ h1 {
 h2 {
 	font-size: 1.2em;
 }
+
+.collapsed {
+	border-collapse: collapse;
+}
+.stat thead {
+	font-weight: bold;
+}
+.stat td {
+	padding: 4px 10px;
+}
+.stat td:first-child {
+	font-weight: bold;
+}
+.stat td:nth-child(2) {
+	background-color: #ddd;
+}
+.stat tbody tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
