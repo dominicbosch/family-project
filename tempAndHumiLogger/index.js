@@ -1,8 +1,9 @@
 const noSensor = process.argv.indexOf('-n') > -1;
 
 const fs = require('fs');
+let sensor;
 if (!noSensor) {
-	const sensor = require('node-dht-sensor');
+	sensor = require('node-dht-sensor');
 }
 const http = require('http');
 const WebSocket = require('ws');
