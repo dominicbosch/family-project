@@ -1,5 +1,6 @@
 let formatHumi;
 let formatTemp;
+
 window.addEventListener('load', function() {
     let d3f = d3.format('.1f');
     formatTemp = d => d3f(d) + '°C';
@@ -110,36 +111,47 @@ function requestDay() {
         .then(visualizeDay);
 }
 
+let groupingUnits = [[
+    'week',                         // unit name
+    [1]                             // allowed multiples
+], [
+    'month',
+    [1, 2, 3, 4, 6]
+]];
+function convertSeries(ds, idVal) {
+    let series = [];
+    let totTime = 0;
+    let totVal = 0;
+    let j;
+    let d = ds.data;
+    // make aggregation dependent on trust (weight of sensor)
+    let an = Math.floor(3 / ds.sensor.w);
+    for (j = 0; j < d.length-1; j++) {
+        totTime += parseInt(d[j][0]);
+        totVal += parseFloat(d[j][idVal]);
+        if (j % an === an-1) {
+            series.push([Math.floor(totTime/an), totVal/an]);
+            totTime = 0;
+            totVal = 0;
+        }
+    }
+    let n = j % an;
+    series.push([Math.floor(totTime/n), totVal/n]);
+    series.sort((a, b) => a[0]-b[0]);
+    return series;
+}
 function visualizeDay(data) {
     let ds = [];
     for (let i = 0; i < data.length; i++) {
-        let d = data[i];
-        let dat = d.data.map(r => [parseInt(r[0]), parseFloat(r[1])]).sort((a, b) => b[0] - a[0]);
-        // dat.pop();
-        console.log(dat);
         ds.push({
-            name: d.sensor.id+' - Temperature',
-            data: dat
-            // ,
-            // color: {
-            //     linearGradient: {
-            //         x1: 0,
-            //         y1: 0,
-            //         x2: 0,
-            //         y2: 1
-            //     },
-            //     stops: [
-            //         [0, 'red'],
-            //         [1, 'blue']
-            //     ]
-            // }
+            name: data[i].sensor.id+' - Temperature',
+            color: 'hsl(340, 80%, '+(60+10*i)+'%)', 
+            data: convertSeries(data[i], 1)
         })
-        dat = d.data.map(r => [parseInt(r[0]), parseFloat(r[2])]).sort((a, b) => b[0] - a[0]);
-        // dat.pop();
-        console.log(dat);
         ds.push({
-            name: d.sensor.id+' - Humidity',
-            data: dat,
+            name: data[i].sensor.id+' - Humidity',
+            color: 'hsl(210, 50%, '+(60+10*i)+'%)', 
+            data: convertSeries(data[i], 2),
             yAxis: 1
         })
     }
@@ -165,13 +177,13 @@ function visualizeDay(data) {
             title: {
                 text: 'Temperature',
                 style: {
-                    color: Highcharts.getOptions().colors[2]
+                    color: 'hsl(340, 80%, 50%)'
                 }
             },
             labels: {
                 format: '{value}°C',
                 style: {
-                    color: Highcharts.getOptions().colors[2]
+                    color: 'hsl(340, 80%, 50%)'
                 }
             },
             color: {
@@ -185,23 +197,25 @@ function visualizeDay(data) {
                     [0, 'red'],
                     [1, 'blue']
                 ]
-            }
+            },
+            min: 16,
+            max: 23
         },{
             gridLineWidth: 0,
             title: {
                 text: 'Humidity',
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    color: 'hsl(210, 50%, 50%)'
                 }
-                
             },
             labels: {
                 format: '{value}%',
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    color: 'hsl(210, 50%, 50%)'
                 }
             },
-            min: null,
+            min: 40,
+            max: 55,
             opposite: true
         }],
         legend: {
