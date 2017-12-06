@@ -173,6 +173,7 @@ function groupData(data) {
             totTemp += parseFloat(data[j].data[i][1]);
             totHumi += parseFloat(data[j].data[i][2]);
         }
+        console.log('inside:', totTime, totTemp, totHumi);
         if (i % an === an-1) {
             arrTemp.push([Math.floor(totTime/an/len), totTemp/an/len]);
             arrHumi.push([Math.floor(totTime/an/len), totHumi/an/len]);
@@ -182,6 +183,7 @@ function groupData(data) {
         }
     }
     let n = i % an;
+    console.log('done:', totTime, totTemp, totHumi);
     arrTemp.push([Math.floor(totTime/n/len), totTemp/n/len]);
     arrHumi.push([Math.floor(totTime/n/len), totHumi/n/len]);
     arrTemp.sort((a, b) => a[0]-b[0]);
