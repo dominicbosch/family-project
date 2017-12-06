@@ -186,6 +186,7 @@ function groupData(data) {
     arrHumi.push([Math.floor(totTime/n/len), totHumi/n/len]);
     arrTemp.sort((a, b) => a[0]-b[0]);
     arrHumi.sort((a, b) => a[0]-b[0]);
+    console.log(arrTemp, arrHumi);
 
     return [{
         name: 'wAverage - Temperature',
@@ -277,7 +278,7 @@ function visualizeDay(data) {
                 }
             },
             min: 40,
-            max: 55,
+            max: 56,
             opposite: true
         }],
         legend: {
