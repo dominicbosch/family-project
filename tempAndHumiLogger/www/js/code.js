@@ -190,12 +190,12 @@ function groupData(data) {
 
     return [{
         name: 'wAverage - Temperature',
-        color: 'hsl(340, 80%, 60%)', 
+        color: 'hsl(340, 70%, 70%)', 
         data: arrTemp
     },
     {
         name: 'wAverage - Humidity',
-        color: 'hsl(210, 50%, 60%)', 
+        color: 'hsl(210, 70%, 70%)', 
         data: arrHumi,
         yAxis: 1
     }];

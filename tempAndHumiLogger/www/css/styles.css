@@ -24,9 +24,13 @@ h2 {
 	font-weight: bold;
 }
 .stat td:nth-child(2) {
-	background-color: #e6eaff;
+	background-color: #ddd;
+	font-weight: bold;
 }
-.stat tbody tr:nth-child(odd) {
-	background-color: #eef6ff;
+.stat tbody tr:nth-child(1) {
+	background-color: hsl(210, 70%, 90%);
+}
+.stat tbody tr:nth-child(2) {
+	background-color: hsl(340, 70%, 90%);
 }
 
