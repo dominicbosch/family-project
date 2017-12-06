@@ -151,32 +151,30 @@ function convertSeries(ds, idVal) {
 
 function groupData(data) {
     // make aggregation dependent on trust (weight of sensor)
-    let an = 0;
+    let tw = 0;
     for (let i = 0; i < data.length; i++) {
-        an += data[i].sensor.w;
+        tw += data[i].sensor.w;
     }
-    an = Math.floor(groupingBase / (an / data.length));
-
+    let an = Math.floor(groupingBase / (tw / data.length));
     let arrTemp = [];
     let arrHumi = [];
     let totTime = 0;
     let totTemp = 0;
     let totHumi = 0;
     let i;
-    let len = data.length;
 
     // we crawl through the first data set as a reference (at least the first needs to exist)
-    for (i = 0; i < data[0].data.length - 1; i++) {
+    for (i = 0; i < data[0].data.length - 2; i++) {
         // since we have same number of measurements for each sensor we can just aggregate them
         for (let j = 0; j < data.length; j++) {
-            totTime += parseInt(data[j].data[i][0]);
-            totTemp += parseFloat(data[j].data[i][1]);
-            totHumi += parseFloat(data[j].data[i][2]);
+            let w = data[j].sensor.w;
+            totTime += parseInt(data[j].data[i][0]) * w;
+            totTemp += parseFloat(data[j].data[i][1]) * w;
+            totHumi += parseFloat(data[j].data[i][2]) * w;
         }
-        console.log('inside:', totTime, totTemp, totHumi);
         if (i % an === an-1) {
-            arrTemp.push([Math.floor(totTime/an/len), totTemp/an/len]);
-            arrHumi.push([Math.floor(totTime/an/len), totHumi/an/len]);
+            arrTemp.push([Math.floor(totTime/an/tw), totTemp/an/tw]);
+            arrHumi.push([Math.floor(totTime/an/tw), totHumi/an/tw]);
             totTime = 0;
             totTemp = 0;
             totHumi = 0;
@@ -184,8 +182,8 @@ function groupData(data) {
     }
     let n = i % an;
     console.log('done:', totTime, totTemp, totHumi);
-    arrTemp.push([Math.floor(totTime/n/len), totTemp/n/len]);
-    arrHumi.push([Math.floor(totTime/n/len), totHumi/n/len]);
+    arrTemp.push([Math.floor(totTime/n/tw), totTemp/n/tw]);
+    arrHumi.push([Math.floor(totTime/n/tw), totHumi/n/tw]);
     arrTemp.sort((a, b) => a[0]-b[0]);
     arrHumi.sort((a, b) => a[0]-b[0]);
     console.log(arrTemp, arrHumi);
