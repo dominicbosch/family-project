@@ -114,7 +114,7 @@ function requestDay() {
 let isGrouped = true;
 function toggleGrouping() {
     isGrouped = !isGrouped;
-    d3.select('#grping').text(isGrouped ? 'Show all Sensors' : 'Show Average');
+    d3.select('#grping').text(isGrouped ? 'Show all Sensors' : 'Show wAverage');
     requestDay();
 }
 
