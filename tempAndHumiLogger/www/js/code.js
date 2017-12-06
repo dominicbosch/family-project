@@ -52,7 +52,7 @@ socket.onclose = function (evt) {
 
 function initTable() {
     let sensors = conf.map(sensor => sensor.id);
-    let titles = ['', 'Average'].concat(sensors);
+    let titles = ['', 'wAverage'].concat(sensors);
     let d3El = d3.select('#status thead tr').selectAll('td').data(titles);
     d3El.enter().append('td')
         .merge(d3El).text(d => d);
@@ -111,6 +111,13 @@ function requestDay() {
         .then(visualizeDay);
 }
 
+let isGrouped = true;
+function toggleGrouping() {
+    isGrouped = !isGrouped;
+    d3.select('#grping').text(isGrouped ? 'Show all Sensors' : 'Show Average');
+    requestDay();
+}
+
 let groupingUnits = [[
     'week',                         // unit name
     [1]                             // allowed multiples
@@ -118,6 +125,7 @@ let groupingUnits = [[
     'month',
     [1, 2, 3, 4, 6]
 ]];
+let groupingBase = 3;
 function convertSeries(ds, idVal) {
     let series = [];
     let totTime = 0;
@@ -125,7 +133,7 @@ function convertSeries(ds, idVal) {
     let j;
     let d = ds.data;
     // make aggregation dependent on trust (weight of sensor)
-    let an = Math.floor(3 / ds.sensor.w);
+    let an = Math.floor(groupingBase / ds.sensor.w);
     for (j = 0; j < d.length-1; j++) {
         totTime += parseInt(d[j][0]);
         totVal += parseFloat(d[j][idVal]);
@@ -140,23 +148,77 @@ function convertSeries(ds, idVal) {
     series.sort((a, b) => a[0]-b[0]);
     return series;
 }
+
+function groupData(data) {
+    // make aggregation dependent on trust (weight of sensor)
+    let an = 0;
+    for (let i = 0; i < data.length; i++) {
+        an += data[i].sensor.w;
+    }
+    an = Math.floor(groupingBase / (an / data.length));
+
+    let arrTemp = [];
+    let arrHumi = [];
+    let totTime = 0;
+    let totTemp = 0;
+    let totHumi = 0;
+    let i;
+    let len = data.length;
+
+    // we crawl through the first data set as a reference (at least the first needs to exist)
+    for (i = 0; i < data[0].data.length - 1; i++) {
+        // since we have same number of measurements for each sensor we can just aggregate them
+        for (let j = 0; j < data.length; j++) {
+            totTime += parseInt(data[j].data[i][0]);
+            totTemp += parseFloat(data[j].data[i][1]);
+            totHumi += parseFloat(data[j].data[i][2]);
+        }
+        if (i % an === an-1) {
+            arrTemp.push([Math.floor(totTime/an/len), totTemp/an/len]);
+            arrHumi.push([Math.floor(totTime/an/len), totHumi/an/len]);
+            totTime = 0;
+            totTemp = 0;
+            totHumi = 0;
+        }
+    }
+    let n = i % an;
+    arrTemp.push([Math.floor(totTime/n/len), totTemp/n/len]);
+    arrHumi.push([Math.floor(totTime/n/len), totHumi/n/len]);
+    arrTemp.sort((a, b) => a[0]-b[0]);
+    arrHumi.sort((a, b) => a[0]-b[0]);
+
+    return [{
+        name: 'wAverage - Temperature',
+        color: 'hsl(340, 80%, 60%)', 
+        data: arrTemp
+    },
+    {
+        name: 'wAverage - Humidity',
+        color: 'hsl(210, 50%, 60%)', 
+        data: arrHumi,
+        yAxis: 1
+    }];
+}
+
 function visualizeDay(data) {
     let ds = [];
-    for (let i = 0; i < data.length; i++) {
-        ds.push({
-            name: data[i].sensor.id+' - Temperature',
-            color: 'hsl(340, 80%, '+(60+10*i)+'%)', 
-            data: convertSeries(data[i], 1)
-        })
-        ds.push({
-            name: data[i].sensor.id+' - Humidity',
-            color: 'hsl(210, 50%, '+(60+10*i)+'%)', 
-            data: convertSeries(data[i], 2),
-            yAxis: 1
-        })
+    if(isGrouped) ds = groupData(data);
+    else {
+        for (let i = 0; i < data.length; i++) {
+            ds.push({
+                name: data[i].sensor.id+' - Temperature',
+                color: 'hsl(340, 80%, '+(60+10*i)+'%)', 
+                data: convertSeries(data[i], 1)
+            })
+            ds.push({
+                name: data[i].sensor.id+' - Humidity',
+                color: 'hsl(210, 50%, '+(60+10*i)+'%)', 
+                data: convertSeries(data[i], 2),
+                yAxis: 1
+            })
+        }
     }
 
-    console.log(data);
     Highcharts.chart('container', {
         chart: {
             type: 'spline'
