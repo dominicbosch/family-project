@@ -35,9 +35,11 @@ h2 {
 .stat tbody tr:nth-child(2) {
 	background-color: hsl(340, 70%, 90%);
 }
+.stat tbody tr:nth-child(1) td:nth-child(1),
 .stat tbody tr:nth-child(1) td:nth-child(2) {
 	background-color: hsl(210, 70%, 80%);
 }
+.stat tbody tr:nth-child(2) td:nth-child(1),
 .stat tbody tr:nth-child(2) td:nth-child(2) {
 	background-color: hsl(340, 70%, 80%);
 }

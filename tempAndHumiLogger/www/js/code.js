@@ -5,7 +5,6 @@ window.addEventListener('load', function() {
     let d3f = d3.format('.1f');
     formatTemp = d => d3f(d) + '°C';
     formatHumi = d => d3f(d) + '%';
-    console.log('LOADED');
     fetchData('http://'+window.location.host+'/logs')
         .then(listlog)
         .catch((err) => console.error('Couldn\'t get log: '+err.message));
@@ -261,8 +260,8 @@ function visualizeDay(data) {
                     [1, 'blue']
                 ]
             },
-            min: 16,
-            max: 23
+            min: 19,
+            max: 22
         },{
             gridLineWidth: 0,
             title: {
@@ -277,7 +276,7 @@ function visualizeDay(data) {
                     color: 'hsl(210, 50%, 50%)'
                 }
             },
-            min: 40,
+            min: 42,
             max: 56,
             opposite: true
         }],
