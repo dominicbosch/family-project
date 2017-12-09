@@ -260,7 +260,7 @@ function visualizeDay(data) {
                     [1, 'blue']
                 ]
             },
-            min: 19,
+            min: 18,
             max: 22
         },{
             gridLineWidth: 0,
@@ -276,9 +276,14 @@ function visualizeDay(data) {
                     color: 'hsl(210, 50%, 50%)'
                 }
             },
-            min: 42,
-            max: 56,
-            opposite: true
+            min: 35,
+            max: 60,
+            opposite: true,
+            plotBands: [{
+                color: 'rgba(63, 191, 77, 0.1)',
+                from: 40,
+                to: 60
+            }],
         }],
         legend: {
             enabled: false
