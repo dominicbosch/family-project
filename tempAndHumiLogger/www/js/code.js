@@ -1,10 +1,12 @@
 let formatHumi;
 let formatTemp;
+let formatTime;
 
 window.addEventListener('load', function() {
     let d3f = d3.format('.1f');
     formatTemp = d => d3f(d) + '°C';
     formatHumi = d => d3f(d) + '%';
+    formatTime = d3.timeFormat('%A %d.%m.%Y %H:%M');
     fetchData('http://'+window.location.host+'/logs')
         .then(listlog)
         .catch((err) => console.error('Couldn\'t get log: '+err.message));
@@ -223,8 +225,7 @@ function visualizeDay(data) {
 
     Highcharts.chart('container', {
         chart: {
-            type: 'spline'
-            ,
+            type: 'spline',
             zoomType: 'x'
         },
         title: {
@@ -233,6 +234,28 @@ function visualizeDay(data) {
         subtitle: {
             text: document.ontouchstart === undefined ?
                     'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        tooltip: {
+            formatters: function () {
+                return "<b>"+formatTime(new Date(this.x))+"</b><br/>"+
+                    "<span style='color:" + this.points[0].series.color +
+                    "'>\u25CF</span> " +                                 
+                    this.points[0].series.name+": " + 
+                    (this.points[0].point.high-this.points[0].point.low)+"s";
+            },
+
+            formatter: function () {
+                let s = '<span style="font-size:10px;">'+formatTime(this.x)+'</span><br/>';
+                s += this.points.sort((d) => -d.series.name.indexOf('Temperature'))
+                    .map((d) => {
+                        let name = d.series.name;
+                        let frmt = name.indexOf('Temperature') > -1 ? formatTemp : formatHumi;
+                        return '<span style="color:'+d.series.color+'"">\u25CF</span> '
+                            +name+': <b>'+frmt(d.y)+'</b>';
+                    }).join('<br/>');
+                return s;
+            },
+            shared: true
         },
         xAxis: {
             type: 'datetime'
