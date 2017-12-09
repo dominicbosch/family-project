@@ -143,7 +143,7 @@ function convertSeries(ds, idVal) {
         }
     }
     let n = j % an;
-    series.push([Math.floor(totTime/n), totVal/n]);
+    if (n > 0) series.push([Math.floor(totTime/n), totVal/n]);
     series.sort((a, b) => a[0]-b[0]);
     return series;
 }
@@ -181,8 +181,10 @@ function groupData(data) {
     }
     let n = i % an;
     console.log('done:', totTime, totTemp, totHumi);
-    arrTemp.push([Math.floor(totTime/n/tw), totTemp/n/tw]);
-    arrHumi.push([Math.floor(totTime/n/tw), totHumi/n/tw]);
+    if (n > 0) {
+        arrTemp.push([Math.floor(totTime/n/tw), totTemp/n/tw]);
+        arrHumi.push([Math.floor(totTime/n/tw), totHumi/n/tw]);
+    }
     arrTemp.sort((a, b) => a[0]-b[0]);
     arrHumi.sort((a, b) => a[0]-b[0]);
     console.log(arrTemp, arrHumi);
