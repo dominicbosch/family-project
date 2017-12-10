@@ -30,10 +30,12 @@ Update & Install Raspberry
       sudo apt update
       sudo apt upgrade
       sudo rpi-update
+
+- Reboot
+
       sudo apt install python-smbus i2c-tools feh git python-skimage python-picamera
       sudo raspi-config
 
-  - `[8]` Update 
   - `[7 -> A1]` Expand filesystem
   - `[5 -> P1]` Enable camera
   - `[5 -> P5]` Enable I2C
@@ -41,8 +43,8 @@ Update & Install Raspberry
 	
 - Verify & Reboot:
 
-      mkdir ~/projects
-      sudo i2cdetect -y 1 # (verify PWM Hat is connected)
+      mkdir ~/projects
+      sudo i2cdetect -y 1 # (verify PWM Hat is connected)
       sudo reboot now
 
 
@@ -56,6 +58,9 @@ This will take a while on the Raspberry because it also installs OpenCV, which h
 	git clone http://github.com/Movidius/ncsdk
 	cd ncsdk
 	make install
+
+Open new shell and execute:
+
 	make examples
 
 
@@ -83,7 +88,6 @@ Install
 	cd ~/projects/yoloNCS
 	mvNCCompile prototxt/yolo_tiny_deploy.prototxt -w .weights/yolo_tiny.caffemodel -s 12
 	mv graph ~/projects/family-project/camera
-	cd ~/projects/family-project/
 
 
 Test Camera Classification
@@ -92,4 +96,4 @@ Test Camera Classification
 	cd ~/projects/family-project/examples
 	python testYoloCamera.py
 
-The detected images will be found in `camera/detected-faces`
+The detected images will be found in `camera/output`
