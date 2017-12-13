@@ -27,7 +27,7 @@ class CameraClassifier:
 		self.storeAllImages = storeAllImages
 		self.verbose = verbose
 		self.isRunning = False
-		self.yolo = YoloClassifier()
+		self.yolo = YoloClassifier(verbose=verbose)
 		
 		# Get current file path in order to make an absolute reference to the cascade folder
 		rootPath = '/'.join(os.path.realpath(__file__).split('/')[:-1])
@@ -63,7 +63,7 @@ class CameraClassifier:
 				timestamp = datetime.datetime.now()
 				ts = timestamp.strftime('%Y.%m.%d_%I:%M:%S')
 				if self.verbose:
-					print 'CameraClassifier | found {} in {} ms Detect FPS: {0:.2f}'.format(len(ret[1]),ret[0],1/(now-startDetect))
+					print 'CameraClassifier | found {} in {} ms Detect FPS: {:.2f}'.format(len(ret[1]),ret[0],1/(now-startDetect))
 
 				if len(ret[1]) > 0:
 					arrFaces = []
