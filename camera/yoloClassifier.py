@@ -129,26 +129,26 @@ class YoloClassifier:
 		return intersection / (box1[2]*box1[3] + box2[2]*box2[3] - intersection)
 
 	def tagImage(self, img, result, maxWidth, maxHeight):
-		for el in result:
-			x = int(el[1])
-			y = int(el[2])
-			w = int(el[3])//2
-			h = int(el[4])//2
-			xmin = x-w
-			xmax = x+w
-			ymin = y-h
-			ymax = y+h
+		for el in result[1]:
+			x = int(el[1]);
+			y = int(el[2]);
+			w = int(el[3])//2;
+			h = int(el[4])//2;
+			xmin = x-w;
+			xmax = x+w;
+			ymin = y-h;
+			ymax = y+h;
 			if xmin<0:
-				xmin = 0
+				xmin = 0;
 			if ymin<0:
-				ymin = 0
+				ymin = 0;
 			if xmax>maxWidth:
-				xmax = maxWidth
+				xmax = maxWidth;
 			if ymax>maxHeight:
-				ymax = maxHeight
-			cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,255,0),2)
-			cv2.rectangle(img,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1)
-			cv2.putText(img,el[0] + ' : %.2f' % el[5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1)
+				ymax = maxHeight;
+			cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,255,0),2);
+			cv2.rectangle(img,(xmin,ymin-20),(xmax,ymin),(125,125,125),-1);
+			cv2.putText(img,el[0] + ' : %.2f' % el[5],(xmin+5,ymin-7),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1);
 
 	def close(self):
 		self.graph.DeallocateGraph()
