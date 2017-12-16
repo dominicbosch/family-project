@@ -19,7 +19,7 @@ class CameraClassifier:
 		storeAllImages=False,
 		verbose=False
 	):
-		self.imageWidth = float(res[0])
+ 		self.imageWidth = float(res[0])
 		self.imageHeight = float(res[1])
 		self.hflip = hflip
 		self.vflip = vflip
