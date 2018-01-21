@@ -66,7 +66,7 @@ class CameraClassifier:
 					print 'CameraClassifier | found {} in {} ms Detect FPS: {:.2f}'.format(len(ret[1]),ret[0],1/(now-startDetect))
 
 				if len(ret[1]) > 0:
-					arrFaces = []
+					arrThings = []
 					for el in ret[1]:
 						x = int(el[1])
 						y = int(el[2])
@@ -79,16 +79,18 @@ class CameraClassifier:
 								+ ',' + str(int(el[4]))+'], Confidence = ' + str(el[5]) )
 
 						# set x, y, w, h
-						face = [x, y, w, h]
-						# range; [-1, 1]
-						face.append((2.0*x+w)/self.imageWidth-1)
-						# range[-1, 1]
-						face.append((2.0*y+h)/self.imageHeight-1)
+						thing = [x, y, w, h]
+						# relative xposition range; [-1, 1]
+						thing.append((2.0*x+w)/self.imageWidth-1)
+						# relative yposition range[-1, 1]
+						thing.append((2.0*y+h)/self.imageHeight-1)
 						# appending relative width
-						face.append(1.0*w/self.imageWidth)
+						thing.append(1.0*w/self.imageWidth)
 						# appending relative height
-						face.append(1.0*h/self.imageHeight)
-						arrFaces.append(face)
+						thing.append(1.0*h/self.imageHeight)
+						#appending class
+						thing.append(el[0])
+						arrThings.append(thing)
 
 					if self.storeDetections or self.storeAllImages:
 						self.yolo.tagImage(lastFrame, ret, self.imageWidth, self.imageHeight)
@@ -98,7 +100,7 @@ class CameraClassifier:
 						if self.verbose:
 							print('Stored detected image as: '+nm)
 
-					callback(arrFaces)
+					callback(arrThings)
 				
 				elif self.storeAllImages:
 					nm = 'fdyncs.py_{}.jpg'.format(ts)
@@ -110,7 +112,7 @@ class CameraClassifier:
 				time.sleep(0.010)
 
 	def getSortMeasure(self, (x,y,w,h), t):
-		return int(100 / (w*h)) # calculate the area of the face
+		return int(100 / (w*h)) # calculate the area of the thing
 
 	# Callback executed from the pivideostream, registers new frames
 	def newFrame(self, frame):
