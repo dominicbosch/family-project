@@ -67,12 +67,14 @@ Open new shell and execute:
 Clone yoloNCS
 -------------
 
-Great framework for location detaction of classified object in image
+Great framework for location detection of classified object in image
 
 	cd ~/projects
 	git clone https://github.com/gudovskiy/yoloNCS.git
+	cd yoloNCS
+	mkdir .weights
 
-- Store caffemodel from [here](https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp=sharing) in `.weights` folder
+- Store caffemodel from [here](https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp=sharing) in `~/projects/yoloNCS/.weights` folder
 
 
 Clone Family-Project
